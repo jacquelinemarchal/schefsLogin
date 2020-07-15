@@ -1,0 +1,251 @@
+.main-logo {
+  width: 30%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.text-white p .text-white {
+  color: #fff!important;
+}
+
+.bg-dark {
+  background-color: #000!important;
+}
+
+.vertical-gallery-left {
+  padding: 15px 15px 15px 0px;
+}
+
+.vertical-gallery-right {
+  padding: 15px 0px 15px 15px;
+}
+
+.vertical-gallery-center {
+  padding: 15px;
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+  position: fixed;
+  min-width: 100%;
+}
+
+#full-bg {
+  display: none;
+}
+
+#videoCustom video{
+  width:auto;
+}
+
+@media (max-width: 767px) {
+#videoCustom {
+  display: none;
+}
+#full-bg {
+  display: block;
+  }
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding-top: 19%;
+  padding-bottom: 15%;
+}
+
+.nav-tabs-outline {
+  justify-content: left;
+}
+
+.nav-link {
+  border-radius: 0px!important;
+}
+
+.gallery-expand-1 {
+  flex-basis: 61%!important;
+  max-width: 61%!important;
+}
+
+.gallery-item-group {
+  flex-basis: 25%!important;
+  max-width: 25%!important;
+}
+
+.gallery-expand-2 {
+  flex-basis: 39%!important;
+  max-width: 39%!important;
+}
+
+.active {
+  color: #000 !important;
+  background-color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+.disabled {
+  color: #efefef !important;
+  border: 1px solid #efefef !important;
+}
+
+.filter-tabs {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.gallery-item {
+  padding: 10px 15px;
+}
+
+.gallery-item img {
+  margin-bottom:20px;
+}
+
+.gallery {
+  padding-top: 30px;
+}
+
+.meet-the-chef {
+  margin-left: 30px;
+  padding-top: 10px;
+}
+
+.title-divider {
+  margin-top: 1rem;
+  margin-bottom: 2rem
+}
+
+.text-sans-serif {
+  font-family: "Arial",sans-serif!important;
+}
+
+.text-serif {
+  font-family: 'Gelasio', serif!important;
+  letter-spacing: 0.75px;
+}
+
+.text-subtitle {
+  display: inline-block;
+  font-size: 1.25rem;
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  margin-bottom: 1.5rem;
+  word-spacing: 2px;
+}
+
+.text-small {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.text-white strong {
+  color: #989898;
+}
+
+.strikethrough-text {
+  text-decoration: line-through;
+}
+
+@media (max-width: 1200px) {
+
+  .push-right {
+    margin-right: 30px;
+  }
+
+}
+
+@media (max-width: 1000px) {
+
+  .push-right {
+    margin-right: 40px;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .vertical-gallery-left {
+    width: 90%!important;
+    padding:25px;
+
+  }
+
+  .vertical-gallery-right {
+    width: 90%!important;
+    padding:25px;
+
+  }
+
+  .vertical-gallery-center {
+    width: 90%!important;
+    padding:25px;
+  }
+
+  .meet-the-chef {
+    margin-left: 0px!important;
+  }
+
+  .gallery-expand-1, .gallery-expand-2 {
+    flex-basis: 100%!important;
+    width:100%!important;
+    max-width:100%!important;
+
+  }
+
+  .nav-logo {
+    display: none!important;
+  }
+
+  .main-logo {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
+  .resize-padding {
+    padding-top: 25px!important;
+  }
+
+  .filter-tabs {
+    margin-bottom: 10px !important;
+  }
+
+  .gallery-item-group{
+    flex-basis: 100%!important;
+    max-width: 100%!important;
+  }
+
+  .title-divider {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem
+  }
+
+  .header-sub {
+    font-size: 0.8rem;
+  }
+
+  .text-resize {
+    font-size: 1.6rem;
+  }
+
+  .text-subtitle {
+    font-size: 1.35rem;
+  }
+
+  .reserve-button {
+    text-align: left!important;
+  }
+
+  .order-button {
+    text-align: left!important;
+  }
+
+  #myVideo {
+    min-width: 130%!important;
+  }
+
+}

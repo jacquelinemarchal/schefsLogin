@@ -1,0 +1,16 @@
+{
+  "name": "schefslogin",
+  "version": "1.0.0",
+  "description": "schefs simple login sample built with bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "schefs",
+    "login",
+    "bootstrap"
+  ],
+  "author": "Jacqueline Marchal",
+  "license": "UNLICENSED"
+}
