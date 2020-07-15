@@ -24,6 +24,9 @@ const setupEvents = (data, num) => {
   let rowCheck = 0;
 
   data.forEach(doc => {
+
+    //var doc = document.implementation.createHTMLDocument(`${event.title}`);
+    
     count++;
     rowCheck++;
     const event = doc.data();
@@ -57,18 +60,20 @@ const setupEvents = (data, num) => {
       </div>
     </div>` //template string
     html += li; // fill 3-event-buffer
+
     var thisRow=(Math.floor(count/3)).toString(); 
-  
+    
     if (rowCheck%3 === 0){  // when to make a new row and empty buffer
       document.getElementById(`row-${thisRow}`).innerHTML = html;
       html = '';
     }
-    
+
     // last line, make sure to print out incomplete rows!
     if (rowCheck == num){
+      console.log(`hey ${event.title}`)
       remainder = 3-num%3; // how many empty events you need to keep the grid structure
-      /*for (var j = 0; j < remainder; i++){
-        console.log("hey")
+      //for (var j = 0; j < remainder; i++){
+        //console.log("hey")
         const empty = `
         <div class="col-lg">
           <div class="card border-0" style="max-width: 18rem;">
@@ -77,8 +82,8 @@ const setupEvents = (data, num) => {
           </div>
         </div>` //template string
         html += empty; // fill 3-event-buffer
-      } */
-      //document.getElementById(`row-${thisRow}`).innerHTML = html;
+     // } 
+      document.getElementById(`row-${thisRow}`).innerHTML = html;
       //html = '';
       
     }
