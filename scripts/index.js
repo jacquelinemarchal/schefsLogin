@@ -22,11 +22,10 @@ const setupEvents = (data, num) => {
   let html = '';
   let count = -1;
   let rowCheck = 0;
+  let remainder ='';
 
   data.forEach(doc => {
-
     //var doc = document.implementation.createHTMLDocument(`${event.title}`);
-    
     count++;
     rowCheck++;
     const event = doc.data();
@@ -64,29 +63,40 @@ const setupEvents = (data, num) => {
       document.getElementById(`row-${thisRow}`).innerHTML = html;
       html = '';
     }
-
-    /*
+    
     // last line, make sure to print out incomplete rows!
-    if (rowCheck == num){
-      console.log(`hey ${event.title}`)
-      remainder = 3-num%3; // how many empty events you need to keep the grid structure
-      //for (var j = 0; j < remainder; i++){
-        //console.log("hey")
-        const empty = `
-        <div class="col-lg">
-          <div class="card border-0" style="max-width: 18rem;">
-            <div class="card border-0">
-            </div>
-          </div>
-        </div>` //template string
-        html += empty; // fill 3-event-buffer
-     // } 
-      document.getElementById(`row-${thisRow}`).innerHTML = html;
+    if (rowCheck%3 === 1 && rowCheck === (num-1)){ // at second-to-last event
+      console.log("hey")
+      const secondToLast = `
+      <div class="col-sm-4" style="margin-bottom: 2rem;">
+        <div class="card border-0" style="max-width: 20rem;">
+            <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
+            <p style="font-size:20px; margin-top: 1rem;">${event.title}
+                <br><small style="font-size:13px; line-height: 125%; ">Dinner • Columbia University<br>${time}</small>
+            </p>  
+        </div>
+      </div>`
+      remainder += secondToLast; // fill 3-event-buffer
+
+      return;
+    } 
+
+    if (rowCheck === num){ // at last event
+      console.log("hi")
+
+      const last = `
+      <div class="col-sm-4" style="margin-bottom: 2rem;">
+        <div class="card border-0" style="max-width: 20rem;">
+            <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
+            <p style="font-size:20px; margin-top: 1rem;">${event.title}
+                <br><small style="font-size:13px; line-height: 125%; ">Dinner • Columbia University<br>${time}</small>
+            </p>  
+        </div>
+      </div>`
+      remainder += last;
+      document.getElementById(`row-${thisRow}`).innerHTML = remainder;
       //html = '';
     }
-
-
-    */
 
   });
 } 
