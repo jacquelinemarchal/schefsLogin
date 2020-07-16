@@ -15,7 +15,7 @@ const setupEvents = (data, num) => {
 
     var curRow = "row-"+i.toString();
     row.setAttribute("id", `${curRow}`);
-    document.querySelector('.row-events').appendChild(row);
+    document.querySelector('.events').appendChild(row);
   }
   /* Element will look like <div class="row;" id="row-0;"> ... 3 events ... </div> */
 
@@ -48,17 +48,14 @@ const setupEvents = (data, num) => {
       time += hour + "pm EDT";
     }
     const li = `
-    <div class="col-lg">
-      <div class="card border-0" style="max-width: 18rem;">
-        <div class="card border-0">
-          <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
-          <p style="margin-top: 1rem;"> ${event.title}
-            <br>
-            <small>${time}</small>
-          </p>  
+      <div class="col-sm-4" style="margin-bottom: 2rem;">
+        <div class="card border-0" style="max-width: 20rem;">
+            <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
+            <p style="font-size:20px; margin-top: 1rem;">${event.title}
+                <br><small style="font-size:13px; line-height: 125%; ">Dinner • Columbia University<br>${time}</small>
+            </p>  
         </div>
-      </div>
-    </div>` //template string
+      </div>` //template string
     html += li; // fill 3-event-buffer
 
     var thisRow=(Math.floor(count/3)).toString(); 
@@ -68,6 +65,7 @@ const setupEvents = (data, num) => {
       html = '';
     }
 
+    /*
     // last line, make sure to print out incomplete rows!
     if (rowCheck == num){
       console.log(`hey ${event.title}`)
@@ -85,7 +83,10 @@ const setupEvents = (data, num) => {
      // } 
       document.getElementById(`row-${thisRow}`).innerHTML = html;
       //html = '';
-      
     }
+
+
+    */
+
   });
 } 

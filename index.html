@@ -9,12 +9,14 @@
   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- NAVBAR -->
     <div class="container">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg"style="font-family: 'Roboto', sans-serif;
+        ">
             <a href="#" class="navbar-brand">
                 <img src="assets/logo.png" style="height: 40px; margin-top: 5px;">
             </a>
@@ -33,24 +35,34 @@
 
     <!--HEADING-->
     <div class="container">
-        <div class="row">
-            <div class="col-5" style="font-size: 36px; justify-content: right;" >
-            Themed conversations over a meal, by and for college students.
+        <div class="row" style="font-family: 'Roboto', sans-serif;">
+            <div class="col-sm-7" style="font-size: 36; justify-content: right;" >
+            Schefs Festival: <br> Themed conversations over a meal, by and for college students.
             </div>
-            <div class="col-7" style="font-size: 26px;">
-            1. Click on an <a href = "#">event</a> <br>
+            <div class="col-sm-5" style="font-size: 26px;">
+            1. Click on an event</a> <br>
             2. Reserve your ticket <br>
             3. Learn from and talk with college students from around the world.
             </div>
         </div>
-        <br><br> <br> 
-        <!-- EVENT LIST 
-        <div class= "events">-->
-        <div class="row-events">
+        <br><br>
+        <!-- EVENT LIST -->
+        <div class="events">
+
+            <!-- <div class="row">
+                    <div class="col-sm-4" style="margin-bottom: 2rem;">
+                        <div class="card border-0" style="max-width: 20rem;">
+                            <img src="assets/simping.png" alt="..." style="inline-size: 100%; border-radius: 10%;">
+                            <p style="font-size:20px; margin-top: 1rem;">Sample Dinner
+                                <br><small style="font-size:13px; line-height: 125%; ">Dinner • Columbia University<br>Thursday, February 8th @ 9pm EST</small>
+                            </p>  
+                        </div>
+                    </div>
+                </div>
+            --> 
             <!-- Where index events are being rendered -->
-        </div>
     </div>
-3
+
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
         <div class="modal-dialog">
