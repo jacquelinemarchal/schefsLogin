@@ -8,8 +8,98 @@
 }
 p{
     font-family:'Roboto', sans-serif;
+    font-size:20px;
 }
 
 h1,h2, small{
     font-family:'Roboto', sans-serif;
 }
+
+h1{
+    font-size: 44px;
+}
+
+h2{
+    font-size: 36;
+}
+
+h1#title{
+    margin-bottom: 1rem;
+}
+
+img#thumb{
+    max-width: 35rem; 
+    margin-bottom: 2rem; 
+    inline-size: 100%; 
+    border-radius: 10%;
+}
+
+img#hostPic{
+    max-width: 6rem; 
+    min-width: 5rem; 
+    inline-size: 100%; 
+    border-right:10rem;
+}
+a.reserve{
+    font-size:20px; 
+    letter-spacing: .05em; 
+    border-radius: 1.3rem;
+    padding-right: 1.6rem; 
+    padding-left: 1.6rem;
+}
+
+/* If the screen size is 900px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 768px) {
+    div.hostBio{
+      font-family:'Roboto', sans-serif;
+      /*border-style: solid;
+      border-radius: 1.3rem;
+      border-width: 1px;*/
+      font-size:20px;
+      padding-right: 4vw;
+      width: 35vw;
+      height: 27vh;
+      overflow-y: scroll;
+    }
+    div#hostInfo{
+        position: fixed;
+    }
+    a#mobileHost{
+        display: none;
+    }
+    div#mobileHost{
+        display: none;
+    }
+}
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 768px) {
+    div.hostBio{
+        font-size: 2vw;
+    }
+    div#hostInfo{
+        display:none;
+    }
+    a#mobileHost{
+        margin-bottom: 1rem;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1ff; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+  
