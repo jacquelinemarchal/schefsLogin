@@ -1,0 +1,15 @@
+.container{
+    display:contents;
+}
+
+.container-wrapper{
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+p{
+    font-family:'Roboto', sans-serif;
+}
+
+h1,h2, small{
+    font-family:'Roboto', sans-serif;
+}
