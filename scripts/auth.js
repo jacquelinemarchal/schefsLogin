@@ -1,7 +1,4 @@
-// get data
-db.collection('july20Events').get().then(snapshot => {
-    setupEvents(snapshot.docs, snapshot.size);
-})
+
 // listen for auth status changes
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
