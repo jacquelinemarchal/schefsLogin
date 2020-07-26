@@ -32,7 +32,7 @@ const setupEvents = (data, num, day) => {
 
     var curRow = "row-"+i.toString();
     row.setAttribute("id", `festivalDay${day}${curRow}`);
-    console.log(day)
+    //console.log(day)
     document.querySelector(`.festivalDay${day}`).appendChild(row);
   }
   // DAILY SCHEFS FESTIVAL SETUP: 
@@ -58,13 +58,14 @@ const setupEvents = (data, num, day) => {
     const year = event.time.toDate().getFullYear().toString();
     time += "/" + year + " ";
 
-    const hour = event.time.toDate().getHours();
-    if (hour < 12){
-      time += hour + "am EDT";
+    var hour = event.time.toDate().getHours();
+
+    if (hour <= 12){
+      time += hour + "am EST";
     }
     else{
-      hour - 12;
-      time += hour + "pm EDT";
+      hour -= 12;
+      time += hour + "pm EST";
     }
     const li = `
     <div class="col-sm-4" style="margin-bottom: 2rem;>
@@ -81,7 +82,6 @@ const setupEvents = (data, num, day) => {
     
     if (rowCheck%3 === 0){  // when to make a new row and empty buffer
       document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
-      html = '';
     }
     else{
       // last line, make sure to print out incomplete rows!
@@ -111,9 +111,9 @@ const setupEvents = (data, num, day) => {
         </div>
       </div>`
         remainder += last;
-        console.log(html)
-        console.log(day)
-        console.log(`festivalDay${day}${curRow}`)
+        //console.log(html)
+        //console.log(day)
+        //console.log(`festivalDay${day}${curRow}`)
         document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
       }
     }  
