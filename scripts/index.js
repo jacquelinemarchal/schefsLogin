@@ -2,7 +2,7 @@
 $('.modal').on('shown.bs.modal', function () {
   $('.modal-content').trigger('focus')
 })
-
+// jackie
 // get data
 //db.collection('july20Events').get().then(snapshot => {
   //setupEvents(snapshot.docs, snapshot.size);
