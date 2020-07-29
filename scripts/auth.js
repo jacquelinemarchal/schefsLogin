@@ -2,7 +2,6 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
-        
     }
 })
 

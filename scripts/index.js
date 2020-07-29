@@ -2,11 +2,6 @@
 $('.modal').on('shown.bs.modal', function () {
   $('.modal-content').trigger('focus')
 })
-// jackie
-// get data
-//db.collection('july20Events').get().then(snapshot => {
-  //setupEvents(snapshot.docs, snapshot.size);
-//})
 
 for (var i = 1; i < 8; i++){
   const day = i.toString();
@@ -14,13 +9,14 @@ for (var i = 1; i < 8; i++){
       .then(function(querySnapshot) {
         setupEvents(querySnapshot.docs, querySnapshot.size, day)
           querySnapshot.forEach(function(doc) {
-              console.log(doc.id, " => ", doc.data());
+            //console.log(doc.id, " => ", doc.data());
           });
       })
       .catch(function(error) {
           console.log("Error getting documents: ", error);
       });
 }
+var eventFileName = [];
 
 const setupEvents = (data, num, day) => {
   // where num is total number of elements
@@ -44,7 +40,6 @@ const setupEvents = (data, num, day) => {
   let remainder ='';
   
   data.forEach(doc => {
-    //var doc = document.implementation.createHTMLDocument(`${event.title}`);
     count++;
     rowCheck++;
     const event = doc.data();
@@ -65,11 +60,14 @@ const setupEvents = (data, num, day) => {
       hour-=12;
       time += hour + "pm EST";
     }
+    var link = event.title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "");
+    eventFileName.push(link);
+
     const li = `
     <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-            <a href="template.html">
-            <img src="${event.thumbnail}" href="template" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
+        <a href="${link}">
+        <img src="${event.thumbnail}" href="template" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
         </div>
@@ -88,7 +86,7 @@ const setupEvents = (data, num, day) => {
         const secondToLast = `
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-            <a href="template.html">
+            <a href="${event.title}">
             <img src="${event.thumbnail}" alt="..." href="template" style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
@@ -103,18 +101,18 @@ const setupEvents = (data, num, day) => {
         const last = `
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-          <a href="template.html">
-            <img src="${event.thumbnail}" alt="..." href="template" style="inline-size: 100%; border-radius: 10%;"></a>
+        <a href="${event.title}">
+        <img src="${event.thumbnail}" alt="..." href="template" style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
       </div>`
         remainder += last;
-        //console.log(html)
-        //console.log(day)
-        //console.log(`festivalDay${day}${curRow}`)
         document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
       }
-    }  
+    }
+   // const newdoc = document.implementation.createHTMLDocument(`${event.title}.html`);
+
   });
 } 
+//console.log(eventFileName)
