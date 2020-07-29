@@ -1,16 +1,26 @@
 {
-  "name": "schefslogin",
+  "name": "schefsLogin",
   "version": "1.0.0",
-  "description": "schefs simple login sample built with bootstrap",
+  "description": "",
   "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "webpack-merge": "^5.0.9"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "schefs",
-    "login",
-    "bootstrap"
-  ],
-  "author": "Jacqueline Marchal",
-  "license": "UNLICENSED"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacquelinemarchal/schefsLogin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacquelinemarchal/schefsLogin/issues"
+  },
+  "homepage": "https://github.com/jacquelinemarchal/schefsLogin#readme"
 }
