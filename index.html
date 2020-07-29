@@ -185,7 +185,11 @@
 
     <script>
         require('dotenv').config()
-
+        const result = dotenv.config()
+ 
+            if (result.error) {
+            throw result.error
+            }
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: process.env.FIREBASE_KEY,
