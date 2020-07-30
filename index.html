@@ -20,7 +20,7 @@
     <div class="container">
         <div class="container-wrapper">
             <nav class="navbar navbar-expand-lg" style="font-family: 'Roboto', sans-serif; padding-left: 0%;">
-                <a href="#" class="navbar-brand">
+                <a href="" onclick="return backHome()" class="navbar-brand">
                     <img src="assets/logo.png" style="height: 30px;">
                 </a>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -38,61 +38,62 @@
     <br>
 
     <!--HEADING-->
-    <div class="container">
-        <div class="container-wrapper">
-            <div class="row" style="font-family: 'Roboto', sans-serif;">
-                <div class="col-sm-7" style="justify-content: right;" >
-                    <h2>Schefs Festival: <br> Themed conversations over a meal, by and for college students.</h2>
-                    </div>
-                    <div class="col-sm-5" style="font-size: 26px;">
-                    1. Click on an event</a> <br>
-                    2. Reserve your ticket <br>
-                    3. Learn from and talk with college students from around the world.
-                    </div>
+    <div id="view">
+        <div class="container" >
+            <div class="container-wrapper">
+                <div class="row" style="font-family: 'Roboto', sans-serif;">
+                    <div class="col-sm-7" style="justify-content: right;" >
+                        <h1>Schefs Festival: <br> Themed conversations over a meal, by and for college students.</h1>
+                        </div>
+                        <div class="col-sm-5" style="font-size: 30px;">
+                        1. Click on an event</a> <br>
+                        2. Reserve your ticket <br>
+                        3. Learn from and talk with college students from around the world.
+                        </div>
+                </div>
+                <br><br>
+                <!-- EVENT LIST -->
+                <div class="events">
+                    <p style="margin-bottom: 0;">Monday, August 17th </p>
+                    <h2 style="margin-bottom: 2rem;">Eroticisms</h2> 
+                    <div class ="festivalDay1"></div>
+
+                    <p style="margin-bottom: 0;">Tuesday, August 18th </p>
+                    <h2 style="margin-bottom: 2rem;">Digital Citizens</h2> 
+                    <div class ="festivalDay2"></div>
+
+                    <p style="margin-bottom: 0;">Wednesday, August 19th </p>
+                    <h2 style="margin-bottom: 2rem;">Spaces & Places</h2> 
+                    <div class ="festivalDay3"></div>
+
+                    <p style="margin-bottom: 0;">Thursday, August 20th </p>
+                    <h2 style="margin-bottom: 2rem;">Pandemic Society</h2> 
+                    <div class ="festivalDay4"></div>
+
+                    <p style="margin-bottom: 0;">Friday, August 21st </p>
+                    <h2 style="margin-bottom: 2rem;">Art: The Performative Self</h2> 
+                    <div class ="festivalDay5"></div>
+
+                    <p style="margin-bottom: 0;">Saturday, August 22nd</p>
+                    <h2 style="margin-bottom: 2rem;">Autonomies</h2> 
+                    <div class ="festivalDay6"></div>
+                    
+                    <p style="margin-bottom: 0;">Sunday, August 23rd</p>
+                    <h2 style="margin-bottom: 2rem;">The Anthropocene</h2> 
+                    <div class ="festivalDay7"></div>
+
+                <!-- <div class="col-sm-4" style="margin-bottom: 2rem;>
+                        <div class="card border-0" style="max-width: 20rem;">
+                            <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
+                            <p style="line-height: 0.9; font-size:20px; margin-top: 1.2rem; margin-bottom: 0.8rem; font-family: 'Roboto', sans-serif;">${event.title}</p> 
+                            <p style="font-size:14px; font-family:'Roboto', sans-serif; font-weight:300;">Dinner • Columbia University<br>${time}</p> 
+                        </div>
+                        </div>-->
+                    
+                    <!-- Where index events are being rendered -->
             </div>
-            <br><br>
-            <!-- EVENT LIST -->
-            <div class="events">
-                <p style="margin-bottom: 0;">Monday, August 17th </p>
-                <h2 style="margin-bottom: 2rem;">Eroticisms</h2> 
-                <div class ="festivalDay1"></div>
-
-                <p style="margin-bottom: 0;">Tuesday, August 18th </p>
-                <h2 style="margin-bottom: 2rem;">Digital Citizens</h2> 
-                <div class ="festivalDay2"></div>
-
-                <p style="margin-bottom: 0;">Wednesday, August 19th </p>
-                <h2 style="margin-bottom: 2rem;">Spaces & Places</h2> 
-                <div class ="festivalDay3"></div>
-
-                <p style="margin-bottom: 0;">Thursday, August 20th </p>
-                <h2 style="margin-bottom: 2rem;">Pandemic Society</h2> 
-                <div class ="festivalDay4"></div>
-
-                <p style="margin-bottom: 0;">Friday, August 21st </p>
-                <h2 style="margin-bottom: 2rem;">Art: The Performative Self</h2> 
-                <div class ="festivalDay5"></div>
-
-                <p style="margin-bottom: 0;">Saturday, August 22nd</p>
-                <h2 style="margin-bottom: 2rem;">Autonomies</h2> 
-                <div class ="festivalDay6"></div>
-                
-                <p style="margin-bottom: 0;">Sunday, August 23rd</p>
-                <h2 style="margin-bottom: 2rem;">The Anthropocene</h2> 
-                <div class ="festivalDay7"></div>
-
-            <!-- <div class="col-sm-4" style="margin-bottom: 2rem;>
-                    <div class="card border-0" style="max-width: 20rem;">
-                        <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
-                        <p style="line-height: 0.9; font-size:20px; margin-top: 1.2rem; margin-bottom: 0.8rem; font-family: 'Roboto', sans-serif;">${event.title}</p> 
-                        <p style="font-size:14px; font-family:'Roboto', sans-serif; font-weight:300;">Dinner • Columbia University<br>${time}</p> 
-                    </div>
-                    </div>-->
-                
-                <!-- Where index events are being rendered -->
         </div>
     </div>
-
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
         <div class="modal-dialog">
@@ -183,17 +184,16 @@
         </div>
     </div>
 
-
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
-            apiKey: process.env.FIREBASE_KEY,
-            authDomain: `${process.env.FIREBASE_PROJECT_ID}.firebaseapp.com`,
-            databaseURL: `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com`,
-            projectId: process.env.FIREBASE_PROJECT_ID,
-            storageBucket: `${process.env.FIREBASE_PROJECT_ID}.appspot.com`,
-            messagingSenderId: process.env.FIREBASE_SENDER_ID,
-            appId: process.env.FIREBASE_APP_ID,
+            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
+            authDomain: "schefs.firebaseapp.com",
+            databaseURL: "https://schefs.firebaseio.com",
+            projectId: "schefs",
+            storageBucket: "schefs.appspot.com",
+            messagingSenderId: "1078198186854",
+            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
             measurementId: "G-SFQEPY2PRN"
         };
         // Initialize Firebase
@@ -207,5 +207,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
     <script src="scripts/auth.js"></script>
     <script src="scripts/index.js"></script>
+    <script src="scripts/events.js"></script>
+
 </body>
 </html>
