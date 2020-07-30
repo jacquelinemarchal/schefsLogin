@@ -3,6 +3,9 @@ $('.modal').on('shown.bs.modal', function () {
   $('.modal-content').trigger('focus')
 })
 
+const indexDiv = document.getElementById("indexView");
+const pageDiv = document.getElementById("pageView");
+
 for (var i = 1; i < 8; i++){
   const day = i.toString();
   db.collection('july20Events').where('festivalDay', '==', day).get()
@@ -113,9 +116,6 @@ const setupEvents = (data, num, day) => {
         document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
       }     
     }
-
-   // const newdoc = document.implementation.createHTMLDocument(`${event.title}.html`);
-
   });
 } 
-//console.log(eventFileName)
+
