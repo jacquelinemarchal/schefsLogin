@@ -44,6 +44,7 @@ const setupEvents = (data, num, day) => {
     count++;
     rowCheck++;
     const event = doc.data();
+    const id = doc.id;
     
     let time = '';
     const month = event.time.toDate().getMonth().toString();
@@ -67,7 +68,7 @@ const setupEvents = (data, num, day) => {
     const li = `
     <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-          <a href="" onclick="return displayPage()">
+          <a href="" onclick="return displayPage('${id}', '${time}')">
         <img src="${event.thumbnail}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
@@ -87,7 +88,7 @@ const setupEvents = (data, num, day) => {
         const secondToLast = `
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-              <a href="" onclick="displayPage('${link}')">
+              <a href="" onclick="displayPage('${id}', '${time}')">
             <img src="${event.thumbnail}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
@@ -102,7 +103,7 @@ const setupEvents = (data, num, day) => {
         const last = `
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-          <a href="" onclick="displayPage()">
+          <a href="" onclick="displayPage('${id}', '${time}')">
         <img src="${event.thumbnail}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
