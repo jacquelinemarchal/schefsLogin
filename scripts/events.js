@@ -1,24 +1,21 @@
+function myFunction() {
+    console.log("hi")
+
+    var indexhtml = view.innerHTML;
+    view.innerHTML = "";
+    return false;
+}
+
+function backHome() {
+    view.innerHTML = indexhtml;
+    return false;
+}
+/*
 var count = 0;
 db.collection('july20Events').get()
 .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         const event = doc.data();
-
-        var docu = document.implementation.createHTMLDocument(`${event.title}`);
-
-        const innerHead = `<meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Schefs - Friendship through Food</title>
-            <!-- Compiled and minified CSS -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-            <link rel="stylesheet" href="imp.css">
-            <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-            <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet"></link>`
-        docu.head.innerHTML = innerHead;
 
         let time = '';
         const month = event.time.toDate().getMonth().toString();
@@ -111,3 +108,4 @@ db.collection('july20Events').get()
     console.log("Error getting documents: ", error);
 });
 
+*/

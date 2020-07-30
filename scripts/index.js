@@ -38,12 +38,13 @@ const setupEvents = (data, num, day) => {
   let count = -1;
   let rowCheck = 0;
   let remainder ='';
-  
+
+
   data.forEach(doc => {
     count++;
     rowCheck++;
     const event = doc.data();
-
+    
     let time = '';
     const month = event.time.toDate().getMonth().toString();
     time += month;
@@ -62,12 +63,12 @@ const setupEvents = (data, num, day) => {
     }
     var link = event.title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "");
     eventFileName.push(link);
-
+    
     const li = `
     <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-          <a href="${link}.html">
-        <img src="${event.thumbnail}" href="template" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
+          <a href="" onclick="return myFunction()">
+        <img src="${event.thumbnail}" href="" onclick="myFunction() alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
         </div>
@@ -86,8 +87,8 @@ const setupEvents = (data, num, day) => {
         const secondToLast = `
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-              <a href="${event.title}.html">
-            <img src="${event.thumbnail}" alt="..." href="template" style="inline-size: 100%; border-radius: 10%;"></a>
+              <a href="" onclick="myFunction()">
+            <img src="${event.thumbnail}" alt="..." href="" onclick="myFunction() style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
@@ -101,16 +102,17 @@ const setupEvents = (data, num, day) => {
         const last = `
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
-          <a href="${event.title}.html">
-        <img src="${event.thumbnail}" alt="..." href="template" style="inline-size: 100%; border-radius: 10%;"></a>
+          <a href="" onclick="myFunction()">
+        <img src="${event.thumbnail}" alt="..." href="" onclick="myFunction() style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
       </div>`
         remainder += last;
         document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
-      }
+      }     
     }
+
    // const newdoc = document.implementation.createHTMLDocument(`${event.title}.html`);
 
   });
