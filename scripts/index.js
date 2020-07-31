@@ -73,7 +73,7 @@ const setupEvents = (data, num, day) => {
         <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
           <a href="" onclick="return displayPage('${id}', '${time}')">
         <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
-            <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
+            <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
         </div>
       </div>` //template string
@@ -93,7 +93,7 @@ const setupEvents = (data, num, day) => {
         <div class="card border-0" style="max-width: 20rem;">
               <a href="" onclick="displayPage('${id}', '${time}')">
             <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
-            <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
+            <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
       </div>`
@@ -108,7 +108,7 @@ const setupEvents = (data, num, day) => {
         <div class="card border-0" style="max-width: 20rem;">
           <a href="" onclick="displayPage('${id}', '${time}')">
         <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
-            <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
+            <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
       </div>`
