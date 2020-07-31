@@ -83,6 +83,10 @@ a.reserve{
     a#mobileHost{
         margin-bottom: 1rem;
     }
+    .container-wrapper{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
 }
 
 ::-webkit-scrollbar {
