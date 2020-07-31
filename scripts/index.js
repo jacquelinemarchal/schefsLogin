@@ -152,4 +152,3 @@ const setupEvents = (data, num, day) => {
     }
   });
 } 
-
