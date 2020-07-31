@@ -25,10 +25,7 @@
                 </a>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav" style="font-size: 16px;">
-                    <!--   <a class="nav-item nav-link logged-in modal-trigger" data-toggle="modal" data-target="#modal-account">Account</a>
-                        <a class="nav-item nav-link logged-in modal-trigger" data-toggle="modal" data-target="#modal-create">Event Creator</a>
-                        <a class="nav-item nav-link" id="logout">Logout</a>--> 
-                        <a class="nav-item nav-link logged-out modal-trigger" data-toggle="modal" data-target="#modal-login">About</a>
+                        <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
                         <a class="nav-item nav-link logged-out" data-toggle="modal" data-target="#modal-signup">Sign In</a>
                     </div>
                 </div>
@@ -97,94 +94,62 @@
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
         <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem" id="signup-content">
-                <div class="modal-header" id="signup-header">
-                    <h2>Sign up</h2>
-                </div>
-                    <form id="signup-form">
-                       <div class="form-group">
-                            <label for="signup-name">Full name</label>
-                            <input type="name" class="form-control" id="signup-name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-school">School</label>
-                            <input type="school" class="form-control" id="signup-school" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="signup-email">Email address</label>
-                            <input type="email" class="form-control" id="signup-email" 
-                                pattern="[a-z0-9]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Email must be a valid university address (.edu)</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-password">Password</label>
-                            <input type="password" class="form-control" id="signup-password" aria-describedby="passwordHelp">
-                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
+                    <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
+                    <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
+                    <div class="forms">
+                        <form id="signup-form" style="display:none; align-items: center;">
+                            <div class="form-group">
+                                <label for="signup-email">Email address</label>
+                                <input type="email" class="form-control" id="signup-email" 
+                                    pattern="[a-z0-9]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
+                                    <small id="emailHelp" class="form-text text-muted">Email must be a valid university address (.edu)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-password">Password</label>
+                                <input type="password" class="form-control" id="signup-password" aria-describedby="passwordHelp">
+                                <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-name">First name</label>
+                                <input type="name" class="form-control" id="signup-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-name">Last name</label>
+                                <input type="name" class="form-control" id="signup-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="signup-school">School</label>
+                                <input type="school" class="form-control" id="signup-school" required>
+                            </div>  
+                            <div class="form-group">
+                                <label for="signup-school">Expected graduation year</label>
+                                <input type="school" class="form-control" id="signup-school" required>
+                            </div>  
+                            <div class="form-group">
+                                <label for="signup-school">Major</label>
+                                <input type="school" class="form-control" id="signup-school" required>
+                            </div>  
+                            <a class="btn btn-outline-dark" href="#" id="modal-btn" type="submit" role="button">Submit</a>
+                        </form>
+                        <form id="login-form" style="display:none; align-items: center;">
+                            <div class="form-group">
+                                <label for="login-email">Email address</label>
+                                <input type="email" class="form-control" id="login-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <input type="password" class="form-control" id="login-password" required>
+                            </div>
+                            <a class="btn btn-outline-dark" href="#" id="modal-btn" type="submit" role="button">Submit</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div id="pageView">
 
-    </div>
-
-    <!-- LOGIN  MODAL -->
-    <div id="modal-login" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem">
-                <div class="modal-header"><h2>Login</h2></div>
-                    <form id ="login-form">
-                        <div class="form-group">
-                            <label for="login-email">Email address</label>
-                            <input type="email" class="form-control" id="login-email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" class="form-control" id="login-password" required>
-                        </div>
-
-                        <button type="submit"> <a class="btn btn-outline-dark reserve" href="#" role="button">Submit</a>
-                        </button>
-                    </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- ACCOUNT MODAL -->
-    <div id="modal-account" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem">
-                <h4>Account details</h4><br />
-                <div class="account-details"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CREATE GUIDE MODAL -->
-    <div id="modal-create" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem">
-                <h4>Event Creator</h4><br />
-                <form id="create-form">
-                    <div class="form-group">
-                        <label for="title">Event title</label>
-                        <input type="text" id="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Event date</label>
-                        <input type="date" id="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="university">Your university</label>
-                        <input type="text" id="university" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </form>
-            </div>  
-        </div>
     </div>
 
     <script>
