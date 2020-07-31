@@ -8,7 +8,7 @@ const pageDiv = document.getElementById("pageView");
 
 for (var i = 1; i < 8; i++){
   const day = i.toString();
-  db.collection('july20Events').where('festivalDay', '==', day).get()
+  db.collection('aug20events').where('festivalDay', '==', day).get()
       .then(function(querySnapshot) {
         setupEvents(querySnapshot.docs, querySnapshot.size, day)
           querySnapshot.forEach(function(doc) {
@@ -70,9 +70,9 @@ const setupEvents = (data, num, day) => {
     
     const li = `
     <div class="col-sm-4" style="margin-bottom: 2rem;>
-        <div class="card border-0" style="max-width: 20rem;">
+        <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
           <a href="" onclick="return displayPage('${id}', '${time}')">
-        <img src="${event.thumbnail}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
+        <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
         </div>
@@ -92,7 +92,7 @@ const setupEvents = (data, num, day) => {
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
               <a href="" onclick="displayPage('${id}', '${time}')">
-            <img src="${event.thumbnail}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
+            <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
@@ -107,7 +107,7 @@ const setupEvents = (data, num, day) => {
         <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem;">
           <a href="" onclick="displayPage('${id}', '${time}')">
-        <img src="${event.thumbnail}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
+        <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
