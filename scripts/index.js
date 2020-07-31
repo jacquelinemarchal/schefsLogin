@@ -1,7 +1,41 @@
-// style modals
 $('.modal').on('shown.bs.modal', function () {
   $('.modal-content').trigger('focus')
 })
+
+var switchSignUp = true;
+const showSignUp = () => {
+  const signupForm = document.getElementById("signup-form");
+  if (switchSignUp){
+    if (switchLogIn = true){
+      switchLogIn=false;
+      showLogIn()
+    }
+    signupForm.setAttribute("style", "display:inline");
+    switchSignUp = false;
+  }
+  else{
+    signupForm.setAttribute("style", "display:none");
+    switchSignUp = true;
+  }
+  return false;
+}
+var switchLogIn = true;
+const showLogIn = () => {
+  if (switchSignUp = true){
+    switchSignUp=false;
+    showSignUp()
+  }
+  const loginForm = document.getElementById("login-form");
+  if (switchLogIn){
+    loginForm.setAttribute("style", "display:inline");
+    switchLogIn = false;
+  }
+  else{
+    loginForm.setAttribute("style", "display:none");
+    switchLogIn = true;
+  }
+  return false;
+}
 
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
@@ -73,7 +107,7 @@ const setupEvents = (data, num, day) => {
         <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
           <a href="" onclick="return displayPage('${id}', '${time}')">
         <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
-            <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
+            <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
         </div>
       </div>` //template string
@@ -93,7 +127,7 @@ const setupEvents = (data, num, day) => {
         <div class="card border-0" style="max-width: 20rem;">
               <a href="" onclick="displayPage('${id}', '${time}')">
             <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
-            <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
+            <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
       </div>`
@@ -108,7 +142,7 @@ const setupEvents = (data, num, day) => {
         <div class="card border-0" style="max-width: 20rem;">
           <a href="" onclick="displayPage('${id}', '${time}')">
         <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
-            <p style="line-height: 0.9; margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
+            <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
         </div>
       </div>`
@@ -118,4 +152,3 @@ const setupEvents = (data, num, day) => {
     }
   });
 } 
-
