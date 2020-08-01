@@ -60,9 +60,6 @@ const displayPage = (x, t) => {
     var curEvent = dbRef.data()
     name = (curEvent.firstName + " " + curEvent.lastName)
 
-    console.log(dbRef.data())
-    console.log(time)
-
     return `
         <div class="container">
             <div class="container-wrapper">
