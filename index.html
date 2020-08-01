@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Schefs - Friendship through Food</title>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="imp.css">
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Schefs - Friendship through Food</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="imp.css">
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- NAVBAR -->
-    <div class="container">
-        <div class="container-wrapper">
-            <nav class="navbar navbar-expand-sm bg-white fixed-top" style="font-family: 'Roboto', sans-serif; padding-left: 4rem; padding-right: 4rem; padding-bottom: 1rem; padding-top: 1rem;">
-                <a href="" onclick="return backHome()" class="navbar-brand">
-                    <img src="assets/logo.png" style="height: 34px;">
-                </a>
+<!-- NAVBAR -->
+<div class="container">
+    <div class="container-wrapper">
+        <nav class="navbar navbar-expand-sm bg-white fixed-top" style="font-family: 'Roboto', sans-serif; padding-left: 4rem; padding-right: 4rem; padding-bottom: 1rem; padding-top: 1rem;">
+            <a onclick="displayHome()" class="navbar-brand">
+                <img src="assets/logo.png" style="height: 34px;">
+            </a>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav" style="font-size: 16px;">
                         <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
@@ -41,12 +41,12 @@
                 <div class="row" style="font-family: 'Roboto', sans-serif;">
                     <div class="col-sm-7" style="justify-content: right;" >
                         <h1>Schefs Festival: <br> Themed conversations over a meal, by and for college students.</h1>
-                        </div>
-                        <div class="col-sm-5" style="font-size: 30px;">
-                        1. Click on an event</a> <br>
+                    </div>
+                    <div class="col-sm-5" style="font-size: 30px;">
+                        1. Click on an event <br>
                         2. Reserve your ticket <br>
                         3. Learn from and talk with college students from around the world.
-                        </div>
+                    </div>
                 </div>
                 <br><br>
                 <!-- EVENT LIST -->
@@ -148,9 +148,8 @@
             </div>
         </div>
     </div>
-    <div id="pageView">
 
-    </div>
+    <div id="pageView"></div>
 
     <script>
         // Your web app's Firebase configuration
