@@ -37,6 +37,11 @@ const showLogIn = () => {
   return false;
 }
 
+const hideExpandedContent = () => {
+  loginForm.setAttribute("style", "display:none");
+  signupForm.setAttribute("style", "display:none");
+}
+
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
 
@@ -67,15 +72,11 @@ const setupEvents = (data, num, day) => {
     row.setAttribute("id", `festivalDay${day}${curRow}`);
     document.querySelector(`.festivalDay${day}`).appendChild(row);
   }
-  // DAILY SCHEFS FESTIVAL SETUP: 
-  // QUERY FOR db.collection('july20Events').get(~after-x-date~) and append to div festivalDayx
-  /* Element will look like <div class="row;" id="row-0;"> ... 3 events ... </div> */
-  
+
   let html = '';
   let count = -1;
   let rowCheck = 0;
   let remainder ='';
-
 
   data.forEach(doc => {
     count++;
@@ -105,7 +106,7 @@ const setupEvents = (data, num, day) => {
     const li = `
     <div class="col-sm-4" style="margin-bottom: 2rem;>
         <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
-          <a href="" onclick="return displayPage('${id}', '${time}')">
+          <a onclick="displayPage('${id}', '${time}')">
         <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
