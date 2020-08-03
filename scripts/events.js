@@ -105,7 +105,7 @@ const displayPage = (x, t) => {
         </div>
     `
     }
-    else{   
+    else {   
         if (size >= 6){
             remainingTickets = 2;
         }
@@ -115,6 +115,7 @@ const displayPage = (x, t) => {
     }
 
     name = (curEvent.firstName + " " + curEvent.lastName)
+
     return `
         <div class="container">
             <div class="container-wrapper">
