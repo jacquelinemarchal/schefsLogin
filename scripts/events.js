@@ -37,7 +37,6 @@ const displayHome = () => {
 
 // handle click some event
 const displayPage = (x, t) => {
-     console.log(x);
      db.collection('aug20events').doc(`${x}`).get()
          .then(function(doc) {
              // set proper state
@@ -59,9 +58,6 @@ const displayPage = (x, t) => {
  const generateEventPage = (dbRef, time) => {
     var curEvent = dbRef.data()
     name = (curEvent.firstName + " " + curEvent.lastName)
-
-    console.log(dbRef.data())
-    console.log(time)
 
     return `
         <div class="container">

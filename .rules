@@ -1,0 +1,16 @@
+service cloud.firestore {
+    match databases/{database}/documents {
+        match /aug20events/{event} {
+            // read access for all
+            allow read: if true;
+        }
+
+        match /users/{userId} {
+            // write/read access for self
+            allow get, update, delete: if request.auth != null && request.auth.uid == userId;
+
+            // create access for non-authenticated users
+            allow create: if request.auth == null;
+        }
+    }
+}
