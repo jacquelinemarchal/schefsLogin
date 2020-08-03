@@ -26,8 +26,13 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav" style="font-size: 16px;">
                         <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-                        <a class="nav-item nav-link logged-out" data-toggle="modal" data-target="#modal-signup">Sign In</a>
+                        <a class="nav-item nav-link logged-out" data-toggle="modal" type="submit" data-target="#modal-signup">Sign In</a>
                     </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> </ul>
+                        <div id="rightNavItems">
+                        </div>
+                      </div>
                 </div>
             </nav>
         </div>
@@ -149,7 +154,7 @@
         </div>
     </div>
 
-    <div id="pageView"></div>
+    <div id="pageView" style="padding-top: 4rem;"></div>
 
     <script>
         // Your web app's Firebase configuration

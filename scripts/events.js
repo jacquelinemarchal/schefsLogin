@@ -37,7 +37,6 @@ const displayHome = () => {
 
 // handle click some event
 const displayPage = (x, t) => {
-     console.log(x);
      db.collection('aug20events').doc(`${x}`).get()
          .then(function(doc) {
              // set proper state
@@ -74,7 +73,7 @@ const displayPage = (x, t) => {
                         <h2>What to prepare:</h1>
                         <p>${curEvent.req}</p>
                         <div id="mobileHost">
-                            <h2>Hosted by:${name}</h2>
+                            <h2>Hosted by: ${name}</h2>
                                 <img src="assets/prof.png" alt="...">
                             <br><p class="hostSchool">${curEvent.university} • ${curEvent.gradYear}<br>${curEvent.major}</p>
                             <br><div class="hostBio"> <p>${curEvent.bio}</p></div>
@@ -84,9 +83,9 @@ const displayPage = (x, t) => {
     
                     <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
                         <a class="btn btn-outline-dark reserve" href="#" role="button">RESERVE</a><br> <br>
-                        <small>Hosted by:</small>
+                        <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="padding-right: 4rem">
                                 <img src="assets/prof.png" alt="..." id="hostPic">
                             </div>
                             <div class="col-sm-1">

@@ -2,6 +2,15 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
+        let state = {
+            navAcctInfo: '',  // empty style = being displayed
+        };
+        const updateNav = (user.email) => {
+            <a class="nav-item my-2 my-sm-0" style="color:blue;" type="submit">Log out</a>
+
+        }
+
+
     }
 })
 
