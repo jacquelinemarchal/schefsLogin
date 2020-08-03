@@ -37,6 +37,11 @@ const showLogIn = () => {
   return false;
 }
 
+const hideExpandedContent = () => {
+  loginForm.setAttribute("style", "display:none");
+  signupForm.setAttribute("style", "display:none");
+}
+
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
 
