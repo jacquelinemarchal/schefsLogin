@@ -13,8 +13,8 @@ auth.onAuthStateChanged(user =>{ // returns null if user logs out
 const loggedInNav = (user) => {
     const acctInfo = document.getElementById('rightNavItems');
     email = user.email;
-    let info = `<a>${email} </a>`;
-    info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout"  data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()" type="submit">Log out</a>'
+    let info = `<a>${email}    </a>`;
+    info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout"  data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()" type="submit"> log out</a>'
     acctInfo.innerHTML = info;
 }
 const loggedOutNav = () => {
