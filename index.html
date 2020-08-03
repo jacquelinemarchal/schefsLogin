@@ -26,7 +26,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav" style="font-size: 16px;">
                         <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-                        <a class="nav-item nav-link logged-out" data-toggle="modal" type="submit" data-target="#modal-signup">Sign In</a>
+                        <a class="nav-item nav-link" data-toggle="modal" type="submit" data-target="#modal-signup">Sign In</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> </ul>
@@ -116,27 +116,29 @@
                                 <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
                             </div>
                             <div class="form-group">
-                                <label for="signup-name">First name</label>
-                                <input type="name" class="form-control" id="signup-name" required>
+                                <label for="firstName">First name</label>
+                                <input type="firstName" class="form-control" id="firstName" required>
                             </div>
                             <div class="form-group">
-                                <label for="signup-name">Last name</label>
-                                <input type="name" class="form-control" id="signup-name" required>
+                                <label for="lastName">Last name</label>
+                                <input type="lastName" class="form-control" id="lastName" required>
                             </div>
                             <div class="form-group">
-                                <label for="signup-school">School</label>
-                                <input type="school" class="form-control" id="signup-school" required>
+                                <label for="school">School</label>
+                                <input type="school" class="form-control" id="school" required>
                             </div>  
                             <div class="form-group">
-                                <label for="signup-school">Expected graduation year</label>
-                                <input type="school" class="form-control" id="signup-school" required>
+                                <label for="gradYear">Expected graduation year</label>
+                                <input type="gradYear" class="form-control" id="gradYear" required>
                             </div>  
                             <div class="form-group">
-                                <label for="signup-school">Major</label>
-                                <input type="school" class="form-control" id="signup-school" required>
+                                <label for="major">Major</label>
+                                <input type="major" class="form-control" id="major" required>
                             </div>  
-                            <a class="btn btn-outline-dark" href="#" id="modal-btn" type="submit" role="button">Submit</a>
-                        </form>
+                     <!--<a class="btn btn-outline-dark" id="modal-btn-sign-up" role="button"></a>--> 
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                         <form id="login-form" style="display:none; align-items: center;">
                             <div class="form-group">
                                 <label for="login-email">Email address</label>
