@@ -72,15 +72,11 @@ const setupEvents = (data, num, day) => {
     row.setAttribute("id", `festivalDay${day}${curRow}`);
     document.querySelector(`.festivalDay${day}`).appendChild(row);
   }
-  // DAILY SCHEFS FESTIVAL SETUP: 
-  // QUERY FOR db.collection('july20Events').get(~after-x-date~) and append to div festivalDayx
-  /* Element will look like <div class="row;" id="row-0;"> ... 3 events ... </div> */
-  
+
   let html = '';
   let count = -1;
   let rowCheck = 0;
   let remainder ='';
-
 
   data.forEach(doc => {
     count++;

@@ -3,10 +3,8 @@
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
         console.log(user)
-        const mainModal = document.getElementById("enableLogInButtons")
-        mainModal.setAttribute("style", "display:none");
-        const emptyModal = document.getElementById("disableLogInButtons")
-        emptyModal.setAttribute("style", "display:inline");
+        loggedInNav(auth.currentUser)
+        document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
     }
 })
 
@@ -34,7 +32,6 @@ loginForm.addEventListener('submit', (e) => {
         console.log(cred.user);
         loginForm.reset();
         $('#modal-signup').modal("hide");
-        loggedInNav(auth.currentUser)
         loginForm.reset();
     })
 })
@@ -48,27 +45,37 @@ signupForm.addEventListener('submit', (e) => {
     
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
         handleLogIn(auth, email, password);
+        storeUserInfo(auth.currentUser);
         $('#modal-signup').modal("hide");
         $('#modal-welcome').modal("show");
     })
+
+
+    
+
 })
 const handleLogIn = (auth, email, password) => {
     auth.signInWithEmailAndPassword(email, password).then(cred =>{
         console.log(auth.currentUser.email)
         console.log(cred.user);
-        signupForm.reset();
         loggedInNav(auth.currentUser);
     })
+}
+const storeUserInfo = (user) => {
+    console.log(user)
+    /*
+    db.collection("users").doc(uid).set({
+        email: user.email
+        console.log(user)
+    })*/
 }
 
 // logout
 const logOutUser = (user) => {
     auth.signOut().then(() => {
         loggedOutNav()
-        let mainModal = getElementById("enableLogInButtons")
-        mainModal.setAttribute("style", "display:inline");
-        let emptyModal = getElementById("disableLogInButtons")
-        mainModal.setAttribute("style", "display:none");
         console.log("user logged out")
+        document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a><a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>        `
+
     })
 }
