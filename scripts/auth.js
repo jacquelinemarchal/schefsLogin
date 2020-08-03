@@ -42,32 +42,40 @@ signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = signupForm['signup-email'].value; // look in signupForm and find input with id signup-email
     const password = signupForm['signup-password'].value; 
+
     
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        handleLogIn(auth, email, password);
-        storeUserInfo(auth.currentUser);
+        handleNewLogIn(auth, email, password);
         $('#modal-signup').modal("hide");
         $('#modal-welcome').modal("show");
     })
-
-
-    
-
 })
-const handleLogIn = (auth, email, password) => {
-    auth.signInWithEmailAndPassword(email, password).then(cred =>{
-        console.log(auth.currentUser.email)
-        console.log(cred.user);
-        loggedInNav(auth.currentUser);
+
+const storeProfile = (email, fName, lName, gradYear, major, university, user) => {
+    console.log(email,fName, lName, gradYear, major, university)
+    let docTitle = user.uid;
+    db.collection("users").doc(docTitle).set({
+        email: email,
+        firstName: fName,
+        lastName: lName,
+        gradYear: gradYear,
+        major: major,
+        university: university
     })
 }
-const storeUserInfo = (user) => {
-    console.log(user)
-    /*
-    db.collection("users").doc(uid).set({
-        email: user.email
-        console.log(user)
-    })*/
+
+const handleNewLogIn = (auth, email, password) => {
+    auth.signInWithEmailAndPassword(email, password).then(cred =>{
+        console.log(auth.currentUser.email)
+        var user = auth.currentUser;
+        loggedInNav(auth.currentUser);
+        const fName = signupForm['firstName'].value;
+        const lName = signupForm['lastName'].value;
+        const gradYear = signupForm['gradYear'].value;
+        const major = signupForm['major'].value;
+        const university = signupForm['school'].value;
+        storeProfile(email, fName, lName, gradYear, major, university, user);
+    })
 }
 
 // logout
