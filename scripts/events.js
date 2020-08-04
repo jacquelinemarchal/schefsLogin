@@ -58,7 +58,16 @@ const displayPage = (x, t) => {
  const generateEventPage = (dbRef, time) => {
     var curEvent = dbRef.data()
     const eventId = dbRef.id;
-    ticketCount = 7;
+
+    db.collection('aug20events').doc(eventId).collection("tickets").get()
+        .then((querySnapshot) => {
+            size = querySnapshot.size;
+            remainingTickets = 7 - size;
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+    
     name = (curEvent.firstName + " " + curEvent.lastName)
 
     return `
@@ -68,16 +77,16 @@ const displayPage = (x, t) => {
                     <div class="col-md-7">
                         <h1 id="title">${curEvent.title}</h1>
                         <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${curEvent.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
-                        <p class="ticket-count">${ticketCount} / 7 spots available</p>
+                        <p id="mobileHost" class="ticket-count">${remainingTickets} / 7 spots available</p>
                         <p>${curEvent.mealType} • ${time}</p>
-                           <img src="assets/simping.png" alt="..." id="thumb">
+                           <img src="${curEvent.thumb}" alt="..." id="thumb">
                         <p>${curEvent.desc}</p>
                         <br>
                         <h2>What to prepare:</h1>
                         <p>${curEvent.req}</p>
                         <div id="mobileHost">
                             <h2>Hosted by: ${name}</h2>
-                                <img src="assets/prof.png" alt="...">
+                                <img src="${curEvent.prof}" alt="...">
                             <br><p class="hostSchool">${curEvent.university} • ${curEvent.gradYear}<br>${curEvent.major}</p>
                             <br><div class="hostBio"> <p>${curEvent.bio}</p></div>
                         </div>
@@ -86,11 +95,11 @@ const displayPage = (x, t) => {
     
                     <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
                         <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${curEvent.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a><br> <br>
-                        <p class="ticket-count">${ticketCount} / 7 spots available</p>
+                        <p class="ticket-count">${remainingTickets} / 7 spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3" style="padding-right: 4rem">
-                                <img src="assets/prof.png" alt="..." id="hostPic">
+                                <img src="${curEvent.prof}" alt="..." id="hostPic">
                             </div>
                             <div class="col-sm-1">
                                 <h2>${name}</h2>
@@ -108,14 +117,14 @@ const displayPage = (x, t) => {
 const triggerReserve = (title, eventId) => {
     var modalContent = document.getElementById('reserve-modal-content');
     if (auth.currentUser){
-    let email = auth.currentUser.email;
-    handleReserve(eventId);
-    const content = `<h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information</p>`
-    modalContent.innerHTML = content;
+        let email = auth.currentUser.email;
+        handleReserve(eventId);
+        const content = `<h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information</p>`
+        modalContent.innerHTML = content;
     }
     else{
-    modalContent.innerHTML = `<h2>You must have a Schefs account to reserve a ticket</h2><p>Create one on the top left of the screen under 'Sign In'</p>`
-    $('#modal-reserve').modal("show");
+        modalContent.innerHTML = `<h2>You must have a Schefs account to reserve a ticket</h2><p>Create one on the top left of the screen under 'Sign In'</p>`
+        $('#modal-reserve').modal("show");
     }
  }
 
@@ -125,7 +134,8 @@ const handleReserve = (id) => {
     var eventRef = db.collection("aug20events").doc(id)
     console.log(eventRef)
     eventRef.collection("tickets").doc(uid).set({
-        email: user.email
+        email: user.email,
+        name: user.displayName
     })
     .then(() =>{
         console.log("Success")
