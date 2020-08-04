@@ -33,9 +33,11 @@ loginForm.addEventListener('submit', (e) => {
         $('#modal-signup').modal("hide");
         loginForm.reset();
     }).catch((error) => {
+        var errorMessage = error.message;
+        alert(errorMessage);
         console.log("Error logging in user: ", error);
     });
-})
+    })
 
 // signup
 const signupForm = document.querySelector('#signup-form');
@@ -49,6 +51,11 @@ signupForm.addEventListener('submit', (e) => {
         $('#modal-signup').modal("hide");
         $('#modal-welcome').modal("show");
     })
+    .catch(function(error){
+        var errorMessage = error.message;
+        alert(errorMessage);
+        console.log("Error logging in user: ", error);
+    }) 
 })
 
 const storeProfile = (email, fName, lName, gradYear, major, university, user) => {
@@ -76,15 +83,20 @@ const handleNewLogIn = (auth, email, password) => {
         const major = signupForm['major'].value;
         const university = signupForm['school'].value;
         name = (fName + " " + lName)
+        })
+        .catch(function(error){
+            var errorMessage = error.message;
+            alert(errorMessage);
+            console.log("Error logging in user: ", error);
+        }) 
 
         user.updateProfile({
             displayName: name,
         })
         .catch(function(error) {
-            console.log("Error updating auth username: ", error);
+           console.log("Error updating auth username: ", error);
         });
         storeProfile(email, fName, lName, gradYear, major, university, user);
-    })
 }
 
 // logout
