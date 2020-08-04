@@ -2,6 +2,10 @@
     display:contents;
 }
 
+a{
+    cursor: pointer;
+}
+
 .container-wrapper{
     margin-left: 4rem;
     margin-right: 4rem;
@@ -38,11 +42,13 @@ img#thumb{
 }
 
 img#hostPic{
-    max-width: 6rem; 
-    min-width: 5rem; 
-    inline-size: 100%; 
-    border-right:10rem;
+    width: 8rem; 
+    padding-right:14px;
 }
+img#hostMobilePic{
+    width: 50vw;
+}
+
 a.reserve{
     font-size:20px; 
     letter-spacing: .05em; 
@@ -60,8 +66,13 @@ a.reserve{
     padding-left: 1.6rem;
     align-items: center;
 }
+@media screen and (max-width: 935px) {
+    img#hostPic{
+        padding-right: 3rem;
+    }
+}
 
-/* If the screen size is 900px wide or more, set the font-size of <div> to 80px */
+/* If the screen size is 768px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 768px) {
     div.hostBio{
       font-family:'Roboto', sans-serif;

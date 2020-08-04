@@ -39,15 +39,19 @@ const displayHome = () => {
 const displayPage = (x, t) => {
      db.collection('aug20events').doc(`${x}`).get()
          .then(function(doc) {
-             // set proper state
-             state.pageDivHtml = generateEventPage(doc, t);
-             state.indexDivStyle = 'display: none';
+            db.collection('aug20events').doc(`${x}`).collection("tickets").get()
+            .then((querySnapshot) => {
+                // set proper state
+                let size = querySnapshot.size
+                state.pageDivHtml = generateEventPage(doc, t, size);
+                state.indexDivStyle = 'display: none';
 
-             // push state to history
-             window.history.pushState(state, null, 'index.html');
+                // push state to history
+                window.history.pushState(state, null, 'index.html');
 
-             //render
-             render();
+                //render
+                render();            
+            })
          })
          .catch(function(error) {
              console.log("Error getting documents: ", error);
@@ -55,21 +59,62 @@ const displayPage = (x, t) => {
  }
 
 // generate HTML for event page
- const generateEventPage = (dbRef, time) => {
+ const generateEventPage = (dbRef, time, size) => {
     var curEvent = dbRef.data()
     const eventId = dbRef.id;
-
-    db.collection('aug20events').doc(eventId).collection("tickets").get()
-        .then((querySnapshot) => {
-            size = querySnapshot.size;
-            remainingTickets = 7 - size;
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
+    let remainingTickets = 7;
+    if (size > 14){
+        return `
+        <div class="container">
+            <div class="container-wrapper">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1 id="title">${curEvent.title}</h1>
+                        <p id="mobileHost">SOLD OUT</p>
+                        <p>${curEvent.mealType} • ${time}</p>
+                           <img src="${curEvent.thumb}" alt="..." id="thumb">
+                        <p>${curEvent.desc}</p>
+                        <br>
+                        <h2>What to prepare:</h1>
+                        <p>${curEvent.req}</p>
+                        <div id="mobileHost">
+                            <h2>Hosted by: ${name}</h2>
+                                <img src="${curEvent.prof}" alt="..." id="hostMobilePic">
+                            <br><p class="hostSchool">${curEvent.university} • ${curEvent.gradYear}<br>${curEvent.major}</p>
+                            <br><div class="hostBio"> <p>${curEvent.bio}</p></div>
+                        </div>
+                        <br><br>
+                    </div>
     
-    name = (curEvent.firstName + " " + curEvent.lastName)
+                    <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
+                        <h2>SOLD OUT</h2>
+                        <p>Hosted by: </p>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-sm-3">
+                                <img src="${curEvent.prof}" alt="..." id="hostPic">
+                            </div>
+                            <div class="col-sm-1 offset-sm-1">
+                                <h2>${name}</h2>
+                            </div>
+                        </div>
+                        <br><p class="hostSchool">${curEvent.university} • ${curEvent.gradYear}<br>${curEvent.major}</p>
+                        <br><div class="hostBio"> ${curEvent.bio}</div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    `
+    }
+    else{   
+        if (size >= 6){
+            remainingTickets = 2;
+        }
+        else{
+            remainingTickets = 7 - size;
+        }
+    }
 
+    name = (curEvent.firstName + " " + curEvent.lastName)
     return `
         <div class="container">
             <div class="container-wrapper">
@@ -86,7 +131,7 @@ const displayPage = (x, t) => {
                         <p>${curEvent.req}</p>
                         <div id="mobileHost">
                             <h2>Hosted by: ${name}</h2>
-                                <img src="${curEvent.prof}" alt="...">
+                                <img src="${curEvent.prof}" alt="..." id="hostMobilePic">
                             <br><p class="hostSchool">${curEvent.university} • ${curEvent.gradYear}<br>${curEvent.major}</p>
                             <br><div class="hostBio"> <p>${curEvent.bio}</p></div>
                         </div>
@@ -98,10 +143,10 @@ const displayPage = (x, t) => {
                         <p class="ticket-count">${remainingTickets} / 7 spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
-                            <div class="col-sm-3" style="padding-right: 4rem">
+                            <div class="col-sm-3">
                                 <img src="${curEvent.prof}" alt="..." id="hostPic">
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-1 offset-sm-1">
                                 <h2>${name}</h2>
                             </div>
                         </div>
