@@ -2,7 +2,6 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
-        console.log(user)
         loggedInNav(auth.currentUser)
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
     }
@@ -14,7 +13,7 @@ const loggedInNav = (user) => {
     const acctInfo = document.getElementById('rightNavItems');
     email = user.email;
     let info = `<a>${email}    </a>`;
-    info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout"  data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()" type="submit"> log out</a>'
+    info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
     acctInfo.innerHTML = info;
 }
 const loggedOutNav = () => {
@@ -52,7 +51,6 @@ signupForm.addEventListener('submit', (e) => {
 })
 
 const storeProfile = (email, fName, lName, gradYear, major, university, user) => {
-    console.log(email,fName, lName, gradYear, major, university)
     let docTitle = user.uid;
     db.collection("users").doc(docTitle).set({
         email: email,

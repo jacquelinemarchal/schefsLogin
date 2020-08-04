@@ -57,6 +57,8 @@ const displayPage = (x, t) => {
 // generate HTML for event page
  const generateEventPage = (dbRef, time) => {
     var curEvent = dbRef.data()
+    const eventId = dbRef.id;
+    ticketCount = 7;
     name = (curEvent.firstName + " " + curEvent.lastName)
 
     return `
@@ -65,7 +67,8 @@ const displayPage = (x, t) => {
                 <div class="row">
                     <div class="col-md-7">
                         <h1 id="title">${curEvent.title}</h1>
-                        <a class="btn btn-outline-dark reserve" href="#" role="button" id="mobileHost">RESERVE</a>
+                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${curEvent.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                        <p class="ticket-count">${ticketCount} / 7 spots available</p>
                         <p>${curEvent.mealType} • ${time}</p>
                            <img src="assets/simping.png" alt="..." id="thumb">
                         <p>${curEvent.desc}</p>
@@ -82,7 +85,8 @@ const displayPage = (x, t) => {
                     </div>
     
                     <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
-                        <a class="btn btn-outline-dark reserve" href="#" role="button">RESERVE</a><br> <br>
+                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${curEvent.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a><br> <br>
+                        <p class="ticket-count">${ticketCount} / 7 spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3" style="padding-right: 4rem">
@@ -99,4 +103,34 @@ const displayPage = (x, t) => {
             </div>
         </div>
     `
+ }
+
+const triggerReserve = (title, eventId) => {
+    var modalContent = document.getElementById('reserve-modal-content');
+    if (auth.currentUser){
+    let email = auth.currentUser.email;
+    handleReserve(eventId);
+    const content = `<h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information</p>`
+    modalContent.innerHTML = content;
+    }
+    else{
+    modalContent.innerHTML = `<h2>You must have a Schefs account to reserve a ticket</h2><p>Create one on the top left of the screen under 'Sign In'</p>`
+    $('#modal-reserve').modal("show");
+    }
+ }
+
+const handleReserve = (id) => {
+    var user = auth.currentUser;
+    var uid = user.uid;
+    var eventRef = db.collection("aug20events").doc(id)
+    console.log(eventRef)
+    eventRef.collection("tickets").doc(uid).set({
+        email: user.email
+    })
+    .then(() =>{
+        console.log("Success")
+    })
+    .catch(function(error) {
+          console.log("Error getting documents: ", error);
+    });
  }
