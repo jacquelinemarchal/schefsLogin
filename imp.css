@@ -1,6 +1,10 @@
 .container{
     display:contents;
-    cursor:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAMAAACeyVWkAAAACVBMVEX///8AAAD///9+749PAAAAAXRSTlMAQObYZgAAAEZJREFUeAGt0EEKgDAUA1En9z+0qEENhA+FvlUZQqE9Bnynlmlr2iVkSY66AHrg+MddSUiU6VuxqMhYquzcCvO6PZjhx5oTQ+8Bs3EshqIAAAAASUVORK5CYII=),auto;}
+}
+
+a{
+    cursor: pointer;
+}
 
 .container-wrapper{
     margin-left: 4rem;
@@ -9,6 +13,9 @@
 p{
     font-family:'Roboto', sans-serif;
     font-size:20px;
+}
+.ticket-count{
+    color: #888;
 }
 
 h1,h2, small{
@@ -35,11 +42,13 @@ img#thumb{
 }
 
 img#hostPic{
-    max-width: 6rem; 
-    min-width: 5rem; 
-    inline-size: 100%; 
-    border-right:10rem;
+    width: 8rem; 
+    padding-right:14px;
 }
+img#hostMobilePic{
+    width: 50vw;
+}
+
 a.reserve{
     font-size:20px; 
     letter-spacing: .05em; 
@@ -57,8 +66,13 @@ a.reserve{
     padding-left: 1.6rem;
     align-items: center;
 }
+@media screen and (max-width: 935px) {
+    img#hostPic{
+        padding-right: 3rem;
+    }
+}
 
-/* If the screen size is 900px wide or more, set the font-size of <div> to 80px */
+/* If the screen size is 768px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 768px) {
     div.hostBio{
       font-family:'Roboto', sans-serif;
@@ -80,6 +94,9 @@ a.reserve{
     div#mobileHost{
         display: none;
     }
+    p#mobileHost{
+        display:none;
+    }
 }
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
@@ -96,6 +113,9 @@ a.reserve{
     .container-wrapper{
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+    a#mobileReserve{
+        display: none;
     }
 }
 
