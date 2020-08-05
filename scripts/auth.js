@@ -11,9 +11,11 @@ auth.onAuthStateChanged(user =>{ // returns null if user logs out
 // NAV BAR UPDATES
 const loggedInNav = (user) => {
     const acctInfo = document.getElementById('rightNavItems');
-    email = user.email;
-    let info = `<a>${email}    </a>`;
-    info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
+    var fullName = user.displayName;
+    var name = fullName.split(" ", 1);
+    
+    let info = `<img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;"><a>${name}    </a>`;
+    //info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
     acctInfo.innerHTML = info;
 }
 const loggedOutNav = () => {
