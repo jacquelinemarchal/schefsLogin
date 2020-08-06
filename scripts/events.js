@@ -164,9 +164,8 @@ const triggerReserve = (title, eventId) => {
     var modalContent = document.getElementById('reserve-modal-content');
     if (auth.currentUser){
         let email = auth.currentUser.email;
-        handleReserve(eventId);
-        const content = `<h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>`
-        modalContent.innerHTML = content;
+        handleReserve(eventId); 
+        modalContent.innerHTML = `<h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>`;
     }
     else{
         modalContent.innerHTML = `<h2>You must have a Schefs account to reserve a ticket</h2><br><a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
