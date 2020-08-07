@@ -20,7 +20,19 @@ const loggedOutNav = () => {
     const acctInfo = document.getElementById('rightNavItems');
     acctInfo.innerHTML = '';
 }
-
+const displayUserInfo = (uid) => {
+    db.collection("users").doc(uid).get()
+        .then(function(querySnapshot){
+            let userInfo = querySnapshot.data();
+            var modalContent = document.getElementById('modal-account-content');
+            modalContent.innerHTML = `<p style="color: #888;">Logged in as:</p><br><h2>${userInfo.firstName}<br>${userInfo.lastName}</h2><br>
+                <p>${userInfo.university}</p>
+                <p>Class of ${userInfo.gradYear}</p>
+                <p>${userInfo.major}</p>
+                <p>${userInfo.email}</p><br>
+                <a class="btn btn-outline-dark reserve" onclick="logOutUser()" role="button">    Log out    </a>`         
+        })
+}
 // login 
 const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (e) => {
@@ -56,6 +68,7 @@ signupForm.addEventListener('submit', (e) => {
 
 const storeProfile = (userId, email, fName, lName, gradYear, major, university, user) => {
     db.collection("users").doc(userId).set({
+
         email: email,
         firstName: fName,
         lastName: lName,
@@ -63,6 +76,7 @@ const storeProfile = (userId, email, fName, lName, gradYear, major, university, 
         major: major,
         university: university,
         isAdmin: false
+
     })
     .catch((error) => {
         console.log("Error storing user info: ", error);
@@ -97,6 +111,7 @@ const handleNewLogIn = (auth, email, password) => {
 const logOutUser = (user) => {
     auth.signOut().then(() => {
         loggedOutNav()
+        $('#modal-account').modal("hide");
         console.log("user logged out")
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a><a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>        `
     })
