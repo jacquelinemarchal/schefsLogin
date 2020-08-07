@@ -18,8 +18,8 @@ const moment = require('moment-timezone');
 
 admin.initializeApp();
 
-const email = functions.config().email;
-const password = functions.config().password;
+const email = functions.config().user.email;
+const password = functions.config().user.password;
 
 const transportOptions = {
     name: 'schefs.us',

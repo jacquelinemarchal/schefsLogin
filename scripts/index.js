@@ -49,10 +49,7 @@ for (var i = 1; i < 8; i++){
   const day = i.toString();
   db.collection('aug20events').where('festivalDay', '==', day).get()
       .then(function(querySnapshot) {
-        setupEvents(querySnapshot.docs, querySnapshot.size, day)
-          querySnapshot.forEach(function(doc) {
-            //console.log(doc.id, " => ", doc.data());
-          });
+        setupEvents(querySnapshot.docs, querySnapshot.size, day);
       })
       .catch(function(error) {
           console.log("Error getting documents: ", error);

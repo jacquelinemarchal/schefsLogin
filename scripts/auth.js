@@ -2,18 +2,18 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
-        loggedInNav(user.displayName);
+        loggedInNav(user.displayName, user.uid);
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
     }
 })
 
 // after user creates account and logs out, refresh modal
 // NAV BAR UPDATES
-const loggedInNav = (name) => {
+const loggedInNav = (name, uid) => {
     const acctInfo = document.getElementById('rightNavItems');
-    const info = `<img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;"><a>${name}</a>`;
-    //info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
+    const info = `<a data-toggle="modal" onclick="displayUserInfo('${uid}')" data-target="#modal-account"><img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;">${name}</a>`;
     acctInfo.innerHTML = info;
+    console.log(uid)
 }
 
 const loggedOutNav = () => {
@@ -99,7 +99,7 @@ const handleNewLogIn = (auth, email, password) => {
                 console.log("Error updating auth username: ", error);
             });
 
-        loggedInNav(name);
+        loggedInNav(name, user.uid);
         storeProfile(user.uid, email, fName, lName, gradYear, major, university, user);
     })
     .catch(function(error){
