@@ -1,6 +1,6 @@
 
 // listen for auth status changes
-auth.onAuthStateChanged(user =>{ // returns null if user logs out
+auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
         loggedInNav(user.displayName);
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
@@ -20,6 +20,7 @@ const loggedOutNav = () => {
     const acctInfo = document.getElementById('rightNavItems');
     acctInfo.innerHTML = '';
 }
+
 const displayUserInfo = (uid) => {
     db.collection("users").doc(uid).get()
         .then(function(querySnapshot){
@@ -33,6 +34,7 @@ const displayUserInfo = (uid) => {
                 <a class="btn btn-outline-dark reserve" onclick="logOutUser()" role="button">    Log out    </a>`         
         })
 }
+
 // login 
 const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (e) => {
