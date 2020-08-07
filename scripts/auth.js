@@ -12,9 +12,11 @@ auth.onAuthStateChanged(user =>{ // returns null if user logs out
 const loggedInNav = (user) => {
     const acctInfo = document.getElementById('rightNavItems');
     var fullName = user.displayName;
-    var name = fullName.split(" ", 1);
-    
-    let info = `<img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;"><a>${name}    </a>`;
+    var name = fullName.split(" ", 1);    
+    let uid = user.uid;
+
+    let info = `<a data-toggle="modal" onclick="displayUserInfo('${uid}')" data-target="#modal-account"><img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;">${name}    </a>`;
+    //onclick="logOutUser('${uid}')"
     //info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
     acctInfo.innerHTML = info;
 }
@@ -22,7 +24,19 @@ const loggedOutNav = () => {
     const acctInfo = document.getElementById('rightNavItems');
     acctInfo.innerHTML = '';
 }
-
+const displayUserInfo = (uid) => {
+    db.collection("users").doc(uid).get()
+        .then(function(querySnapshot){
+            let userInfo = querySnapshot.data();
+            var modalContent = document.getElementById('modal-account-content');
+            modalContent.innerHTML = `<p style="color: #888;">Logged in as:</p><br><h2>${userInfo.firstName}<br>${userInfo.lastName}</h2><br>
+                <p>${userInfo.university}</p>
+                <p>Class of ${userInfo.gradYear}</p>
+                <p>${userInfo.major}</p>
+                <p>${userInfo.email}</p><br>
+                <a class="btn btn-outline-dark reserve" onclick="logOutUser()" role="button">    Log out    </a>`         
+        })
+}
 // login 
 const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', (e) => {
@@ -62,13 +76,15 @@ signupForm.addEventListener('submit', (e) => {
 
 const storeProfile = (email, fName, lName, gradYear, major, university, user) => {
     let docTitle = user.uid;
+    var defaultStatus = false;
     db.collection("users").doc(docTitle).set({
         email: email,
         firstName: fName,
         lastName: lName,
         gradYear: gradYear,
         major: major,
-        university: university
+        university: university,
+        isAdmin: defaultStatus
     })
     .catch((error) => {
         console.log("Error storing user info: ", error);
@@ -85,6 +101,12 @@ const handleNewLogIn = (auth, email, password) => {
         const major = signupForm['major'].value;
         const university = signupForm['school'].value;
         name = (fName + " " + lName)
+        
+        user.updateProfile({
+            displayName: name,
+        })
+        storeProfile(email, fName, lName, gradYear, major, university, user);
+
         })
         .catch(function(error){
             var errorMessage = error.message;
@@ -92,19 +114,16 @@ const handleNewLogIn = (auth, email, password) => {
             console.log("Error logging in user: ", error);
         }) 
 
-        user.updateProfile({
-            displayName: name,
-        })
         .catch(function(error) {
            console.log("Error updating auth username: ", error);
         });
-        storeProfile(email, fName, lName, gradYear, major, university, user);
 }
 
 // logout
 const logOutUser = (user) => {
     auth.signOut().then(() => {
         loggedOutNav()
+        $('#modal-account').modal("hide");
         console.log("user logged out")
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a><a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>        `
     })
