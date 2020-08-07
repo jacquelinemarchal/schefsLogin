@@ -55,11 +55,9 @@ db.collection('aug20events').get()
             id: doc.id
         }));
 
-        console.log(JSON.stringify(allEvents));
         for (let i = 1; i <= 7; i++) {
             const day = String(i);
             const dayEvents = allEvents.filter(event => event.festivalDay === day);
-            console.log(JSON.stringify(dayEvents));
             setupEvents(dayEvents, dayEvents.length, day);
         }
     })
