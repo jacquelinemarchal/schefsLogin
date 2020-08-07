@@ -71,6 +71,7 @@ a.reserve{
     padding-left: 1.6rem;
     align-items: center;
 }
+
 @media screen and (max-width: 935px) {
     img#hostPic{
         padding-right: 3rem;
