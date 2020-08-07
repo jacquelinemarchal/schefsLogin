@@ -2,22 +2,20 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user =>{ // returns null if user logs out
     if (user) { // when user logs in
-        loggedInNav(auth.currentUser)
+        loggedInNav(user.displayName);
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
     }
 })
 
 // after user creates account and logs out, refresh modal
 // NAV BAR UPDATES
-const loggedInNav = (user) => {
+const loggedInNav = (name) => {
     const acctInfo = document.getElementById('rightNavItems');
-    var fullName = user.displayName;
-    var name = fullName.split(" ", 1);
-    
-    let info = `<img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;"><a>${name}    </a>`;
+    const info = `<img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;"><a>${name}</a>`;
     //info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
     acctInfo.innerHTML = info;
 }
+
 const loggedOutNav = () => {
     const acctInfo = document.getElementById('rightNavItems');
     acctInfo.innerHTML = '';
@@ -35,11 +33,9 @@ loginForm.addEventListener('submit', (e) => {
         $('#modal-signup').modal("hide");
         loginForm.reset();
     }).catch((error) => {
-        var errorMessage = error.message;
-        alert(errorMessage);
         console.log("Error logging in user: ", error);
     });
-    })
+});
 
 // signup
 const signupForm = document.querySelector('#signup-form');
@@ -54,21 +50,19 @@ signupForm.addEventListener('submit', (e) => {
         $('#modal-welcome').modal("show");
     })
     .catch(function(error){
-        var errorMessage = error.message;
-        alert(errorMessage);
         console.log("Error logging in user: ", error);
-    }) 
-})
+    }); 
+});
 
-const storeProfile = (email, fName, lName, gradYear, major, university, user) => {
-    let docTitle = user.uid;
-    db.collection("users").doc(docTitle).set({
+const storeProfile = (userId, email, fName, lName, gradYear, major, university, user) => {
+    db.collection("users").doc(userId).set({
         email: email,
         firstName: fName,
         lastName: lName,
         gradYear: gradYear,
         major: major,
-        university: university
+        university: university,
+        isAdmin: false
     })
     .catch((error) => {
         console.log("Error storing user info: ", error);
@@ -76,29 +70,27 @@ const storeProfile = (email, fName, lName, gradYear, major, university, user) =>
 }
 
 const handleNewLogIn = (auth, email, password) => {
-    auth.signInWithEmailAndPassword(email, password).then(cred =>{
-        var user = auth.currentUser;
-        loggedInNav(auth.currentUser);
+    auth.signInWithEmailAndPassword(email, password).then(cred => {
         const fName = signupForm['firstName'].value;
         const lName = signupForm['lastName'].value;
         const gradYear = signupForm['gradYear'].value;
         const major = signupForm['major'].value;
         const university = signupForm['school'].value;
-        name = (fName + " " + lName)
-        })
-        .catch(function(error){
-            var errorMessage = error.message;
-            alert(errorMessage);
-            console.log("Error logging in user: ", error);
-        }) 
 
-        user.updateProfile({
-            displayName: name,
-        })
-        .catch(function(error) {
-           console.log("Error updating auth username: ", error);
-        });
-        storeProfile(email, fName, lName, gradYear, major, university, user);
+        const user = auth.currentUser;
+        const name = fName + " " + lName;
+
+        user.updateProfile({displayName: name})
+            .catch(function(error) {
+                console.log("Error updating auth username: ", error);
+            });
+
+        loggedInNav(name);
+        storeProfile(user.uid, email, fName, lName, gradYear, major, university, user);
+    })
+    .catch(function(error){
+        console.log("Error logging in user: ", error);
+    });
 }
 
 // logout

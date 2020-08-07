@@ -29,7 +29,7 @@ const displayHome = () => {
     state.pageDivHtml = '';
 
     // push state to history
-    window.history.pushState(state, null, 'index.html');
+    window.history.pushState(state, null, '');
     
     // render
     render();
@@ -47,7 +47,7 @@ const displayPage = (x, t) => {
                 state.indexDivStyle = 'display: none';
 
                 // push state to history
-                window.history.pushState(state, null, 'index.html');
+                window.history.pushState(state, null, '');
 
                 //render
                 render();            
