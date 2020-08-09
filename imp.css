@@ -1,6 +1,5 @@
 .container{
     display:contents;
-    font-size: 44px;
 }
 
 .aboutContainer{
@@ -9,6 +8,7 @@
 }
 a{
     cursor: pointer;
+    font-size: 16px;
 }
 
 .container-wrapper{

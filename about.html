@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Schefs - Friendship through Food</title>
+<title>About - Schefs</title>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="imp.css">
@@ -23,20 +23,16 @@
             <a href="/index.html" class="navbar-brand">
                 <img src="assets/logo.png" style="height: 34px;">
             </a>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav" style="font-size: 16px;" id="nav-items">
-                        <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-                        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> </ul>
-                        <div id="rightNavItems">
-                        </div>
-                      </div>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> </ul>
+            <div id="rightNavItems">
+                <div class="navbar-nav" style="font-size: 16px;" id="nav-items">
+                    <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+                    <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </div>
+</div>
     <br>
     <!--HEADING-->
     <div class="container">
@@ -115,7 +111,6 @@
         </div>
     </div>
 </div>
-    
 
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
@@ -128,7 +123,7 @@
                         <div class="form-group">
                             <label for="signup-email">Email address</label>
                             <input type="email" class="form-control" id="signup-email" required
-                                pattern="[a-z0-9]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
+                                pattern="[a-z0-9._%+-]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
                                 <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
                         </div>
                         <div class="form-group">
@@ -179,6 +174,7 @@
             </div>
         </div>
     </div>
+
     <div id="modal-logged-out" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;">
@@ -186,12 +182,14 @@
             </div>
         </div>
     </div>
+
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
             </div>
         </div>
     </div>
+
     <div id="modal-welcome" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;">
@@ -205,8 +203,24 @@
             </div>
         </div>
     </div>
-    
 </div>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
+            authDomain: "schefs.firebaseapp.com",
+            databaseURL: "https://schefs.firebaseio.com",
+            projectId: "schefs",
+            messagingSenderId: "1078198186854",
+            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
+            measurementId: "G-SFQEPY2PRN"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 

@@ -1,24 +1,24 @@
-
+const acctInfo = document.getElementById('rightNavItems');
 // listen for auth status changes
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
         loggedInNav(user.displayName, user.uid);
-        document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
+    }
+    else{
+        acctInfo.innerHTML = 
+        `<div class="navbar-nav" style="font-size: 16px;" id="nav-items">
+        <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>
+        </div>`;
     }
 })
 
 // after user creates account and logs out, refresh modal
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
-    const acctInfo = document.getElementById('rightNavItems');
     const info = `<a data-toggle="modal" onclick="displayUserInfo('${uid}')" data-target="#modal-account"><img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;">${name}</a>`;
     acctInfo.innerHTML = info;
     console.log(uid)
-}
-
-const loggedOutNav = () => {
-    const acctInfo = document.getElementById('rightNavItems');
-    acctInfo.innerHTML = '';
 }
 
 const displayUserInfo = (uid) => {
@@ -110,9 +110,7 @@ const handleNewLogIn = (auth, email, password) => {
 // logout
 const logOutUser = (user) => {
     auth.signOut().then(() => {
-        loggedOutNav()
         $('#modal-account').modal("hide");
-        console.log("user logged out")
         document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a><a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>        `
     })
     .catch(function(error) {
