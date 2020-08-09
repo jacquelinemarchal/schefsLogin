@@ -42,7 +42,6 @@ loginForm.addEventListener('submit', (e) => {
     const email = loginForm['login-email'].value;
     const password = loginForm['login-password'].value; 
     auth.signInWithEmailAndPassword(email, password).then(cred =>{
-        console.log(cred.user);
         loginForm.reset();
         $('#modal-signup').modal("hide");
         loginForm.reset();
@@ -70,7 +69,6 @@ signupForm.addEventListener('submit', (e) => {
 
 const storeProfile = (userId, email, fName, lName, gradYear, major, university, user) => {
     db.collection("users").doc(userId).set({
-
         email: email,
         firstName: fName,
         lastName: lName,
