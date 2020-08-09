@@ -26,7 +26,7 @@ const displayUserInfo = (uid) => {
         .then(function(querySnapshot){
             let userInfo = querySnapshot.data();
             var modalContent = document.getElementById('modal-account-content');
-            modalContent.innerHTML = `<p style="color: #888;">Logged in as:</p><br><h2>${userInfo.firstName}<br>${userInfo.lastName}</h2><br>
+            modalContent.innerHTML = `<p style="color: #888;">Logged in as:</p><br><h2><b>${userInfo.firstName}<br>${userInfo.lastName}</b></h2><br>
                 <p>${userInfo.university}</p>
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
