@@ -4,45 +4,44 @@ $('.modal').on('shown.bs.modal', function () {
 
 var switchSignUp = true;
 const showSignUp = () => {
-    const signupForm = document.getElementById("signup-form");
-    if (switchSignUp){
-        if (switchLogIn) {
-            switchLogIn = false;
-            showLogIn();
-        }
-        signupForm.setAttribute("style", "display:inline");
-        switchSignUp = false;
+  const signupForm = document.getElementById("signup-form");
+  if (switchSignUp){
+    if (switchLogIn = true){
+      switchLogIn=false;
+      showLogIn()
     }
-    else {
-        signupForm.setAttribute("style", "display:none");
-        switchSignUp = true;
-    }
-    return false;
+    signupForm.setAttribute("style", "display:inline");
+    switchSignUp = false;
+  }
+  else{
+    signupForm.setAttribute("style", "display:none");
+    switchSignUp = true;
+  }
+  return false;
 }
-
 var switchLogIn = true;
 const showLogIn = () => {
-    const loginForm = document.getElementById("login-form");
-    if (switchSignUp) {
-        switchSignUp = false;
-        showSignUp();
-    }
-
-    if (switchLogIn){
-        loginForm.setAttribute("style", "display:inline");
-        switchLogIn = false;
-    }
-    else{
-        loginForm.setAttribute("style", "display:none");
-        switchLogIn = true;
-    }
-    return false;
+  if (switchSignUp = true){
+    switchSignUp=false;
+    showSignUp()
+  }
+  const loginForm = document.getElementById("login-form");
+  if (switchLogIn){
+    loginForm.setAttribute("style", "display:inline");
+    switchLogIn = false;
+  }
+  else{
+    loginForm.setAttribute("style", "display:none");
+    switchLogIn = true;
+  }
+  return false;
 }
 
 const hideExpandedContent = () => {
-    loginForm.setAttribute("style", "display:none");
-    signupForm.setAttribute("style", "display:none");
+  loginForm.setAttribute("style", "display:none");
+  signupForm.setAttribute("style", "display:none");
 }
+
 
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
