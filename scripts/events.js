@@ -87,16 +87,6 @@ const generateEventPage = (eventData, eventId, time, size) => {
                 <div class="row">
                     <div class="col-md-7">
                         <h1 id="title">${eventData.title}</h1>
-                        <div id="soldOut-item-mobile" style="${soldOutStyle}">
-                            <p id="mobileHost">SOLD OUT</p>
-                        </div>
-                        <div id="reserve-item-mobile" style="${reserveStyle}">
-                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${eventData.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
-                        </div>
-                        <div id="login-item-mobile" style="${loginStyle}">
-                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup" id="mobileHost">LOGIN TO RESERVE</a>
-                        </div>
-                        <p id="mobileHost" class="ticket-count">${remainingTickets} / 7 spots available</p>
                         <p>${eventData.mealType} • ${time}</p>
                            <img src="${eventData.thumb}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
@@ -104,7 +94,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <h2>What to prepare:</h1>
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
-                            <h2>Hosted by: ${name}</h2>
+                            <p>Hosted by: ${name}</p><br>
                                 <img src="${eventData.prof}" alt="..." id="hostMobilePic">
                             <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div>
@@ -114,13 +104,13 @@ const generateEventPage = (eventData, eventId, time, size) => {
     
                     <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
                         <div id="soldOut-item" style="${soldOutStyle}">
-                            <h2>SOLD OUT</h2>
+                            <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
                         </div>
                         <div id="reserve-item" style="${reserveStyle}">
                             <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${eventData.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a>
                         </div>
                         <div id="login-item" style="${loginStyle}">
-                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">LOGIN TO RESERVE</a>
+                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE</a>
                         </div>
                         <p class="ticket-count">${remainingTickets} / 7 spots available</p>
                         <p>Hosted by: </p>
@@ -135,7 +125,21 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                         <br><div class="hostBio"> ${eventData.bio}</div>
                     </div>
-                </div> 
+                </div>         
+            </div>
+            <div class="footer">
+                <div class="row" id="fixed-footer">
+                    <p id="mobileHost" class="ticket-count">${remainingTickets} / 7 spots available</p>
+                    <div id="soldOut-item-mobile" style="${soldOutStyle}">
+                        <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
+                    </div>
+                    <div id="reserve-item-mobile" style="${reserveStyle}">
+                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${eventData.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                    </div>
+                    <div id="login-item-mobile" style="${loginStyle}">
+                        <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup" id="mobileHost">RESERVE</a>
+                    </div>
+                </div>
             </div>
         </div>
     `
@@ -162,7 +166,7 @@ const triggerReserve = (title, eventId) => {
             .catch(err => {
                 console.log('Error adding ticket: ', err);
                 modalContent.innerHTML = `
-                    <p>Failed to reserve your ticket. Please contact schefs.us@gmail.com</p>
+                    <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
                 `;
             });
     } else {

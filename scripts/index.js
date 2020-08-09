@@ -1,7 +1,13 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
-
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 10) {
+        $('#navBar').addClass('floatingNav');
+    } else {
+        $('#navBar').removeClass('floatingNav');
+    }
+});
 var switchSignUp = true;
 const showSignUp = () => {
   const signupForm = document.getElementById("signup-form");

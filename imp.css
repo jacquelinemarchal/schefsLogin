@@ -6,6 +6,22 @@
     display:contents;
     font-size: 44px;
 }
+.navbar{
+    position: fixed;
+    transition: 0.2s;
+    display: flex;
+    font-family: 'Roboto', sans-serif; 
+    padding-right: 4rem; 
+    padding-left: 4rem; 
+    padding-bottom: 1rem; 
+    padding-top: 1rem;
+    flex-direction: row;
+}
+
+.floatingNav {
+    box-shadow: 0px 1px 10px #999;
+}
+  
 a{
     cursor: pointer;
     font-size: 16px;
@@ -21,6 +37,7 @@ p{
 }
 .ticket-count{
     color: #888;
+    padding-top: 1rem;
 }
 
 h1,h2, small{
@@ -91,6 +108,9 @@ a.reserve{
       height: 27vh;
       overflow-y: scroll;
     }
+    #fixed-footer{
+        display: none;
+    }
     div#hostInfo{
         position: fixed;
     }
@@ -107,9 +127,23 @@ a.reserve{
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 768px) {
+    #fixed-footer{
+        display: inline-block;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        width: 100%;
+        background-color: white;
+        text-align: center;
+        box-shadow: 0px 1px 10px #999;
+    }
+
     div.hostBio{
         font-size: 2vw;
     }
+
     div#hostInfo{
         display:none;
     }

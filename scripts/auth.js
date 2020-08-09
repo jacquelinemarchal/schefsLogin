@@ -1,4 +1,4 @@
-const acctInfo = document.getElementById('rightNavItems');
+const acctInfo = document.getElementById('nav-items-right');
 // listen for auth status changes
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
@@ -6,17 +6,17 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
     }
     else{
         acctInfo.innerHTML = 
-        `<div class="navbar-nav" style="font-size: 16px;" id="nav-items">
-        <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>
-        </div>`;
+        `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
 })
 
 // after user creates account and logs out, refresh modal
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
-    const info = `<a data-toggle="modal" onclick="displayUserInfo('${uid}')" data-target="#modal-account"><img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 1px;">${name}</a>`;
+    const info = ` <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
+                    <a data-toggle="modal" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
+                    <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`;
     acctInfo.innerHTML = info;
     console.log(uid)
 }
