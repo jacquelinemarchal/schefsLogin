@@ -55,11 +55,17 @@ const pageDiv = document.getElementById("pageView");
 db.collection('aug20events').get()
     .then(snap => {
         let allEvents = [];
+        
+        // get all events from db
         snap.forEach(doc => allEvents.push({
             ...doc.data(),
             id: doc.id
         }));
 
+        // sort by time
+        allEvents.sort((e1, e2) => e1.time - e2.time);
+
+        // filter by festivalDay
         for (let i = 1; i <= 7; i++) {
             const day = String(i);
             const dayEvents = allEvents.filter(event => event.festivalDay === day);
@@ -67,8 +73,6 @@ db.collection('aug20events').get()
         }
     })
     .catch(err => console.log('Error getting events: ', err));
-
-var eventFileName = [];
 
 const setupEvents = (data, num, day) => {
     // where num is total number of elements
@@ -101,15 +105,14 @@ const setupEvents = (data, num, day) => {
         time += "/" + year + " ";
 
         var hour = event.time.toDate().getHours();
-        if (hour <= 12){
+        if (hour < 12){
             time += hour + "am EST";
         }
-        else{
-            hour-=12;
+        else {
+            if (hour !== 12)
+                hour -= 12;
             time += hour + "pm EST";
         }
-        var link = event.title.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "");
-        eventFileName.push(link);
 
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
