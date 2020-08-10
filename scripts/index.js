@@ -66,7 +66,7 @@ db.collection('aug20events').get()
             setupEvents(dayEvents, dayEvents.length, day);
         }
     })
-    .catch(err => console.log('Error getting events: ', error));
+    .catch(err => console.log('Error getting events: ', err));
 
 var eventFileName = [];
 
