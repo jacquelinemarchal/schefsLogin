@@ -91,7 +91,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                            <img src="${eventData.thumb}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
                         <br>
-                        <h2>What to prepare:</h1>
+                        <p>What to prepare:</p>
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
                             <p>Hosted by: ${name}</p><br>

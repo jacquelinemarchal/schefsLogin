@@ -121,6 +121,9 @@ a.reserve{
     a#mobileHost{
         display: none;
     }
+    #mobileHome{
+        display: none;
+    }
     div#mobileHost{
         display: none;
     }
@@ -141,6 +144,13 @@ a.reserve{
         padding-bottom: 1rem; 
         padding-top: 1rem;
         flex-direction: row;
+    }
+
+    #mobileHome{
+        display: inline-block;
+    }
+    #desktopHome{
+        display: none;
     }
 
     #fixed-footer{
