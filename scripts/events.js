@@ -97,7 +97,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                             <p>Hosted by: ${name}</p><br>
                                 <img src="${eventData.prof}" alt="..." id="hostMobilePic">
                             <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
-                            <br><div class="hostBio"> <p>${eventData.bio}</p></div>
+                            <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
                         <br><br>
                     </div>
@@ -129,7 +129,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
             </div>
             <div class="footer">
                 <div class="row" id="fixed-footer">
-                    <p id="mobileHost" class="ticket-count">${remainingTickets} / 7 spots available</p>
+                    <p id="mobileReserve" class="ticket-count">${remainingTickets} / 7 spots available</p>
                     <div id="soldOut-item-mobile" style="${soldOutStyle}">
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
                     </div>

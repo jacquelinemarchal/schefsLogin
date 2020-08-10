@@ -15,10 +15,9 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
     const info = ` <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
-                    <a data-toggle="modal" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
+                    <a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
                     <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`;
     acctInfo.innerHTML = info;
-    console.log(uid)
 }
 
 const displayUserInfo = (uid) => {
@@ -111,7 +110,6 @@ const handleNewLogIn = (auth, email, password) => {
 const logOutUser = (user) => {
     auth.signOut().then(() => {
         $('#modal-account').modal("hide");
-        document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a><a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>        `
     })
     .catch(function(error) {
         console.log("Error signing user out: ", error);
