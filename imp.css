@@ -100,7 +100,7 @@ a.reserve{
 }
 
 /* If the screen size is 768px wide or more, set the font-size of <div> to 80px */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 767px) {
     div.hostBio{
       font-family:'Roboto', sans-serif;
       /*border-style: solid;
@@ -130,7 +130,7 @@ a.reserve{
 }
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .navbar{
         position: fixed;
         transition: 0.2s;
