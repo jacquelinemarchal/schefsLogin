@@ -71,8 +71,8 @@ const generateEventPage = (eventData, eventId, time, size) => {
     if (eventId === "urFSMEh8ziRrILjPU2mX"){ 
         capacity = 15;
         remainingTickets = 15;
-
-        if (size > 20){
+        
+        if (size > 15){
             remainingTickets = 0;
             reserveStyle = 'display: none;';
             loginStyle = 'display: none;';
