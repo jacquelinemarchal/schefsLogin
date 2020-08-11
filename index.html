@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="imp.css">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="icon" href="assets/favicon.png">
+<script src="/assets/js/src/moment.js"></script>
+<script src="/assets/js/src/momenttz.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
@@ -106,7 +108,7 @@
                         <div class="form-group">
                             <label for="signup-email">Email address</label>
                             <input type="email" class="form-control" id="signup-email" required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu" required aria-describedby="emailHelp">
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
                                 <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
                         </div>
                         <div class="form-group">
@@ -187,6 +189,7 @@
         </div>
     </div>
 </div>
+
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
