@@ -130,6 +130,12 @@ a.reserve{
     p#mobileHost{
         display:none;
     }
+    #mobilePrepare{
+        display: none;
+    }
+    #webPrepare{
+        display: inline-block;
+    }
 }
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
@@ -145,7 +151,12 @@ a.reserve{
         padding-top: 1rem;
         flex-direction: row;
     }
-
+    #mobilePrepare{
+        display: inline-block;
+    }
+    #webPrepare{
+        display: none;
+    }
     #mobileHome{
         display: inline-block;
     }

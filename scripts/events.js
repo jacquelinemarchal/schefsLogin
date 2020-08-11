@@ -93,7 +93,8 @@ const generateEventPage = (eventData, eventId, time, size) => {
                            <img src="${eventData.thumb}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
                         <br>
-                        <p>What to prepare:</p>
+                        <h2 id="webPrepare">What to prepare:</h2>
+                        <b><p id="mobilePrepare">What to prepare:</p></b>
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
                             <p>Hosted by: ${name}</p><br>
@@ -149,6 +150,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
 
 const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
+    debugger;
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const name = auth.currentUser.displayName;
