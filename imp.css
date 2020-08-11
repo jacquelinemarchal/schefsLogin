@@ -2,10 +2,6 @@
     display:contents;
 }
 
-.aboutContainer{
-    display:contents;
-    font-size: 44px;
-}
 .navbar{
     position: fixed;
     transition: 0.2s;
@@ -137,7 +133,6 @@ a.reserve{
         display: inline-block;
     }
 }
-  
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
     .navbar{

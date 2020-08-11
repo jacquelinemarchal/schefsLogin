@@ -97,7 +97,7 @@ const setupEvents = (data, num, day) => {
         const id = event.id;
 
         let time = '';
-        const month = event.time.toDate().getMonth().toString();
+        const month = (event.time.toDate().getMonth()+1).toString();
         time += month;
         const thisDay = event.time.toDate().getDate().toString();
         time += "/" + thisDay;
@@ -120,7 +120,7 @@ const setupEvents = (data, num, day) => {
             <a onclick="displayPage('${id}', '${time}')">
             <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-            <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p>
+            <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p>
             </div>
             </div>` //template string
         html += li; // fill 3-event-buffer
@@ -140,7 +140,7 @@ const setupEvents = (data, num, day) => {
                     <a href="" onclick="displayPage('${id}', '${time}')">
                     <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                    <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
+                    <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p> 
                     </div>
                     </div>`
                 remainder += secondToLast; // fill 3-event-buffer
@@ -155,7 +155,7 @@ const setupEvents = (data, num, day) => {
                     <a href="" onclick="displayPage('${id}', '${time}')">
                     <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                    <p style="font-size:16px;">Dinner • Columbia University<br>${time}</p> 
+                    <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p> 
                     </div>
                     </div>`
                 remainder += last;
