@@ -57,6 +57,7 @@ const displayPage = (eventId, time) => {
 
 // generate HTML for event page
 const generateEventPage = (eventData, eventId, time, size) => {
+    let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
     let loginStyle = '';
@@ -66,21 +67,42 @@ const generateEventPage = (eventData, eventId, time, size) => {
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
-    if (size > 14) {
-        remainingTickets = 0;
-        reserveStyle = 'display: none;';
-        loginStyle = 'display: none;';
-    } else {
-        if (size >= 6)
-            remainingTickets = 2;
-        else
-            remainingTickets = 7 - size;
+    // adapting to the anthropocene should be able to book 15 people
+    if (eventId === "urFSMEh8ziRrILjPU2mX"){ 
+        capacity = 15;
+        remainingTickets = 15;
 
-        soldOutStyle = 'display: none;';
-        if (auth.currentUser)
-            loginStyle = 'display: none;';
-        else
+        if (size > 20){
+            remainingTickets = 0;
             reserveStyle = 'display: none;';
+            loginStyle = 'display: none;';
+        }
+        else {
+            remainingTickets = 15 - size;
+            soldOutStyle = 'display: none;';
+            if (auth.currentUser)
+                loginStyle = 'display: none;';
+            else
+                reserveStyle = 'display: none;';
+        }
+    }
+    else{
+        if (size > 14) {
+            remainingTickets = 0;
+            reserveStyle = 'display: none;';
+            loginStyle = 'display: none;';
+        } else {
+            if (size >= 6)
+                remainingTickets = 2;
+            else
+                remainingTickets = 7 - size;
+    
+            soldOutStyle = 'display: none;';
+            if (auth.currentUser)
+                loginStyle = 'display: none;';
+            else
+                reserveStyle = 'display: none;';
+        }
     }
 
     return `
@@ -115,7 +137,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <div id="login-item" style="${loginStyle}">
                             <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE</a>
                         </div>
-                        <p class="ticket-count">${remainingTickets} / 7 spots available</p>
+                        <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3">
@@ -132,7 +154,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
             </div>
             <div class="footer">
                 <div class="row" id="fixed-footer">
-                    <p id="mobileReserve" class="ticket-count">${remainingTickets} / 7 spots available</p>
+                    <p id="mobileReserve" class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
                     <div id="soldOut-item-mobile" style="${soldOutStyle}">
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
                     </div>
