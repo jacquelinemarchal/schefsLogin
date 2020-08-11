@@ -1,10 +1,10 @@
-// set initial state 
+// set initial state
 let state = {
     indexDivStyle: '',  // empty style = being displayed
     pageDivHtml: ''     // empty page  = event page not rendered
 };
 
-// initialize history state 
+// initialize history state
 window.history.replaceState(state, null, '');
 
 // update display
@@ -28,7 +28,7 @@ const displayHome = () => {
     state.pageDivHtml = '';
 
     window.history.pushState(state, null, '');
-    
+
     render();
 }
 
@@ -62,6 +62,8 @@ const generateEventPage = (eventData, eventId, time, size) => {
     let loginStyle = '';
     let remainingTickets = 7;
 
+    // escape apostrophes & quotes
+    const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
     if (size > 14) {
@@ -108,7 +110,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                             <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
                         </div>
                         <div id="reserve-item" style="${reserveStyle}">
-                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${eventData.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a>
+                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a>
                         </div>
                         <div id="login-item" style="${loginStyle}">
                             <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE</a>
@@ -135,7 +137,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
                     </div>
                     <div id="reserve-item-mobile" style="${reserveStyle}">
-                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${eventData.title}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
                     </div>
                     <div id="login-item-mobile" style="${loginStyle}">
                         <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup" id="mobileHost">RESERVE</a>
