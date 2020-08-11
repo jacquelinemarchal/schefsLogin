@@ -66,7 +66,7 @@ signupForm.addEventListener('submit', (e) => {
     }); 
 });
 
-const storeProfile = (userId, email, fName, lName, gradYear, major, university, user) => {
+const storeProfile = (userId, email, fName, lName, gradYear, major, university, phone, user) => {
     db.collection("users").doc(userId).set({
         email: email,
         firstName: fName,
@@ -74,8 +74,8 @@ const storeProfile = (userId, email, fName, lName, gradYear, major, university, 
         gradYear: gradYear,
         major: major,
         university: university,
-        isAdmin: false
-
+        isAdmin: false,
+        phoneNumber: phone
     })
     .catch((error) => {
         console.log("Error storing user info: ", error);
@@ -89,6 +89,7 @@ const handleNewLogIn = (auth, email, password) => {
         const gradYear = signupForm['gradYear'].value;
         const major = signupForm['major'].value;
         const university = signupForm['school'].value;
+        const phone = signupForm['phone'].value;
 
         const user = auth.currentUser;
         const name = fName + " " + lName;
@@ -99,7 +100,7 @@ const handleNewLogIn = (auth, email, password) => {
             });
 
         loggedInNav(name, user.uid);
-        storeProfile(user.uid, email, fName, lName, gradYear, major, university, user);
+        storeProfile(user.uid, email, fName, lName, gradYear, major, university, user, phone);
     })
     .catch(function(error){
         console.log("Error logging in user: ", error);
