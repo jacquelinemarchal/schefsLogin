@@ -16,23 +16,16 @@
 </head>
 
 <body>
-<!-- NAVBAR -->
-<div class="container">
-    <div class="container-wrapper">
-        <nav class="navbar navbar-expand-sm bg-white fixed-top" style="font-family: 'Roboto', sans-serif; padding-left: 4rem; padding-right: 4rem; padding-bottom: 1rem; padding-top: 1rem;">
-            <a onclick="displayHome()" class="navbar-brand">
-                <img src="assets/logo.png" style="height: 34px;">
-            </a>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav" style="font-size: 16px;" id="nav-items">
-                        <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-                        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"> </ul>
-                        <div id="rightNavItems">
-                        </div>
-                      </div>
+    <!-- NAVBAR -->
+    <div class="container">
+        <div class="container-wrapper">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
+                <a onclick="displayHome()" class="navbar-brand mr-auto p-2">
+                    <img src="assets/logo.png" style="height: 34px;">
+                </a>
+                <div id="nav-items-right" style="display: flex;">
+                <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
+                <a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-signup">Sign In</a>
                 </div>
             </nav>
         </div>
@@ -42,15 +35,18 @@
     <div id="indexView">
         <div class="container">
             <div class="container-wrapper" style="padding-top: 4rem;">
-                <div class="row" style="font-family: 'Roboto', sans-serif;">
+                <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
                     <div class="col-sm-7" style="justify-content: right;" >
                         <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over a meal.</h1>
                     </div>
                     <div class="col-sm-5" style="font-size: 30px;">
                         1. Click on an event <br>
                         2. Reserve your ticket <br>
-                        3. Learn from and talk with college students from around the world.
+                        3. Learn from and talk with college students from around the world
                     </div>
+                </div>
+                <div id="mobileHome">
+                    <p>Multiplicities:<br>a week of themed learning experiences from students across the country</p>
                 </div>
                 <br><br>
                 <!-- EVENT LIST -->
@@ -99,7 +95,7 @@
 
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
                 <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
                 <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
@@ -108,8 +104,8 @@
                         <div class="form-group">
                             <label for="signup-email">Email address</label>
                             <input type="email" class="form-control" id="signup-email" required
-                                pattern="[a-z0-9]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Email must be a valid university address (.edu)</small>
+                                pattern="[a-z0-9._%+-]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
+                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
@@ -136,6 +132,11 @@
                             <label for="major">Major</label>
                             <input type="major" class="form-control" id="major" required>
                         </div>  
+                        <div class="form-group">
+                            <label for="signup-password">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" aria-describedby="phoneHelp">
+                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
+                        </div>
                         <button type="submit" class="btn btn-outline-dark">Submit</button>
                     </form>
                     <form id="login-form" style="display:none; align-items: center;">
@@ -146,6 +147,7 @@
                         <div class="form-group">
                             <label for="login-password">Password</label>
                             <input type="password" class="form-control" id="login-password" required>
+                            <small>Forgot your password? Email schefs.us@gmail.com</small>
                         </div>
                         <button type="submit" class="btn btn-outline-dark">Submit</button>
                     </form>
@@ -155,22 +157,29 @@
     </div>
 
     <div id="modal-logged-out" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;">
                 <h2>Success! You logged out</h2>
             </div>
         </div>
     </div>
 
+    <div id="modal-account" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
+            </div>
+        </div>
+    </div>
+
     <div id="modal-welcome" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;">
                 <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
             </div>
         </div>
     </div>
     <div id="modal-reserve" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
             </div>
         </div>

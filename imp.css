@@ -2,8 +2,29 @@
     display:contents;
 }
 
+.aboutContainer{
+    display:contents;
+    font-size: 44px;
+}
+.navbar{
+    position: fixed;
+    transition: 0.2s;
+    display: flex;
+    font-family: 'Roboto', sans-serif; 
+    padding-right: 3.5rem; 
+    padding-left: 3.5rem; 
+    padding-bottom: 1rem; 
+    padding-top: 1rem;
+    flex-direction: row;
+}
+
+.floatingNav {
+    box-shadow: 0px 1px 10px #999;
+}
+  
 a{
     cursor: pointer;
+    font-size: 16px;
 }
 
 .container-wrapper{
@@ -16,6 +37,7 @@ p{
 }
 .ticket-count{
     color: #888;
+    padding-top: 1rem;
 }
 
 h1,h2, small{
@@ -39,6 +61,10 @@ img#thumb{
     margin-bottom: 2rem; 
     inline-size: 100%; 
     border-radius: 10%;
+}
+
+.modal-content{
+    border-radius: 2rem;
 }
 
 img#hostPic{
@@ -66,6 +92,7 @@ a.reserve{
     padding-left: 1.6rem;
     align-items: center;
 }
+
 @media screen and (max-width: 935px) {
     img#hostPic{
         padding-right: 3rem;
@@ -73,7 +100,7 @@ a.reserve{
 }
 
 /* If the screen size is 768px wide or more, set the font-size of <div> to 80px */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 767px) {
     div.hostBio{
       font-family:'Roboto', sans-serif;
       /*border-style: solid;
@@ -85,10 +112,16 @@ a.reserve{
       height: 27vh;
       overflow-y: scroll;
     }
+    #fixed-footer{
+        display: none;
+    }
     div#hostInfo{
         position: fixed;
     }
     a#mobileHost{
+        display: none;
+    }
+    #mobileHome{
         display: none;
     }
     div#mobileHost{
@@ -100,22 +133,63 @@ a.reserve{
 }
   
   /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
+    .navbar{
+        position: fixed;
+        transition: 0.2s;
+        display: flex;
+        font-family: 'Roboto', sans-serif; 
+        padding-right: 0.5rem; 
+        padding-left: 0.5rem; 
+        padding-bottom: 1rem; 
+        padding-top: 1rem;
+        flex-direction: row;
+    }
+
+    #mobileHome{
+        display: inline-block;
+    }
+    #desktopHome{
+        display: none;
+    }
+
+    #fixed-footer{
+        display: flex;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 1px 10px #999;
+    }
+
+    #fixed-footer p {
+        font-size: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #fixed-footer div {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     div.hostBio{
         font-size: 2vw;
     }
+
     div#hostInfo{
         display:none;
-    }
-    a#mobileHost{
-        margin-bottom: 1rem;
     }
     .container-wrapper{
         margin-left: 1rem;
         margin-right: 1rem;
-    }
-    a#mobileReserve{
-        display: none;
     }
 }
 

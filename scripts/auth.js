@@ -1,24 +1,37 @@
-
+const acctInfo = document.getElementById('nav-items-right');
 // listen for auth status changes
-auth.onAuthStateChanged(user =>{ // returns null if user logs out
+auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
-        loggedInNav(auth.currentUser)
-        document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>`
+        loggedInNav(user.displayName, user.uid);
+    }
+    else{
+        acctInfo.innerHTML = 
+        `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
 })
 
 // after user creates account and logs out, refresh modal
 // NAV BAR UPDATES
-const loggedInNav = (user) => {
-    const acctInfo = document.getElementById('rightNavItems');
-    email = user.email;
-    let info = `<a>${email}    </a>`;
-    info += '<a class="nav-item my-2 my-sm-0" style="color:blue;" id="logout" data-toggle="modal" data-target="#modal-logged-out" onclick="logOutUser()"> log out</a>'
+const loggedInNav = (name, uid) => {
+    const info = ` <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
+                    <a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
+                    <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`;
     acctInfo.innerHTML = info;
 }
-const loggedOutNav = () => {
-    const acctInfo = document.getElementById('rightNavItems');
-    acctInfo.innerHTML = '';
+
+const displayUserInfo = (uid) => {
+    db.collection("users").doc(uid).get()
+        .then(function(querySnapshot){
+            let userInfo = querySnapshot.data();
+            var modalContent = document.getElementById('modal-account-content');
+            modalContent.innerHTML = `<p style="color: #888;">Logged in as:</p><br><h2><b>${userInfo.firstName}<br>${userInfo.lastName}</b></h2><br>
+                <p>${userInfo.university}</p>
+                <p>Class of ${userInfo.gradYear}</p>
+                <p>${userInfo.major}</p>
+                <p>${userInfo.email}</p><br>
+                <a class="btn btn-outline-dark reserve" onclick="logOutUser()" role="button">    Log out    </a>`         
+        })
 }
 
 // login 
@@ -28,16 +41,13 @@ loginForm.addEventListener('submit', (e) => {
     const email = loginForm['login-email'].value;
     const password = loginForm['login-password'].value; 
     auth.signInWithEmailAndPassword(email, password).then(cred =>{
-        console.log(cred.user);
         loginForm.reset();
         $('#modal-signup').modal("hide");
         loginForm.reset();
     }).catch((error) => {
-        var errorMessage = error.message;
-        alert(errorMessage);
         console.log("Error logging in user: ", error);
     });
-    })
+});
 
 // signup
 const signupForm = document.querySelector('#signup-form');
@@ -52,21 +62,20 @@ signupForm.addEventListener('submit', (e) => {
         $('#modal-welcome').modal("show");
     })
     .catch(function(error){
-        var errorMessage = error.message;
-        alert(errorMessage);
         console.log("Error logging in user: ", error);
-    }) 
-})
+    }); 
+});
 
-const storeProfile = (email, fName, lName, gradYear, major, university, user) => {
-    let docTitle = user.uid;
-    db.collection("users").doc(docTitle).set({
+const storeProfile = (userId, email, fName, lName, gradYear, major, university, user) => {
+    db.collection("users").doc(userId).set({
         email: email,
         firstName: fName,
         lastName: lName,
         gradYear: gradYear,
         major: major,
-        university: university
+        university: university,
+        isAdmin: false
+
     })
     .catch((error) => {
         console.log("Error storing user info: ", error);
@@ -74,37 +83,33 @@ const storeProfile = (email, fName, lName, gradYear, major, university, user) =>
 }
 
 const handleNewLogIn = (auth, email, password) => {
-    auth.signInWithEmailAndPassword(email, password).then(cred =>{
-        var user = auth.currentUser;
-        loggedInNav(auth.currentUser);
+    auth.signInWithEmailAndPassword(email, password).then(cred => {
         const fName = signupForm['firstName'].value;
         const lName = signupForm['lastName'].value;
         const gradYear = signupForm['gradYear'].value;
         const major = signupForm['major'].value;
         const university = signupForm['school'].value;
-        name = (fName + " " + lName)
-        })
-        .catch(function(error){
-            var errorMessage = error.message;
-            alert(errorMessage);
-            console.log("Error logging in user: ", error);
-        }) 
 
-        user.updateProfile({
-            displayName: name,
-        })
-        .catch(function(error) {
-           console.log("Error updating auth username: ", error);
-        });
-        storeProfile(email, fName, lName, gradYear, major, university, user);
+        const user = auth.currentUser;
+        const name = fName + " " + lName;
+
+        user.updateProfile({displayName: name})
+            .catch(function(error) {
+                console.log("Error updating auth username: ", error);
+            });
+
+        loggedInNav(name, user.uid);
+        storeProfile(user.uid, email, fName, lName, gradYear, major, university, user);
+    })
+    .catch(function(error){
+        console.log("Error logging in user: ", error);
+    });
 }
 
 // logout
 const logOutUser = (user) => {
     auth.signOut().then(() => {
-        loggedOutNav()
-        console.log("user logged out")
-        document.getElementById("nav-items").innerHTML= `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a><a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>        `
+        $('#modal-account').modal("hide");
     })
     .catch(function(error) {
         console.log("Error signing user out: ", error);

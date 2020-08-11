@@ -1,0 +1,40 @@
+service cloud.firestore {
+    match databases/{database}/documents {
+        match /aug20events/{event} {
+            // all access for admin
+            allow read, write: if request.auth != null
+                               && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin;
+
+            // read access for event info for all
+            allow read: if true;
+
+            match /tickets/{userId} {
+                // read access for tickets for admin
+                allow read: if request.auth != null
+                            && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin;
+
+                // create access for existing users not already holding a ticket
+                allow create: if request.auth != null 
+                              && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+                              && !exists(/databases/$(database)/documents/aug20events/$(event)/tickets/$(request.auth.uid));
+
+                // delete access for own ticket
+                allow delete: if request.auth != null
+                              && request.auth.uid == userId;
+            }   
+        }
+
+        match /users/{userId} {
+            // read access for admin
+            allow read: if request.auth != null
+                        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin;
+
+            // write/read access for self
+            allow get, update, delete: if request.auth != null
+                                       && request.auth.uid == userId;
+
+            // create access for non-authenticated users
+            allow create: if request.auth == null;
+        }
+    }
+}
