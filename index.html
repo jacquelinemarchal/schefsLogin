@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Schefs - Friendship through Food</title>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" href="imp.css">
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Schefs - Friendship through Food</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="imp.css">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/favicon.png">
+<script src="/assets/js/src/moment.js"></script>
+<script src="/assets/js/src/momenttz.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- NAVBAR -->
     <div class="container">
         <div class="container-wrapper">
-            <nav class="navbar navbar-expand-sm bg-white fixed-top" style="font-family: 'Roboto', sans-serif; padding-left: 4rem; padding-right: 4rem; padding-bottom: 1rem; padding-top: 1rem;">
-                <a href="" onclick="return backHome()" class="navbar-brand">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
+                <a onclick="displayHome()" class="navbar-brand mr-auto p-2">
                     <img src="assets/logo.png" style="height: 34px;">
                 </a>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav" style="font-size: 16px;">
-                    <!--   <a class="nav-item nav-link logged-in modal-trigger" data-toggle="modal" data-target="#modal-account">Account</a>
-                        <a class="nav-item nav-link logged-in modal-trigger" data-toggle="modal" data-target="#modal-create">Event Creator</a>
-                        <a class="nav-item nav-link" id="logout">Logout</a>--> 
-                        <a class="nav-item nav-link logged-out modal-trigger" data-toggle="modal" data-target="#modal-login">About</a>
-                        <a class="nav-item nav-link logged-out" data-toggle="modal" data-target="#modal-signup">Sign In</a>
-                    </div>
+                <div id="nav-items-right" style="display: flex;">
+                <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
+                <a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-signup">Sign In</a>
                 </div>
             </nav>
         </div>
     </div>
     <br>
-
     <!--HEADING-->
     <div id="indexView">
-        <div class="container" >
-            <div class="container-wrapper">
-                <div class="row" style="font-family: 'Roboto', sans-serif;">
+        <div class="container">
+            <div class="container-wrapper" style="padding-top: 4rem;">
+                <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
                     <div class="col-sm-7" style="justify-content: right;" >
-                        <h1>Schefs Festival: <br> Themed conversations over a meal, by and for college students.</h1>
-                        </div>
-                        <div class="col-sm-5" style="font-size: 30px;">
-                        1. Click on an event</a> <br>
+                        <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over a meal.</h1>
+                    </div>
+                    <div class="col-sm-5" style="font-size: 30px;">
+                        1. Click on an event <br>
                         2. Reserve your ticket <br>
-                        3. Learn from and talk with college students from around the world.
-                        </div>
+                        3. Learn from and talk with college students from around the world
+                    </div>
+                </div>
+                <div id="mobileHome">
+                    <p>Multiplicities:<br>a week of themed learning experiences from students across the country</p>
                 </div>
                 <br><br>
                 <!-- EVENT LIST -->
@@ -81,7 +82,7 @@
                     <p style="margin-bottom: 0;">Sunday, August 23rd</p>
                     <h2 style="margin-bottom: 2rem;">The Anthropocene</h2> 
                     <div class ="festivalDay7"></div>
-
+                </div>
                 <!-- <div class="col-sm-4" style="margin-bottom: 2rem;>
                         <div class="card border-0" style="max-width: 20rem;">
                             <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
@@ -94,49 +95,55 @@
             </div>
         </div>
     </div>
+    <div id="pageView" style="padding-top: 4rem;"></div>
+
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem" id="signup-content">
-                <div class="modal-header" id="signup-header">
-                    <h2>Sign up</h2>
-                </div>
-                    <form id="signup-form">
-                       <div class="form-group">
-                            <label for="signup-name">Full name</label>
-                            <input type="name" class="form-control" id="signup-name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-school">School</label>
-                            <input type="school" class="form-control" id="signup-school" required>
-                        </div>  
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
+                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
+                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
+                <div class="forms">
+                    <form id="signup-form" style="display:none; align-items: center;">
                         <div class="form-group">
                             <label for="signup-email">Email address</label>
-                            <input type="email" class="form-control" id="signup-email" 
-                                pattern="[a-z0-9]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Email must be a valid university address (.edu)</small>
+                            <input type="email" class="form-control" id="signup-email" required
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
+                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
                             <input type="password" class="form-control" id="signup-password" aria-describedby="passwordHelp">
                             <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="firstName" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="lastName" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School</label>
+                            <input type="school" class="form-control" id="school" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="gradYear">Expected graduation year</label>
+                            <input type="gradYear" class="form-control" id="gradYear" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="major">Major</label>
+                            <input type="major" class="form-control" id="major" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="signup-password">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" aria-describedby="phoneHelp">
+                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="pageView">
-
-    </div>
-
-    <!-- LOGIN  MODAL -->
-    <div id="modal-login" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem">
-                <div class="modal-header"><h2>Login</h2></div>
-                    <form id ="login-form">
+                    <form id="login-form" style="display:none; align-items: center;">
                         <div class="form-group">
                             <label for="login-email">Email address</label>
                             <input type="email" class="form-control" id="login-email" required>
@@ -144,48 +151,44 @@
                         <div class="form-group">
                             <label for="login-password">Password</label>
                             <input type="password" class="form-control" id="login-password" required>
+                            <small>Forgot your password? Email schefs.us@gmail.com</small>
                         </div>
-
-                        <button type="submit"> <a class="btn btn-outline-dark reserve" href="#" role="button">Submit</a>
-                        </button>
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
                     </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- ACCOUNT MODAL -->
+    <div id="modal-logged-out" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Success! You logged out</h2>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-account" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem">
-                <h4>Account details</h4><br />
-                <div class="account-details"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
             </div>
         </div>
     </div>
 
-    <!-- CREATE GUIDE MODAL -->
-    <div id="modal-create" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content" style="padding: 2rem">
-                <h4>Event Creator</h4><br />
-                <form id="create-form">
-                    <div class="form-group">
-                        <label for="title">Event title</label>
-                        <input type="text" id="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="date">Event date</label>
-                        <input type="date" id="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="university">Your university</label>
-                        <input type="text" id="university" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </form>
-            </div>  
+    <div id="modal-welcome" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
+            </div>
         </div>
     </div>
+    <div id="modal-reserve" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
         // Your web app's Firebase configuration
