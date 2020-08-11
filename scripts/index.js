@@ -114,8 +114,8 @@ const setupEvents = (data, num, day) => {
             time += hour + "pm";
         }*/ 
         const event_datetime = event.time.toDate();
-        const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY, h:mm A, z');
-        const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY, h:mm A, z');
+        const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
+        const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
    
 
         const li = `
