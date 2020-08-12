@@ -60,15 +60,18 @@ const displayPage = (eventId, time) => {
 
 // generate HTML for event page
 const generateEventPage = (eventData, eventId, time, size) => {
-    let uid = auth.currentUser.uid;
-    db.collection("users").doc(uid).get()
-        .then(snap => {
-            const user = snap.data();
-            if (user.isAdmin === true){
-                showEventAttendees();
-            }
-        })
-        .catch(err => console.log('Error getting user: ', err));
+    if (auth.currentUser){
+        let uid = auth.currentUser.uid;
+        db.collection("users").doc(uid).get()
+            .then(snap => {
+                const user = snap.data();
+                if (user.isAdmin === true){
+                    showEventAttendees();
+                }
+            })
+            .catch(err => console.log('Error getting user: ', err));
+    }
+
     let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
