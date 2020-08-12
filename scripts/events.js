@@ -40,9 +40,9 @@ const displayPage = (eventId, time) => {
     ticketsRef.get()
         .then(snap => {
             const size = snap.size;
-            snap.forEach(attendee => {
+            //snap.forEach(attendee => {
                // console.log(attendee.data())
-            })
+           // })
             eventRef.get()
                 .then(snap => {
                     const eventData = snap.data(); 
