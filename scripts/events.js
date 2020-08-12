@@ -40,6 +40,9 @@ const displayPage = (eventId, time) => {
     ticketsRef.get()
         .then(snap => {
             const size = snap.size;
+            //snap.forEach(attendee => {
+               // console.log(attendee.data())
+           // })
             eventRef.get()
                 .then(snap => {
                     const eventData = snap.data(); 
@@ -57,6 +60,15 @@ const displayPage = (eventId, time) => {
 
 // generate HTML for event page
 const generateEventPage = (eventData, eventId, time, size) => {
+    let uid = auth.currentUser.uid;
+    db.collection("users").doc(uid).get()
+        .then(snap => {
+            const user = snap.data();
+            if (user.isAdmin === true){
+                showEventAttendees();
+            }
+        })
+        .catch(err => console.log('Error getting user: ', err));
     let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
@@ -132,10 +144,10 @@ const generateEventPage = (eventData, eventId, time, size) => {
                             <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
                         </div>
                         <div id="reserve-item" style="${reserveStyle}">
-                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a>
+                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
                         </div>
                         <div id="login-item" style="${loginStyle}">
-                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE</a>
+                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
                         </div>
                         <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
                         <p>Hosted by: </p>
@@ -172,16 +184,20 @@ const generateEventPage = (eventData, eventId, time, size) => {
 
 const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
-    debugger;
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const name = auth.currentUser.displayName;
         const uid = auth.currentUser.uid;
 
-        db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
+        db.collection("users").doc(uid).get()
+        .then(snap => {
+            const user = snap.data();
+            const phone = user.phoneNumber
+            db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
             .set({
                 email: email,
-                name: name
+                name: name,
+                phoneNumber: phone
              })
             .then(() => {
                 console.log('Success');
@@ -195,6 +211,7 @@ const triggerReserve = (title, eventId) => {
                     <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
                 `;
             });
+        })
     } else {
         console.log('Error: User not logged in anymore');
         modalContent.innerHTML = `
@@ -220,4 +237,8 @@ auth.onAuthStateChanged(user => {
         }
     }
 });
+
+const showEventAttendees = () =>{
+    console.log("show event attendees")
+}
 
