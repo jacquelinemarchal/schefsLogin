@@ -40,21 +40,6 @@ const displayPage = (eventId, time) => {
     ticketsRef.get()
         .then(snap => {
             const attendeeData = snap;
-            if (auth.currentUser){
-                let uid = auth.currentUser.uid;
-                db.collection("users").doc(uid).get()
-                    .then(snap => {
-                        const user = snap.data();
-                        if (user.isAdmin === true){
-                            let allAttendees = [];
-                            attendeeData.forEach(attendee => allAttendees.push({
-                                ...attendee.data()
-                            }));
-                            showEventAttendees(allAttendees);
-                        }
-                    })
-                    .catch(err => console.log('Error getting user: ', err));
-            }
             const size = snap.size;
             eventRef.get()
                 .then(snap => {
@@ -65,6 +50,20 @@ const displayPage = (eventId, time) => {
                     window.history.pushState(state, null, '');
 
                     render();
+
+                    if (auth.currentUser) {
+                        const uid = auth.currentUser.uid;
+                        db.collection('users').doc(uid).get().then(userSnap => {
+                            if (userSnap.data().isAdmin) {
+                                let allAttendees = [];
+                                attendeeData.forEach(attendee => allAttendees.push({
+                                    ...attendee.data()
+                                }));
+                                showEventAttendees(allAttendees);
+                            }
+                        })
+                        .catch(err => console.log('Error getting tickets: ', err));
+                    }
                 })
                 .catch(err => console.log('Error getting event document: ', err));
         })
@@ -72,8 +71,7 @@ const displayPage = (eventId, time) => {
 }
 
 // generate HTML for event page
-const generateEventPage = (eventData, eventId, time, size) => {
-    
+const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
@@ -234,6 +232,7 @@ const triggerReserve = (title, eventId) => {
 // listen for auth changes to update reserve/login button
 auth.onAuthStateChanged(user => {
     const soldOutItem = document.getElementById("soldOut-item");
+    const adminItem = document.getElementById("admin-item");
     if (soldOutItem && soldOutItem.getAttribute('style') !== 'display: none') {
         if (user) {
             document.getElementById("reserve-item").setAttribute('style', 'display: inline;');
