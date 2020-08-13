@@ -39,6 +39,22 @@ const displayPage = (eventId, time) => {
 
     ticketsRef.get()
         .then(snap => {
+            const attendeeData = snap;
+            if (auth.currentUser){
+                let uid = auth.currentUser.uid;
+                db.collection("users").doc(uid).get()
+                    .then(snap => {
+                        const user = snap.data();
+                        if (user.isAdmin === true){
+                            let allAttendees = [];
+                            attendeeData.forEach(attendee => allAttendees.push({
+                                ...attendee.data()
+                            }));
+                            showEventAttendees(allAttendees);
+                        }
+                    })
+                    .catch(err => console.log('Error getting user: ', err));
+            }
             const size = snap.size;
             eventRef.get()
                 .then(snap => {
@@ -57,30 +73,54 @@ const displayPage = (eventId, time) => {
 
 // generate HTML for event page
 const generateEventPage = (eventData, eventId, time, size) => {
+    
+    let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
     let loginStyle = '';
+    let adminStyle = 'display: none;';
     let remainingTickets = 7;
 
     // escape apostrophes & quotes
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
-    if (size > 14) {
-        remainingTickets = 0;
-        reserveStyle = 'display: none;';
-        loginStyle = 'display: none;';
-    } else {
-        if (size >= 6)
-            remainingTickets = 2;
-        else
-            remainingTickets = 7 - size;
-
-        soldOutStyle = 'display: none;';
-        if (auth.currentUser)
-            loginStyle = 'display: none;';
-        else
+    // one anthropocene event should be able to book 15 people
+    if (eventId === "SRWp7iAWdWOtiVzNMCWY"){ 
+        capacity = 15;
+        remainingTickets = 15;
+        
+        if (size > 15){
+            remainingTickets = 0;
             reserveStyle = 'display: none;';
+            loginStyle = 'display: none;';
+        }
+        else {
+            remainingTickets = 15 - size;
+            soldOutStyle = 'display: none;';
+            if (auth.currentUser)
+                loginStyle = 'display: none;';
+            else
+                reserveStyle = 'display: none;';
+        }
+    }
+    else{
+        if (size > 14) {
+            remainingTickets = 0;
+            reserveStyle = 'display: none;';
+            loginStyle = 'display: none;';
+        } else {
+            if (size >= 6)
+                remainingTickets = 2;
+            else
+                remainingTickets = 7 - size;
+    
+            soldOutStyle = 'display: none;';
+            if (auth.currentUser)
+                loginStyle = 'display: none;';
+            else
+                reserveStyle = 'display: none;';
+        }
     }
 
     return `
@@ -110,12 +150,15 @@ const generateEventPage = (eventData, eventId, time, size) => {
                             <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
                         </div>
                         <div id="reserve-item" style="${reserveStyle}">
-                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE</a>
+                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
                         </div>
                         <div id="login-item" style="${loginStyle}">
-                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE</a>
+                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
                         </div>
-                        <p class="ticket-count">${remainingTickets} / 7 spots available</p>
+                        <div id="admin-item" style="${adminStyle}">
+                        <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
+                        </div>
+                        <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3">
@@ -132,7 +175,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
             </div>
             <div class="footer">
                 <div class="row" id="fixed-footer">
-                    <p id="mobileReserve" class="ticket-count">${remainingTickets} / 7 spots available</p>
+                    <p id="mobileReserve" class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
                     <div id="soldOut-item-mobile" style="${soldOutStyle}">
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
                     </div>
@@ -147,22 +190,28 @@ const generateEventPage = (eventData, eventId, time, size) => {
         </div>
     `
 }
-
+let totalTix = 48;
 const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
-    debugger;
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const name = auth.currentUser.displayName;
         const uid = auth.currentUser.uid;
 
-        db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
+        db.collection("users").doc(uid).get()
+        .then(snap => {
+            const user = snap.data();
+            const phone = user.phoneNumber
+            db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
             .set({
                 email: email,
-                name: name
+                name: name,
+                phoneNumber: phone
              })
             .then(() => {
+                totalTix ++;
                 console.log('Success');
+                console.log(totalTix)
                 modalContent.innerHTML = `
                     <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
                 `;
@@ -173,6 +222,7 @@ const triggerReserve = (title, eventId) => {
                     <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
                 `;
             });
+        })
     } else {
         console.log('Error: User not logged in anymore');
         modalContent.innerHTML = `
@@ -199,3 +249,23 @@ auth.onAuthStateChanged(user => {
     }
 });
 
+const showEventAttendees = (array) =>{
+    document.getElementById("admin-item").setAttribute('style', 'display: inline;');
+    const modalAdminEvent = document.getElementById('event-admin-content');
+    let guestList = `<a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSiteData()" role="button" style="margin-bottom: 1rem;">Site Wide</a><br><table>`;
+    let justEmails = `<p> Just emails: </p>`
+    let count = 0;
+    array.forEach(attendee => {
+        count ++;
+        guestList += `<tr><th>${attendee.name}</th><th>${attendee.email}</th><th>${attendee.phoneNumber}</th>`
+        justEmails += `<p>${attendee.email}</p>`
+    })
+    guestList += `</table <br> <b><p> ${count} guests</b></p>`;
+    guestList += justEmails;
+    modalAdminEvent.innerHTML = guestList;
+}
+
+const showSiteData = () => {
+    const modalAdminSite = document.getElementById('site-admin-content');
+    modalAdminSite.innerHTML = `<p>Total Festival Tickets Reserved: ${totalTix}</p>`
+}

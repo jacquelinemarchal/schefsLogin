@@ -48,14 +48,12 @@ const hideExpandedContent = () => {
   signupForm.setAttribute("style", "display:none");
 }
 
-
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
 
 db.collection('aug20events').get()
     .then(snap => {
         let allEvents = [];
-        
         // get all events from db
         snap.forEach(doc => allEvents.push({
             ...doc.data(),
@@ -114,17 +112,16 @@ const setupEvents = (data, num, day) => {
             time += hour + "pm";
         }*/ 
         const event_datetime = event.time.toDate();
-        const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY, h:mm A, z');
-        const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY, h:mm A, z');
+        const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
+        const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
    
-
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
             <a onclick="displayPage('${id}', '${time}')">
-            <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;"></a>
+            <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;">
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-            <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p>
+            <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
             </div>
             </div>` //template string
         html += li; // fill 3-event-buffer
@@ -142,9 +139,9 @@ const setupEvents = (data, num, day) => {
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
                     <a href="" onclick="displayPage('${id}', '${time}')">
-                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
+                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                    <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p> 
+                    <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
                     </div>
                     </div>`
                 remainder += secondToLast; // fill 3-event-buffer
@@ -157,9 +154,9 @@ const setupEvents = (data, num, day) => {
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
                     <a href="" onclick="displayPage('${id}', '${time}')">
-                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;"></a>
+                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                    <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p> 
+                    <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
                     </div>
                     </div>`
                 remainder += last;
