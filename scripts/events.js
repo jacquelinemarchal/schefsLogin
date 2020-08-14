@@ -83,7 +83,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
     const name = eventData.firstName + " " + eventData.lastName;
 
     // adapting to the anthropocene should be able to book 15 people
-    if (eventId === "urFSMEh8ziRrILjPU2mX"){ 
+    if (eventId === "SRWp7iAWdWOtiVzNMCWY"){ 
         capacity = 15;
         remainingTickets = 15;
         
