@@ -71,6 +71,7 @@ const displayPage = (eventId, time) => {
 }
 
 // generate HTML for event page
+
 const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
     let soldOutStyle = '';
@@ -154,6 +155,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                             <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
                         </div>
                         <div id="admin-item" style="${adminStyle}">
+
                         <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                         </div>
                         <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
@@ -210,6 +212,7 @@ const triggerReserve = (title, eventId) => {
                 totalTix ++;
                 console.log('Success');
                 console.log(totalTix)
+
                 modalContent.innerHTML = `
                     <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
                 `;
