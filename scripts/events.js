@@ -155,7 +155,6 @@ const generateEventPage = (eventData, eventId, time, size) => {
                             <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
                         </div>
                         <div id="admin-item" style="${adminStyle}">
-
                         <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                         </div>
                         <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
@@ -254,7 +253,7 @@ auth.onAuthStateChanged(user => {
 const showEventAttendees = (array) =>{
     document.getElementById("admin-item").setAttribute('style', 'display: inline;');
     const modalAdminEvent = document.getElementById('event-admin-content');
-    let guestList = `<a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSiteData()" role="button" style="margin-bottom: 1rem;">Site Wide</a><br><table>`;
+    let guestList = `<br><table>`;
     let justEmails = `<p> Just emails: </p>`
     let count = 0;
     array.forEach(attendee => {

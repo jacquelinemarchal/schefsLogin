@@ -46,7 +46,7 @@ loginForm.addEventListener('submit', (e) => {
         loginForm.reset();
     }).catch((error) => {
         console.log("Error logging in user: ", error);
-        alert(`Error logging in: ${error}`);
+        alert(`${error}`);
     });
 });
 
@@ -64,7 +64,7 @@ signupForm.addEventListener('submit', (e) => {
     })
     .catch(function(error){
         console.log("Error logging in user: ", error);
-        alert(`Error creating account. Please contact schefs.us@gmail.com`);
+        alert(`${error}`);
     }); 
 });
 
@@ -106,7 +106,7 @@ const handleNewLogIn = (auth, email, password) => {
     })
     .catch(function(error){
         console.log("Error logging in user: ", error);
-        alert(`Error logging in: ${error}`);
+        alert(`${error}`);
     });
 }
 
