@@ -48,14 +48,12 @@ const hideExpandedContent = () => {
   signupForm.setAttribute("style", "display:none");
 }
 
-
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
 
 db.collection('aug20events').get()
     .then(snap => {
         let allEvents = [];
-        
         // get all events from db
         snap.forEach(doc => allEvents.push({
             ...doc.data(),
@@ -117,7 +115,6 @@ const setupEvents = (data, num, day) => {
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
    
-
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">

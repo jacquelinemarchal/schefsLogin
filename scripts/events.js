@@ -40,6 +40,22 @@ const displayPage = (eventId, time) => {
     ticketsRef.get()
         .then(snap => {
             const attendeeData = snap;
+            if (auth.currentUser){
+                let uid = auth.currentUser.uid;
+                db.collection("users").doc(uid).get()
+                    .then(snap => {
+                        const user = snap.data();
+                        if (user.isAdmin === true){
+                            let allAttendees = [];
+                            attendeeData.forEach(attendee => allAttendees.push({
+                                ...attendee.data()
+                            }));
+                            showEventAttendees(allAttendees);
+                        }
+                    })
+                    .catch(err => console.log('Error getting user: ', err));
+            }
+
             const size = snap.size;
             eventRef.get()
                 .then(snap => {
@@ -71,12 +87,14 @@ const displayPage = (eventId, time) => {
 }
 
 // generate HTML for event page
+const generateEventPage = (eventData, eventId, time, size) => {
+
 const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
     let loginStyle = '';
-    let adminStyle = 'display: none;';
+ // let adminStyle = 'display: inline;';
     let remainingTickets = 7;
 
     // escape apostrophes & quotes
@@ -153,7 +171,8 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <div id="login-item" style="${loginStyle}">
                             <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
                         </div>
-                        <div id="admin-item" style="${adminStyle}">
+                        <div id="admin-item" style="display: none;">
+
                         <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                         </div>
                         <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
@@ -245,7 +264,7 @@ auth.onAuthStateChanged(user => {
 });
 
 const showEventAttendees = (array) =>{
-    document.getElementById("admin-item").setAttribute('style', 'display: inline;');
+//document.getElementById("admin-item").setAttribute('style', 'display: inline;');
     const modalAdminEvent = document.getElementById('event-admin-content');
     let guestList = `<table>`;
     let justEmails = `<p> Just emails: </p>`
@@ -257,5 +276,5 @@ const showEventAttendees = (array) =>{
     })
     guestList += `</table <br> <b><p> ${count} guests</b></p>`;
     guestList += justEmails;
-    console.log(guestList);
-   // modalAdminEvent.innerHTML = guestList;}
+    modalAdminEvent.innerHTML = guestList;
+}

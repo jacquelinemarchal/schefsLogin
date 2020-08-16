@@ -1,6 +1,21 @@
 .container{
     display:contents;
 }
+table {
+    font-family:'Roboto', sans-serif;
+    font-size:20px;
+    border-collapse: collapse;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 
 .navbar{
     position: fixed;
@@ -61,6 +76,9 @@ img#thumb{
 
 .modal-content{
     border-radius: 2rem;
+}
+.admin-modal{
+    width: auto;
 }
 
 img#hostPic{
