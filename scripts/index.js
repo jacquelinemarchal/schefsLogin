@@ -114,12 +114,16 @@ const setupEvents = (data, num, day) => {
         const event_datetime = event.time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
+        let opacity = ''
+        //if (day == 1){
+          //  opacity = 'opacity: 0.45;'
+        //}
    
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
             <a onclick="displayPage('${id}', '${time}')">
-            <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;">
+            <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%; ${opacity}">
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
             </div>
@@ -139,7 +143,7 @@ const setupEvents = (data, num, day) => {
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
                     <a href="" onclick="displayPage('${id}', '${time}')">
-                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
+                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%; ${opacity}">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
                     <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
                     </div>
@@ -154,7 +158,7 @@ const setupEvents = (data, num, day) => {
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
                     <a href="" onclick="displayPage('${id}', '${time}')">
-                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
+                    <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%; ${opacity}">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
                     <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
                     </div>
