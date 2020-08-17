@@ -2,7 +2,12 @@ const acctInfo = document.getElementById('nav-items-right');
 // listen for auth status changes
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
-        loggedInNav(user.displayName, user.uid);
+        db.collection("users").doc(user.uid).get()
+        .then((snap) => {
+            let userDB = snap.data();
+            let fullName = `${userDB.firstName} ${userDB.lastName}`
+            loggedInNav(fullName, user.uid)
+        })
     }
     else{
         acctInfo.innerHTML = 
