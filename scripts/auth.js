@@ -50,6 +50,7 @@ loginForm.addEventListener('submit', (e) => {
         $('#modal-signup').modal("hide");
         loginForm.reset();
     }).catch((error) => {
+        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
         console.log("Error logging in user: ", error);
     });
 });
@@ -68,6 +69,7 @@ signupForm.addEventListener('submit', (e) => {
     })
     .catch(function(error){
         console.log("Error logging in user: ", error);
+        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
     }); 
 });
 
@@ -108,6 +110,7 @@ const handleNewLogIn = (auth, email, password) => {
         storeProfile(user.uid, email, fName, lName, gradYear, major, university, phone);
     })
     .catch(function(error){
+        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
         console.log("Error logging in user: ", error);
     });
 }
