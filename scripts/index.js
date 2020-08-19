@@ -115,7 +115,7 @@ const setupEvents = (data, num, day) => {
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
         let opacity = ''
-        if (day == 1){
+        if (day == 1 || day == 2){
             opacity = 'opacity: 0.45;'
         }
    
