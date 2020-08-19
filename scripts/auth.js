@@ -2,7 +2,12 @@ const acctInfo = document.getElementById('nav-items-right');
 // listen for auth status changes
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
-        loggedInNav(user.displayName, user.uid);
+        db.collection("users").doc(user.uid).get()
+        .then((snap) => {
+            let userDB = snap.data();
+            let fullName = `${userDB.firstName} ${userDB.lastName}`
+            loggedInNav(fullName, user.uid)
+        })
     }
     else{
         acctInfo.innerHTML = 
@@ -45,8 +50,8 @@ loginForm.addEventListener('submit', (e) => {
         $('#modal-signup').modal("hide");
         loginForm.reset();
     }).catch((error) => {
+        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
         console.log("Error logging in user: ", error);
-        alert(`Error logging in: ${error}`);
     });
 });
 
@@ -64,7 +69,7 @@ signupForm.addEventListener('submit', (e) => {
     })
     .catch(function(error){
         console.log("Error logging in user: ", error);
-        alert(`Error creating account. Please contact schefs.us@gmail.com`);
+        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
     }); 
 });
 
@@ -105,8 +110,8 @@ const handleNewLogIn = (auth, email, password) => {
         storeProfile(user.uid, email, fName, lName, gradYear, major, university, phone);
     })
     .catch(function(error){
+        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
         console.log("Error logging in user: ", error);
-        alert(`Error logging in: ${error}`);
     });
 }
 
