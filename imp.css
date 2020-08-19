@@ -132,6 +132,15 @@ a.reserve{
     div#hostInfo{
         position: fixed;
     }
+    div#mobileHostInterest{
+        display: none;
+    }
+    div#webHostInterest{
+        display: inline;
+    }
+    h2.sideZoomImgText{
+        padding-left:3rem;
+    }
     a#mobileHost{
         display: none;
     }
@@ -167,7 +176,20 @@ a.reserve{
     #mobilePrepare{
         display: inline-block;
     }
+    h2.sideZoomImgText{
+        font-size: 30px;
+        text-align:center;
+    }
+    h2{
+        font-size: 30px;
+    }
     #webPrepare{
+        display: none;
+    }    
+    div#mobileHostInterest{
+        display: inline;
+    } 
+    div#webHostInterest{
         display: none;
     }
     #mobileHome{

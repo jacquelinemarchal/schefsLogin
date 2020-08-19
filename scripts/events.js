@@ -194,13 +194,13 @@ const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
     if (auth.currentUser){
         const email = auth.currentUser.email;
-        const name = auth.currentUser.displayName;
         const uid = auth.currentUser.uid;
 
         db.collection("users").doc(uid).get()
         .then(snap => {
             const user = snap.data();
             const phone = user.phoneNumber
+            const name = `${user.firstName} ${user.lastName}`;
             db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
             .set({
                 email: email,
