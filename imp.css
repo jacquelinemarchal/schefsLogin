@@ -180,6 +180,9 @@ a.reserve{
         font-size: 30px;
         text-align:center;
     }
+    h2{
+        font-size: 30px;
+    }
     #webPrepare{
         display: none;
     }    
