@@ -115,10 +115,7 @@ const setupEvents = (data, num, day) => {
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
         let opacity = ''
-        if (day == 1 || day == 2 || day == 3|| day == 4 || day == 5){
-            opacity = 'opacity: 0.45;'
-        }
-   
+
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
