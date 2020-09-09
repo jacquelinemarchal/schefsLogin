@@ -47,9 +47,6 @@
 <link rel="stylesheet" href="imp.css">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="icon" href="assets/favicon.png">
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
@@ -57,262 +54,59 @@
 <body>
     <!-- NAVBAR -->
     <div class="container">
-        <div class="container-wrapper">
+        <div class="container-wrapper" style="margin-bottom: 34px">
             <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
                 <a href="/" class="navbar-brand mr-auto p-2">
                     <img src="assets/logo.png" style="height: 34px;">
                 </a>
-                <div id="nav-items-right" style="display: flex;">
-                <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
-                <a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-signup">Sign In</a>
-                </div>
             </nav>
         </div>
     </div>
     <br>
     <!--HEADING-->
     <div class="container">
-            <!-- Calendly inline widget begin -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/schefs-event/schefs-event?hide_event_type_details=1&primary_color=4d5055" style="min-width:320px;height:630px;"></div>
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
-<!-- Calendly inline widget end -->
-    </div>
-
-    <!-- SIGN UP MODAL -->
-    <div id="modal-signup" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
-                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
-                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
-                <div class="forms">
-                    <form id="signup-form" style="display:none; align-items: center;">
-                        <div class="form-group">
-                            <label for="signup-email">Email address</label>
-                            <input type="email" class="form-control" id="signup-email" required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-password">Password</label>
-                            <input type="password" class="form-control" id="signup-password" aria-describedby="passwordHelp">
-                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="firstName">First name</label>
-                            <input type="firstName" class="form-control" id="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last name</label>
-                            <input type="lastName" class="form-control" id="lastName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="school">School</label>
-                            <input type="school" class="form-control" id="school" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="gradYear">Expected graduation year</label>
-                            <input type="gradYear" class="form-control" id="gradYear" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="major">Major</label>
-                            <input type="major" class="form-control" id="major" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="signup-password">(Optional) Phone number</label>
-                            <input type="phone" class="form-control" aria-describedby="phoneHelp">
-                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
-                        </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
-                    </form>
-                    <form id="login-form" style="display:none; align-items: center;">
-                        <div class="form-group">
-                            <label for="login-email">Email address</label>
-                            <input type="email" class="form-control" id="login-email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" class="form-control" id="login-password" required>
-                            <small>Forgot your password? Email schefs.us@gmail.com</small>
-                        </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
-                    </form>
+        <div class="container-wrapper">
+            <div class="row">
+                <div class="col-md-7">
+                    <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>                    
+                    <p style="margin-bottom: 0; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
+                    <p><!-- Calendly link widget begin -->
+                        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+                        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+                        <a style="color:black; font-family:'Roboto', sans-serif;font-size:20px;"href="" onclick="Calendly.initPopupWidget({ url: 'https://calendly.com/schefs-event/schefs-event?primary_color=4d5055'});return false;">Choose a date</a>
+                        <!-- Calendly link widget end -->
+                    </p>
+                    <img src="assets/placeholder.png" style="width: 500px">
+                    <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Event Description..."></textarea>                 
                 </div>
-            </div>
+               
+                <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
+                    <a onclick="logResults()" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SUBMIT</a>
+                    <div class="row" style="margin-top:3rem;">
+                        <div class="col-sm-3">
+                            <img src="assets/profholder.png" style="border-radius: 90%;"alt="..." id="hostPic">
+                        </div>
+                        <div class="col-sm-1 offset-sm-1">
+                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name" required>  
+                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" required>                    
+                  
+                        </div>
+                    </div>
+                    <br><input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" required>                    
+                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year" required>                    
+                    <br><input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major" required>                    
+                    <br><textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..." required></textarea>                
+                </div>
+            </div>         
         </div>
-    </div>
 
-    <div id="modal-logged-out" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;">
-                <h2>Success! You logged out</h2>
-            </div>
-        </div>
     </div>
-
-    <div id="modal-account" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-welcome" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;">
-                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
-            </div>
-        </div>
-    </div>
-    <div id="modal-reserve" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
-            </div>
-        </div>
-    </div>
-</div>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
-            authDomain: "schefs.firebaseapp.com",
-            databaseURL: "https://schefs.firebaseio.com",
-            projectId: "schefs",
-            messagingSenderId: "1078198186854",
-            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
-            measurementId: "G-SFQEPY2PRN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
     <script src="scripts/auth.js"></script>
     <script src="scripts/index.js"></script>
     <script src="scripts/events.js"></script>
-
-</body>
-</html>
-
-
-    <!-- SIGN UP MODAL -->
-    <div id="modal-signup" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
-                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
-                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
-                <div class="forms">
-                    <form id="signup-form" style="display:none; align-items: center;">
-                        <div class="form-group">
-                            <label for="signup-email">Email address</label>
-                            <input type="email" class="form-control" id="signup-email" required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
-                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="signup-password">Password</label>
-                            <input type="password" class="form-control" id="signup-password" aria-describedby="passwordHelp">
-                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="firstName">First name</label>
-                            <input type="firstName" class="form-control" id="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last name</label>
-                            <input type="lastName" class="form-control" id="lastName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="school">School</label>
-                            <input type="school" class="form-control" id="school" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="gradYear">Expected graduation year</label>
-                            <input type="gradYear" class="form-control" id="gradYear" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="major">Major</label>
-                            <input type="major" class="form-control" id="major" required>
-                        </div>  
-                        <div class="form-group">
-                            <label for="signup-password">(Optional) Phone number</label>
-                            <input type="phone" class="form-control" aria-describedby="phoneHelp">
-                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
-                        </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
-                    </form>
-                    <form id="login-form" style="display:none; align-items: center;">
-                        <div class="form-group">
-                            <label for="login-email">Email address</label>
-                            <input type="email" class="form-control" id="login-email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" class="form-control" id="login-password" required>
-                            <small>Forgot your password? Email schefs.us@gmail.com</small>
-                        </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-logged-out" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;">
-                <h2>Success! You logged out</h2>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-account" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-welcome" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;">
-                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
-            </div>
-        </div>
-    </div>
-    <div id="modal-reserve" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
-            </div>
-        </div>
-    </div>
-</div>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
-            authDomain: "schefs.firebaseapp.com",
-            databaseURL: "https://schefs.firebaseio.com",
-            projectId: "schefs",
-            messagingSenderId: "1078198186854",
-            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
-            measurementId: "G-SFQEPY2PRN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
-    <script src="scripts/auth.js"></script>
-    <script src="scripts/index.js"></script>
-    <script src="scripts/events.js"></script>
-
+    <script src="scripts/eventBuilder.js"></script>
 </body>
 </html>

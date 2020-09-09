@@ -11,7 +11,7 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
     }
     else{
         acctInfo.innerHTML = 
-        `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+        `<a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a><a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
         <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
 })
@@ -19,7 +19,7 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
 // after user creates account and logs out, refresh modal
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
-    const info = ` <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
+    const info = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Event Builder</a> <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
                     <a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
                     <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`;
     acctInfo.innerHTML = info;
