@@ -1,3 +1,13 @@
+if (auth.currentUser){ 
+    console.log("Hellooo")
+    db.collection("users").doc(auth.currentUser.uid).get()
+    .then((snap) => {
+        let userDB = snap.data();
+        let fullName = `${userDB.firstName} ${userDB.lastName}`
+        console.log(fullName, user.uid)
+    })
+}
+
 saveChange = () => {
     var x = document.getElementById("myInput").value;
     console.log(x)
@@ -24,3 +34,5 @@ function countChars(obj){
         document.getElementById("charNum").innerHTML = strLength+' / '+maxLength+' characters';
     }
 }
+
+
