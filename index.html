@@ -14,6 +14,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="scripts/firebase.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
@@ -26,6 +27,7 @@
                     <img src="assets/logo.png" style="height: 34px;">
                 </a>
                 <div id="nav-items-right" style="display: flex;">
+                <a class="nav-item nav-link p-2" style="color: black;" href="eventBuilder.html">Event Builder</a>
                 <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
                 <a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-signup">Sign In</a>
                 </div>
@@ -165,6 +167,13 @@
             </div>
         </div>
     </div>
+    <div id="modal-build-prompt" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <p>You must be signed in to submit an event. Please make an account or log in. </p>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
@@ -197,23 +206,7 @@
         </div>
     </div>
 </div>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
-            authDomain: "schefs.firebaseapp.com",
-            databaseURL: "https://schefs.firebaseio.com",
-            projectId: "schefs",
-            messagingSenderId: "1078198186854",
-            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
-            measurementId: "G-SFQEPY2PRN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-    </script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
@@ -221,6 +214,8 @@
     <script src="assets/js/src/momenttz.js"></script>
     <script src="scripts/auth.js"></script>
     <script src="scripts/index.js"></script>
-    <script src="scripts/events.js"></script>
+    <script src="scripts/events.js"></script>    
+    <script src="scripts/userDisplay.js"></script>
+
 </body>
 </html>
