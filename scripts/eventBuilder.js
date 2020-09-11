@@ -1,12 +1,26 @@
-if (auth.currentUser){ 
-    console.log("Hellooo")
-    db.collection("users").doc(auth.currentUser.uid).get()
-    .then((snap) => {
-        let userDB = snap.data();
-        let fullName = `${userDB.firstName} ${userDB.lastName}`
-        console.log(fullName, user.uid)
-    })
-}
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 10) {
+        $('#navBar').addClass('floatingNav');
+    } else {
+        $('#navBar').removeClass('floatingNav');
+    }
+});
+$("#modal-welcome-build").modal()
+auth.onAuthStateChanged(user => {
+    if (user){
+        var uid = user.uid;
+        db.collection("users").doc(uid).get()
+        .then((querySnapshot) => {
+            let userInfo = querySnapshot.data();
+            document.getElementById("uniInput").value =`${userInfo.university}`; 
+            console.log('Hi')
+            document.getElementById("gradInput").value =`${userInfo.gradYear}`; 
+            document.getElementById("fnInput").value =`${userInfo.firstName}`; 
+            document.getElementById("lnInput").value =`${userInfo.lastName}`; 
+            document.getElementById("majorInput").value =`${userInfo.major}`; 
+        })
+    }
+})
 
 saveChange = () => {
     var x = document.getElementById("myInput").value;
