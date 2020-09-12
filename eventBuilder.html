@@ -37,7 +37,7 @@
         <div class="container-wrapper" style="padding-top: 4rem;">
             <div class="row">
                 <div class="col-md-7">
-                    <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>                    
+                    <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>
                     <p style="margin-bottom: 0; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
                     <p><!-- Calendly link widget begin -->
                         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -46,34 +46,43 @@
                         <!-- Calendly link widget end -->
                     </p>
                     <img src="assets/placeholder.png" style="width: 500px">
-                    <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Event Description..."></textarea>                 
+                    <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="6" placeholder="My Event Description..."></textarea>
+                    <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="3" placeholder="Event requirements..."></textarea>
                 </div>
                
                 <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
-                    <a onclick="logResults()" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SUBMIT</a>
+                    <a onclick="logResults()" type="submit" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SUBMIT</a>
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
                             <img src="assets/profholder.png" style="border-radius: 90%;"alt="..." id="hostPic">
                         </div>
-                        <div class="offset-sm-1">
-                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name" required>  
-                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
-                            <small id="passwordHelp" class="form-text text-muted">Enter both names if you plan to co-host</small>                   
-                  
+                            <div class="offset-sm-1">
+                                <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name">  
+                                <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
+                                <small id="passwordHelp" class="form-text text-muted">Enter both names if you plan to co-host</small>
+                            </div>
                         </div>
-                    </div>
-                    <br><input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" value="Columbia University" required>                    
-                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year" required>                    
-                    <br><input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major" required>                    
-                    <br><textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..." required></textarea>                
+                        <br>
+                        <input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" value="Columbia University">
+                        <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
+                        <br>
+                        <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
+                        <br>
+                        <textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
+                    </form>
                 </div>
             </div>         
         </div>
     </div>
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
-            </div>
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content"></div>
+        </div>
+    </div>
+
+    <div id="modal-error" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-error-content"></div>
         </div>
     </div>
 

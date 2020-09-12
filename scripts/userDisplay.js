@@ -34,6 +34,15 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
-                <a class="btn btn-outline-dark reserve" onclick="logOutUser()" role="button">    Log out    </a>`         
+                <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`         
         })
+}
+const logOut = (user) => {
+    auth.signOut().then(() => {
+        $('#modal-account').modal("hide");
+        window.location.replace("/")
+    })
+    .catch(function(error) {
+        console.log("Error signing user out: ", error);
+    });
 }
