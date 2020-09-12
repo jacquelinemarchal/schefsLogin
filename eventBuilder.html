@@ -33,7 +33,14 @@
     </div>
     <br>
     <!--HEADING-->
-    <div class="container">
+    <div class="container" id="mobile-builder">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <br>
+            <h1 style="text-align: center; vertical-align: middle;">Sorry</h1>
+            <p style="text-align: center; vertical-align: middle">This page is only available on web</p>
+        </div>
+    </div>
+    <div class="container" id="builder-content">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <div class="row">
                 <div class="col-md-7">
@@ -65,7 +72,6 @@
                         <br>
                         <input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" value="Columbia University">
                         <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
-                        <br>
                         <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
                         <br>
                         <textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
@@ -85,10 +91,16 @@
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-error-content"></div>
         </div>
     </div>
-
+    <div id="modal-success" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-success-content">            
+                <h2 style="text-align: center;"><b>Success</b></h2><br>
+                <p>Your event has been submitted. We will get back to you soon</p></div>
+        </div>
+    </div>
     <div id="modal-welcome-build" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; ">
+            <div class="modal-content" style="padding: 2rem;">
                 <h2 style="text-align: center;"><b>Welcome to the Event Builder</b></h2><br>
                 <p>Your information is pre-loaded from your account information. You can change the fields if you wish by highlighting and re-typing what you wish.<br><br> When you are done, click submit and we will evaluate your event.</p>
             </div>

@@ -5,9 +5,9 @@ $(window).scroll(function() {
         $('#navBar').removeClass('floatingNav');
     }
 });
-
-$("#modal-welcome-build").modal()
-
+if (window.innerWidth > 915){
+    $("#modal-welcome-build").modal()
+}
 auth.onAuthStateChanged(user => {
     if (user){
         var uid = user.uid;
@@ -53,22 +53,28 @@ logResults = () => {
     var cc = document.getElementById("reqInput").value;
     var inputs = [x, y, z, a, b, c, aa, bb, cc]
 
+    // if any fields are left empty
     for (let i = 0; i < inputs.length; i++) {
+        var emptyInput = 0;
         if (inputs[i].length === 0){
+            emptyInput++
             document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please complete all fields</p>`
             $("#modal-error").modal()
-            //alert("Please complete all fields")
             break;
         }
+    }
+    if (emptyInput === 0){
+        createDocument(inputs)
     }
    // if (!isBooked){
       //  alert("Please schedule a date ")
     //}
-    createDocument(inputs);
+
+
 }
 
 createDocument = (inputs) => {
-    db.collection('aug20events').doc()
+    db.collection('testevents').doc()
     .set({
         title: `${inputs[0]}`,
         desc: `${inputs[1]}`,
@@ -87,7 +93,7 @@ createDocument = (inputs) => {
         thumb: "thumb"
      })
     .then(() => {
-        console.log('Success');
+        $("#modal-success").modal()
     })
     .catch(err => {
         console.log('Error adding event: ', err);

@@ -242,6 +242,23 @@ a.reserve{
         margin-right: 1rem;
     }
 }
+@media screen and (max-width: 915px) {
+    div#builder-content{
+        display:none;
+    }
+    div#mobile-content{
+        display:inline;
+    }
+}
+@media screen and (min-width: 915px) {
+    div#builder-content{
+        display:inline;
+    }
+    div#mobile-builder{
+        display:none;
+    }
+}
+
 
 ::-webkit-scrollbar {
     width: 5px;
@@ -260,3 +277,4 @@ a.reserve{
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
+
