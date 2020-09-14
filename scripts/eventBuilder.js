@@ -23,7 +23,7 @@ auth.onAuthStateChanged(user => {
         })
     }
 })
-
+var isBooked = false;
 isCalendlyEvent = (e) => {
     return e.data.event &&
            e.data.event.indexOf('calendly') === 0;
@@ -34,8 +34,9 @@ window.addEventListener(
     function(e) {
         if (isCalendlyEvent(e)) {
             if (e.data.event === "calendly.date_and_time_selected"){
-                console.log("switching")
-                //switchBookStatus();
+                    isBooked = true;
+                    console.log("switching")
+                    return true;
             }
         }
     }
@@ -52,7 +53,6 @@ logResults = () => {
     var bb = document.getElementById("lnInput").value;
     var cc = document.getElementById("reqInput").value;
     var inputs = [x, y, z, a, b, c, aa, bb, cc]
-
     // if any fields are left empty
     for (let i = 0; i < inputs.length; i++) {
         var emptyInput = 0;
@@ -63,14 +63,13 @@ logResults = () => {
             break;
         }
     }
-    if (emptyInput === 0){
+    if (emptyInput === 0 && isBooked){
         createDocument(inputs)
     }
-   // if (!isBooked){
-      //  alert("Please schedule a date ")
-    //}
-
-
+    if (!isBooked){            
+        document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please schedule a date</p>`
+        $("#modal-error").modal()
+    }
 }
 
 createDocument = (inputs) => {
@@ -94,6 +93,9 @@ createDocument = (inputs) => {
      })
     .then(() => {
         $("#modal-success").modal()
+        $('#modal-success').on('hidden.bs.modal', function () {
+            window.location.replace("/")
+        });
     })
     .catch(err => {
         console.log('Error adding event: ', err);
