@@ -37,7 +37,11 @@ a{
     cursor: pointer;
     font-size: 16px;
 }
-
+input, textarea{
+    border:none; 
+    outline: none; 
+    font-family:'Roboto', sans-serif;
+}
 .container-wrapper{
     margin-left: 4rem;
     margin-right: 4rem;
@@ -132,6 +136,15 @@ a.reserve{
     div#hostInfo{
         position: fixed;
     }
+    div#mobileHostInterest{
+        display: none;
+    }
+    div#webHostInterest{
+        display: inline;
+    }
+    h2.sideZoomImgText{
+        padding-left:3rem;
+    }
     a#mobileHost{
         display: none;
     }
@@ -167,7 +180,20 @@ a.reserve{
     #mobilePrepare{
         display: inline-block;
     }
+    h2.sideZoomImgText{
+        font-size: 30px;
+        text-align:center;
+    }
+    h2{
+        font-size: 30px;
+    }
     #webPrepare{
+        display: none;
+    }    
+    div#mobileHostInterest{
+        display: inline;
+    } 
+    div#webHostInterest{
         display: none;
     }
     #mobileHome{
@@ -216,6 +242,23 @@ a.reserve{
         margin-right: 1rem;
     }
 }
+@media screen and (max-width: 915px) {
+    div#builder-content{
+        display:none;
+    }
+    div#mobile-content{
+        display:inline;
+    }
+}
+@media screen and (min-width: 915px) {
+    div#builder-content{
+        display:inline;
+    }
+    div#mobile-builder{
+        display:none;
+    }
+}
+
 
 ::-webkit-scrollbar {
     width: 5px;
@@ -234,8 +277,7 @@ a.reserve{
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
-<<<<<<< Updated upstream
-=======
+
 
 #event-img:hover {
     cursor: pointer;
@@ -244,4 +286,3 @@ a.reserve{
 #hostPic:hover {
     cursor: pointer;
 }
->>>>>>> Stashed changes
