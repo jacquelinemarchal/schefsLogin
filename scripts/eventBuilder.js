@@ -95,7 +95,6 @@ createDocument = (inputs) => {
         $("#modal-success").modal()
         $('#modal-success').on('hidden.bs.modal', function () {
             window.location.replace("/")
-            // do something…
         });
     })
     .catch(err => {
