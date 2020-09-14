@@ -234,3 +234,14 @@ a.reserve{
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
+<<<<<<< Updated upstream
+=======
+
+#event-img:hover {
+    cursor: pointer;
+}
+
+#hostPic:hover {
+    cursor: pointer;
+}
+>>>>>>> Stashed changes
