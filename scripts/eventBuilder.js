@@ -122,4 +122,4 @@ const uploadImage = input => {
     freader.onloadend = event => {
         document.getElementById(input.name).src = event.target.result;
     }
-}
+} 
