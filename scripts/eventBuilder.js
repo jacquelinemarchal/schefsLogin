@@ -22,7 +22,7 @@ auth.onAuthStateChanged(user => {
             document.getElementById("majorInput").value =`${userInfo.major}`; 
         })
     }
-
+})
 var isBooked = false;
 isCalendlyEvent = (e) => {
     return e.data.event &&
@@ -122,6 +122,4 @@ const uploadImage = input => {
     freader.onloadend = event => {
         document.getElementById(input.name).src = event.target.result;
     }
-}
-
 }
