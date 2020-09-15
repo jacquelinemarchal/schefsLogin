@@ -22,7 +22,7 @@ auth.onAuthStateChanged(user => {
             document.getElementById("majorInput").value =`${userInfo.major}`; 
         })
     }
-
+})
 var isBooked = false;
 isCalendlyEvent = (e) => {
     return e.data.event &&
