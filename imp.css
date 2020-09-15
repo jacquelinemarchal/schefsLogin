@@ -1,21 +1,45 @@
 .container{
     display:contents;
 }
+
+.container-wrapper{
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+div#banner{
+    overflow-x: hidden;
+    background-color:#F6FFBE; 
+    height:20rem; 
+    width:auto
+}
+#banner-text{
+    margin-left: 4rem;
+    margin-right: 4rem;
+    color: black; 
+}
+
+input#email-signup{
+    margin-left: 4rem;
+    margin-right: 4rem;
+    background-color:#F6FFBE; 
+
+}
+
 table {
     font-family:'Roboto', sans-serif;
     font-size:20px;
     border-collapse: collapse;
-  }
+}
   
-  td, th {
+td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-  }
+}
   
-  tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #dddddd;
-  }
+}
 
 .navbar{
     position: fixed;
@@ -38,10 +62,6 @@ a{
     font-size: 16px;
 }
 
-.container-wrapper{
-    margin-left: 4rem;
-    margin-right: 4rem;
-}
 p{
     font-family:'Roboto', sans-serif;
     font-size:20px;
