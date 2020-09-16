@@ -23,6 +23,13 @@ const loggedInNav = (name, uid) => {
                     <a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
                     <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`;
     acctInfo.innerHTML = info;
+    if (document.getElementById("mailing-form")){
+        document.getElementById("mailing-form").setAttribute('style', 'display:none;')
+        document.getElementById("unlogged-banner-info").innerHTML = '';
+        document.getElementById("mobile-mailing-form").setAttribute('style', 'display:none;')
+        document.getElementById("mobile-unlogged-banner-info").innerHTML = '';
+        
+    }
 }
 
 const displayUserInfo = (uid) => {

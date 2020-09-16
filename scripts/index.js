@@ -1,6 +1,16 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
+
+window.addEventListener("resize", checkWidth = () => {
+    console.log("resieze")
+    if (window.innerWidth < 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "<br>";
+    }
+    if (window.innerWidth > 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "";
+    }
+});
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
         $('#navBar').addClass('floatingNav');
