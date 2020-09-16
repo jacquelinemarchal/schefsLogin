@@ -9,8 +9,28 @@
 div#banner{
     overflow-x: hidden;
     background-color:#F6FFBE; 
-    height:20rem; 
+    height:auto; 
     width:auto
+}
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+#email-signup{
+    width:35%;
+    border:none;
+    border-bottom:
+    2px solid black;
+    outline:none;
+    font-size: 30px;
+    margin-bottom:2rem;
 }
 #banner-text{
     margin-left: 4rem;
@@ -180,7 +200,7 @@ a.reserve{
         display: inline-block;
     }
 }
-  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  /* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
     .navbar{
         position: fixed;
@@ -205,7 +225,10 @@ a.reserve{
     }
     #webPrepare{
         display: none;
-    }    
+    } 
+    #banner{
+        display: none;
+    }   
     div#mobileHostInterest{
         display: inline;
     } 
