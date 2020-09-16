@@ -1,6 +1,16 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
+
+window.addEventListener("resize", checkWidth = () => {
+    console.log("resieze")
+    if (window.innerWidth < 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "<br>";
+    }
+    if (window.innerWidth > 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "";
+    }
+});
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
         $('#navBar').addClass('floatingNav');
@@ -94,23 +104,6 @@ const setupEvents = (data, num, day) => {
         rowCheck++;
         const id = event.id;
 
-        /*
-        const month = (event.time.toDate().getMonth()+1).toString();
-        time += month;
-        const thisDay = event.time.toDate().getDate().toString();
-        time += "/" + thisDay;
-        const year = event.time.toDate().getFullYear().toString();
-        time += "/" + year + " ";
-
-        var hour = event.time.toDate().getHours();
-        if (hour < 12){
-            time += hour + "am";
-        }
-        else {
-            if (hour !== 12)
-                hour -= 12;
-            time += hour + "pm";
-        }*/ 
         const event_datetime = event.time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
@@ -131,7 +124,6 @@ const setupEvents = (data, num, day) => {
 
         if (rowCheck%3 === 0){  // when to make a new row and empty buffer
             document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
-            //html = '';
         }
         else{
             // last line, make sure to print out incomplete rows!
@@ -166,3 +158,25 @@ const setupEvents = (data, num, day) => {
         }
     });
 } 
+
+// mailing-list addition
+const mailingForm = document.querySelector('#mailing-form');
+mailingForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    var date = new Date();
+    var timestamp = date.getTime();
+    const name = mailingForm['name-mailing-signup'].value;
+    const email = mailingForm['email-mailing-signup'].value;
+    db.collection('mailinglist').doc()
+    .set({
+        firstName: `${name}`,
+        email: `${email}`,
+        time: timestamp
+    })
+    .then(() => {
+        $("#modal-thank-you").modal()
+    })
+    .catch(err => {
+        console.log('Error adding user to mailing list: ', err);
+    });
+});

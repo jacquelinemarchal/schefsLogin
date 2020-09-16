@@ -36,7 +36,27 @@
     <!--HEADING-->
     <div id="indexView">
         <div class="container">
-            <div class="container-wrapper" style="padding-top: 4rem;">
+            <div id="banner">
+                <h1 class="banner-text" style="margin-top: 5rem;"> The Schefs team is busy working to revamp our platform and launch more events starting in October...</h1>
+                <p class="banner-text" id="unlogged-banner-info" style="font-size: 30px;">...drop your info to stay in the loop.</p>
+                <form id="mailing-form" class="mailing">
+                    <input type="text" placeholder="First Name" class="mailing" id="name-mailing-signup" required><i id="breakpoint-banner"></i>
+                    <input type="text" placeholder="Email" class="mailing" id="email-mailing-signup" required>
+                    <button type="submit" id="mailing-button"><i class="arrow right"></i></button>
+                </form>
+            </div>
+            <div id="mobile-banner">
+                <p style="margin-top: 5rem; padding-left: 1rem; padding-right: 1rem;"> The Schefs team is busy working to revamp our platform and launch more events starting in October...</p>
+                <p id="mobile-unlogged-banner-info" style="padding-left: 1rem; padding-right: 1rem;">...drop your info to stay in the loop.</p>
+                <form id="mobile-mailing-form" class="mailing">
+                    <input type="text" placeholder="First Name" class="mailing" id="mobile-name-mailing-signup" required><i id="breakpoint-banner"></i>
+                    <input type="text" placeholder="Email" class="mailing" id="mobile-email-mailing-signup" required>
+                    <div style="display: flex;justify-content: center;align-items: center; margin-bottom: 1rem;">
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="container-wrapper" style="padding-top: 2rem;">
                 <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
                     <div class="col-sm-7" style="justify-content: right;" >
                         <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over <s>a meal</s> Zoom.</h1>
@@ -193,6 +213,13 @@
     <div id="modal-reserve" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-thank-you" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
             </div>
         </div>
     </div>
