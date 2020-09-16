@@ -148,25 +148,21 @@ const setupEvents = (data, num, day) => {
         }
     });
 } 
-var uid = '';
 
-auth.onAuthStateChanged(user => {
-    if (user){
-        uid = user.uid;
-    }
-})
-console.log(uid)
 // mailing-list addition
 const mailingForm = document.querySelector('#mailing-form');
-
 mailingForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    var date = new Date();
+    var timestamp = date.getTime();
     const name = mailingForm['name-mailing-signup'].value;
     const email = mailingForm['email-mailing-signup'].value;
     db.collection('mailinglist').doc()
     .set({
         firstName: `${name}`,
-        email: `${email}`
-     })
+        email: `${email}`,
+        time: timestamp
+    })
     .then(() => {
         $("#modal-thank-you").modal()
     })
