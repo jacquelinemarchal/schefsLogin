@@ -18,12 +18,21 @@ div#banner{
     display: inline-block;
     padding: 4px;
 }
-
+#mailing-button{
+    overflow-x: auto; 
+    box-shadow: 0 8px 15px -6px #999;
+    background:white;
+    border-radius: 50%; 
+    width: 3rem;
+    height: 3rem;
+    outline:none;
+    border:none;
+}
 .right {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
 }
-#email-signup{
+#email-mailing-signup, #name-mailing-signup{
     width:35%;
     border:none;
     border-bottom:
@@ -31,18 +40,14 @@ div#banner{
     outline:none;
     font-size: 30px;
     margin-bottom:2rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    background-color:#F6FFBE; 
 }
 #banner-text{
     margin-left: 4rem;
     margin-right: 4rem;
     color: black; 
-}
-
-input#email-signup{
-    margin-left: 4rem;
-    margin-right: 4rem;
-    background-color:#F6FFBE; 
-
 }
 
 table {
