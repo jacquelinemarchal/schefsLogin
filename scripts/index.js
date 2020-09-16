@@ -148,7 +148,14 @@ const setupEvents = (data, num, day) => {
         }
     });
 } 
+var uid = '';
 
+auth.onAuthStateChanged(user => {
+    if (user){
+        uid = user.uid;
+    }
+})
+console.log(uid)
 // mailing-list addition
 const mailingForm = document.querySelector('#mailing-form');
 
