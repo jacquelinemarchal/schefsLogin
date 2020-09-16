@@ -153,7 +153,17 @@ const setupEvents = (data, num, day) => {
 const mailingForm = document.querySelector('#mailing-form');
 
 mailingForm.addEventListener('submit', (e) => {
-    const name = mailingForm['name-mailing-signup'].value; 
-    const email = mailingForm['email-mailing-signup'].value; 
-    
+    const name = mailingForm['name-mailing-signup'].value;
+    const email = mailingForm['email-mailing-signup'].value;
+    db.collection('mailinglist').doc()
+    .set({
+        firstName: `${name}`,
+        email: `${email}`
+     })
+    .then(() => {
+        $("#modal-thank-you").modal()
+    })
+    .catch(err => {
+        console.log('Error adding user to mailing list: ', err);
+    });
 });
