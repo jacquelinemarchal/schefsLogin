@@ -278,3 +278,11 @@ a.reserve{
     background: #555; 
 }
 
+
+#event-img:hover {
+    cursor: pointer;
+}
+
+#hostPic:hover {
+    cursor: pointer;
+}

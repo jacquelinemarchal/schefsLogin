@@ -53,6 +53,7 @@ logResults = () => {
     var bb = document.getElementById("lnInput").value;
     var cc = document.getElementById("reqInput").value;
     var inputs = [x, y, z, a, b, c, aa, bb, cc]
+
     // if any fields are left empty
     for (let i = 0; i < inputs.length; i++) {
         var emptyInput = 0;
@@ -63,6 +64,7 @@ logResults = () => {
             break;
         }
     }
+
     if (emptyInput === 0 && isBooked){
         createDocument(inputs)
     }
@@ -93,6 +95,7 @@ createDocument = (inputs) => {
      })
     .then(() => {
         $("#modal-success").modal()
+
         $('#modal-success').on('hidden.bs.modal', function () {
             window.location.replace("/")
         });
@@ -112,3 +115,11 @@ function countChars(obj){
         document.getElementById("charNum").innerHTML = strLength+' / '+maxLength+' characters';
     }
 }
+
+const uploadImage = input => {
+    var freader = new FileReader();
+    freader.readAsDataURL(input.files[0]);
+    freader.onloadend = event => {
+        document.getElementById(input.name).src = event.target.result;
+    }
+} 

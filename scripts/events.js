@@ -71,7 +71,6 @@ const displayPage = (eventId, time) => {
 }
 
 // generate HTML for event page
-
 const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
     let soldOutStyle = '';
