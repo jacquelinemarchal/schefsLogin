@@ -94,23 +94,6 @@ const setupEvents = (data, num, day) => {
         rowCheck++;
         const id = event.id;
 
-        /*
-        const month = (event.time.toDate().getMonth()+1).toString();
-        time += month;
-        const thisDay = event.time.toDate().getDate().toString();
-        time += "/" + thisDay;
-        const year = event.time.toDate().getFullYear().toString();
-        time += "/" + year + " ";
-
-        var hour = event.time.toDate().getHours();
-        if (hour < 12){
-            time += hour + "am";
-        }
-        else {
-            if (hour !== 12)
-                hour -= 12;
-            time += hour + "pm";
-        }*/ 
         const event_datetime = event.time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
@@ -134,7 +117,6 @@ const setupEvents = (data, num, day) => {
 
         if (rowCheck%3 === 0){  // when to make a new row and empty buffer
             document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
-            //html = '';
         }
         else{
             // last line, make sure to print out incomplete rows!

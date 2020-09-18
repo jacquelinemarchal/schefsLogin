@@ -16,7 +16,9 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
-
+  .selected {
+    background: grey;
+  }
 .navbar{
     position: fixed;
     transition: 0.2s;
@@ -27,6 +29,24 @@ table {
     padding-bottom: 1rem; 
     padding-top: 1rem;
     flex-direction: row;
+}
+
+.selected {
+  background: #0f0;
+}
+
+.responsiveImg{
+    width: 33%;
+    height: auto;
+    float: left; 
+    max-width: 300px;
+}
+.responsiveLastRow{
+    width: 40%;
+    height: auto;
+    float: left; 
+    align-content: center;
+    max-width: 300px;
 }
 
 .floatingNav {

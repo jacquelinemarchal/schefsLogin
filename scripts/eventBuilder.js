@@ -116,10 +116,15 @@ function countChars(obj){
     }
 }
 
-const uploadImage = input => {
+const uploadImage = () => {
+    $("#modal-image-select").modal()
+    photoLibrary()
+} 
+
+const uploadHostImage = (input) => {
     var freader = new FileReader();
     freader.readAsDataURL(input.files[0]);
     freader.onloadend = event => {
         document.getElementById(input.name).src = event.target.result;
     }
-} 
+}
