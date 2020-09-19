@@ -13,9 +13,9 @@ window.addEventListener("resize", checkWidth = () => {
 });
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
-        $('#navBar').addClass('floatingNav');
+        $('#banner').addClass('floatingNav');
     } else {
-        $('#navBar').removeClass('floatingNav');
+        $('#banner').removeClass('floatingNav');
     }
 });
 var switchSignUp = true;

@@ -10,7 +10,10 @@ div#banner, div#mobile-banner{
     overflow-x: hidden;
     background-color:#F6FFBE; 
     height:auto; 
-    width:auto
+    width:auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 .arrow {
     border: solid black;
