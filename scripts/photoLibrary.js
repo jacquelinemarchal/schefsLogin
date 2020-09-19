@@ -4,8 +4,8 @@ const photoLibrary = () => {
     var lastRow = false;
     listRef.listAll().then((res) => {
         var imgNum = res.items.length;
-        var extras = imgNum % 3;
-        var rows = imgNum / 3;
+        var extras = imgNum % 4;
+        var rows = imgNum / 4;
         if (extras > 0){
             rows++;
         }
@@ -21,18 +21,18 @@ const photoLibrary = () => {
         res.items.forEach((itemRef) => {
             var image = document.createElement("IMG");
             image.setAttribute("id", `img${count}`);
+           
             document.getElementById(`row-${thisRow}`).appendChild(image);
             
             addUrl(itemRef, count, lastRow)
             count++;
-            if (count % 3 === 0){
+            if (count % 4 === 0){
                 thisRow++;
                 console.log(thisRow, Math.floor(rows)-1)
                 if (thisRow === Math.floor(rows)-1){
-                    console.log("hi")
                     lastRow = true;
                 }
-            }                
+            }
         });
     })
 }

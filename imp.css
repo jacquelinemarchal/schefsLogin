@@ -30,19 +30,21 @@ table {
     padding-top: 1rem;
     flex-direction: row;
 }
+#rotate {
+    
+    transform: rotate(180deg);
 
-.selected {
-  background: #0f0;
 }
-
 .responsiveImg{
-    width: 33%;
+    width: 25%;
     height: auto;
     float: left; 
     max-width: 300px;
+    border-radius: 25%;
 }
 .responsiveLastRow{
-    width: 40%;
+    border-radius: 25%;
+    width: 30%;
     height: auto;
     float: left; 
     align-content: center;
@@ -96,6 +98,16 @@ img#thumb{
     margin-bottom: 2rem; 
     inline-size: 100%; 
     border-radius: 10%;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #555;
 }
 
 .modal-content{
