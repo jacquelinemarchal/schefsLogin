@@ -43,6 +43,8 @@ const townHallReserve = () => {
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const uid = auth.currentUser.uid;
+        var date = new Date();
+        var timestamp = date.getTime();
 
         db.collection("users").doc(uid).get()
         .then(snap => {
@@ -53,7 +55,8 @@ const townHallReserve = () => {
             .set({
                 email: email,
                 name: name,
-                phoneNumber: phone
+                phoneNumber: phone,
+                time: timestamp
              })
             .catch(err => {
                 console.log('Error adding ticket: ', err);
