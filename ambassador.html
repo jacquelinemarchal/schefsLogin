@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +19,9 @@
 </head>
 
 <body>
-    <div class="container" id="ambassador">
-        <div class="row">
-            <p>We're looking for engaged students to spread the word</p><p>Learn about becoming a Schefs Ambassador here</p>
-        </div>
-      </div>
-
     <!-- NAVBAR -->
     <div class="container">
-        <div class="container-wrapper">
+        <div class="container-wrapper" style="padding-bottom: 4rem;">
             <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
                 <a onclick="displayHome()" class="navbar-brand mr-auto p-2">
                     <img src="assets/logo.png" style="height: 34px;">
@@ -39,87 +34,64 @@
         </div>
     </div>
     <br>
-    <!--HEADING-->
-    <div id="indexView">
-        <div class="container">
-            <div id="banner">
-                <h1 class="banner-text" style="margin-top: 6rem;"> The Schefs team is busy working to revamp our platform and launch more events starting in October...</h1>
-                <p class="banner-text" id="unlogged-banner-info" style="font-size: 30px;">...drop your info to stay in the loop.</p>
-                <form id="mailing-form" class="mailing">
-                    <input type="text" placeholder="First Name" class="mailing" id="name-mailing-signup" required><i id="breakpoint-banner"></i>
-                    <input type="text" placeholder="Email" class="mailing" id="email-mailing-signup" required>
-                    <button type="submit" id="mailing-button"><i class="arrow right"></i></button>
-                </form>
-            </div>
-            <div id="mobile-banner">
-                <p style="margin-top: 5rem; padding-left: 1rem; padding-right: 1rem;"> The Schefs team is busy working to revamp our platform and launch more events starting in October...</p>
-                <p id="mobile-unlogged-banner-info" style="padding-left: 1rem; padding-right: 1rem;">...drop your info to stay in the loop.</p>
-                <form id="mobile-mailing-form" class="mailing">
-                    <input type="text" placeholder="First Name" class="mailing" id="mobile-name-mailing-signup" required><i id="breakpoint-banner"></i>
-                    <input type="text" placeholder="Email" class="mailing" id="mobile-email-mailing-signup" required>
-                    <div style="display: flex;justify-content: center;align-items: center; margin-bottom: 1rem;">
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+    <div class="container">
+        <div class="container-wrapper">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 id="title">Ambassador Town Hall</h1>
+                    <p>Brunch • 08/08/2020 11 am EST</p>
+                        <img id="ambPic" alt="..." id="thumb">
+                    <p>You believe in bringing people together. You know the power of face-to-face conversation. Come  find out about our new ambassador program. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                    <br>
+                    <h2 id="webPrepare">What to prepare:</h2>
+                    <b><p id="mobilePrepare">What to prepare:</p></b>
+                    <p>Bring snacks and good energy! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <div id="mobileHost">
+                        <p>Hosted by: Schefs Team</p><br>
+                            <img src="${eventData.prof}" alt="..." id="hostMobilePic">
+                      <!--  <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
+                        <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>-->
                     </div>
-                </form>
-            </div>
-            <div class="container-wrapper" style="padding-top: 2rem;">
-                <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
-                    <div class="col-sm-7" style="justify-content: right;" >
-                        <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over <s>a meal</s> Zoom.</h1>
+                    <br><br>
+                </div>
+
+                <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
+                 <!--<div id="soldOut-item" style="${soldOutStyle}">
+                        <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
+                    </div>-->   
+                    <div id="reserve-item" style="display:none;">
+                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve()" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
                     </div>
-                    <div class="col-sm-5" style="font-size: 30px;">
-                        1. Click on an event <br>
-                        2. Reserve your ticket <br>
-                        3. Learn from and talk with college students from around the world
+                    <div id="login-item" style="display:none;">
+                        <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
                     </div>
-                </div>
-                <div id="mobileHome">
-                    <p>Multiplicities:<br>A week of themed learning experiences from students across the country.</p>
-                </div>
-                <br><br>
-                <!-- EVENT LIST -->
-                <div class="events">
-                    <p style="margin-bottom: 0;">Monday, August 17th </p>
-                    <h2 style="margin-bottom: 2rem;">Eroticisms</h2> 
-                    <div class ="festivalDay1"></div>
-
-                    <p style="margin-bottom: 0;">Tuesday, August 18th </p>
-                    <h2 style="margin-bottom: 2rem;">Digital Citizens</h2> 
-                    <div class ="festivalDay2"></div>
-
-                    <p style="margin-bottom: 0;">Wednesday, August 19th </p>
-                    <h2 style="margin-bottom: 2rem;">Spaces & Places</h2> 
-                    <div class ="festivalDay3"></div>
-
-                    <p style="margin-bottom: 0;">Thursday, August 20th </p>
-                    <h2 style="margin-bottom: 2rem;">Pandemic Society</h2> 
-                    <div class ="festivalDay4"></div>
-
-                    <p style="margin-bottom: 0;">Friday, August 21st </p>
-                    <h2 style="margin-bottom: 2rem;">Art: The Performative Self</h2> 
-                    <div class ="festivalDay5"></div>
-
-                    <p style="margin-bottom: 0;">Saturday, August 22nd</p>
-                    <h2 style="margin-bottom: 2rem;">Autonomies</h2> 
-                    <div class ="festivalDay6"></div>
-                    
-                    <p style="margin-bottom: 0;">Sunday, August 23rd</p>
-                    <h2 style="margin-bottom: 2rem;">The Anthropocene</h2> 
-                    <div class ="festivalDay7"></div>
-                </div>
-                <!-- <div class="col-sm-4" style="margin-bottom: 2rem;>
-                        <div class="card border-0" style="max-width: 20rem;">
-                            <img src="${event.thumbnail}" alt="..." style="inline-size: 100%; border-radius: 10%;">
-                            <p style="line-height: 0.9; font-size:20px; margin-top: 1.2rem; margin-bottom: 0.8rem; font-family: 'Roboto', sans-serif;">${event.title}</p> 
-                            <p style="font-size:14px; font-family:'Roboto', sans-serif; font-weight:300;">Dinner • Columbia University<br>${time}</p> 
+                    <div id="admin-item" style="display:none;">
+                    <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
+                    </div>
+                  <!--  <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>-->
+                    <p>Hosted by: </p>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-sm-3">
+                            <img src="${eventData.prof}" alt="..." id="hostPic">
                         </div>
-                        </div>-->
-                    
-                    <!-- Where index events are being rendered -->
+                        <div class="col-sm-1 offset-sm-1">
+                            <h2>Schefs Team</h2>
+                        </div>
+                    </div>
+                <!--   <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
+                    <br><div class="hostBio"> ${eventData.bio}</div>--> 
+                </div>
+            </div>         
+        </div>
+        <div class="footer">
+            <div class="row" id="fixed-footer">
+                <p id="mobileReserve" class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
+                <div id="reserve-item-mobile">
+                    <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                </div>
             </div>
         </div>
     </div>
-    <div id="pageView" style="padding-top: 4rem;"></div>
 
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
