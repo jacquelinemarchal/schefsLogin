@@ -28,7 +28,7 @@ const photoLibrary = () => {
             count++;
             if (count % 4 === 0){
                 thisRow++;
-                console.log(thisRow, Math.floor(rows)-1)
+                //console.log(thisRow, Math.floor(rows)-1)
                 if (thisRow === Math.floor(rows)-1){
                     lastRow = true;
                 }
@@ -38,7 +38,7 @@ const photoLibrary = () => {
 }
 const addUrl = (reference, count, lastRow) => {
     var path = storage.ref(`${reference.fullPath}`);
-    console.log(lastRow)
+   // console.log(lastRow)
     path.getDownloadURL()
         .then((url) => {
             var image = document.getElementById(`img${count}`);
