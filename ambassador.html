@@ -23,7 +23,7 @@
     <div class="container">
         <div class="container-wrapper" style="padding-bottom: 4rem;">
             <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
-                <a onclick="displayHome()" class="navbar-brand mr-auto p-2">
+                <a href="/" class="navbar-brand mr-auto p-2">
                     <img src="assets/logo.png" style="height: 34px;">
                 </a>
                 <div id="nav-items-right" style="display: flex;">
@@ -56,11 +56,8 @@
                 </div>
 
                 <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
-                 <!--<div id="soldOut-item" style="${soldOutStyle}">
-                        <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
-                    </div>-->   
                     <div id="reserve-item" style="display:none;">
-                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve()" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
+                        <a class="btn btn-outline-dark reserve" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
                     </div>
                     <div id="login-item" style="display:none;">
                         <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
@@ -68,7 +65,6 @@
                     <div id="admin-item" style="display:none;">
                     <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                     </div>
-                  <!--  <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>-->
                     <p>Hosted by: </p>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-sm-3">
@@ -85,9 +81,9 @@
         </div>
         <div class="footer">
             <div class="row" id="fixed-footer">
-                <p id="mobileReserve" class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
+                <p id="mobileReserve" class="ticket-count"></p> <!--x spots / x spots available-->
                 <div id="reserve-item-mobile">
-                    <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                    <a class="btn btn-outline-dark reserve" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
                 </div>
             </div>
         </div>
@@ -191,13 +187,7 @@
     <div id="modal-reserve" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-thank-you" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
+                <h2>Success!</h2><p>You have reserved a spot at Schefs Town Hall. Check your inbox for ticket information.</p>
             </div>
         </div>
     </div>
@@ -225,7 +215,7 @@
     <script src="assets/js/src/moment.js"></script>
     <script src="assets/js/src/momenttz.js"></script>
     <script src="scripts/auth.js"></script>
-    <script src="scripts/index.js"></script>
-    <script src="scripts/events.js"></script>
+    <script src="scripts/signup.js"></script>
+    <script src="scripts/ambassador.js"></script>
 </body>
 </html>

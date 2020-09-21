@@ -1,7 +1,6 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
-
 window.addEventListener("resize", checkWidth = () => {
     console.log("resieze")
     if (window.innerWidth < 1042){
@@ -18,6 +17,7 @@ $(window).scroll(function() {
         $('#banner').removeClass('floatingNav');
     }
 });
+/*
 var switchSignUp = true;
 const showSignUp = () => {
   const signupForm = document.getElementById("signup-form");
@@ -56,7 +56,7 @@ const showLogIn = () => {
 const hideExpandedContent = () => {
   loginForm.setAttribute("style", "display:none");
   signupForm.setAttribute("style", "display:none");
-}
+}*/
 
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
