@@ -243,6 +243,10 @@ a.reserve{
         padding-top: 1rem;
         flex-direction: row;
     }
+    .pagewide {
+        height: 30px;
+        background-color: black;
+    }
     #mobilePrepare{
         display: inline-block;
     }

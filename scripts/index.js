@@ -2,14 +2,22 @@ $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
 window.addEventListener("resize", checkWidth = () => {
-    console.log("resieze")
     if (window.innerWidth < 1042){
         document.getElementById("breakpoint-banner").innerHTML = "<br>";
     }
     if (window.innerWidth > 1042){
         document.getElementById("breakpoint-banner").innerHTML = "";
     }
+    if (window.innerWidth < 985){
+        document.getElementById("ambassador-banner-text").innerHTML = '<p class="text-center" style="margin-top:.2em; font-size: 16px; ">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>';
+    }
+    if (window.innerWidth > 985){
+        document.getElementById("ambassador-banner-text").innerHTML = '<p style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">We’re looking for engaged students to spread the word</p><p style="margin-top:.2em; font-size: 16px; margin-right:64px; float:right;">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>';
+    }
 });
+
+
+
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
         $('#banner').addClass('floatingNav');
