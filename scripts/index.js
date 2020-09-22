@@ -1,52 +1,30 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
-$(window).scroll(function() {
-    if ($(window).scrollTop() > 10) {
-        $('#navBar').addClass('floatingNav');
-    } else {
-        $('#navBar').removeClass('floatingNav');
+window.addEventListener("resize", checkWidth = () => {
+    if (window.innerWidth < 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "<br>";
+    }
+    if (window.innerWidth > 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "";
+    }
+    if (window.innerWidth < 985){
+        document.getElementById("ambassador-banner-text").innerHTML = '<p class="text-center" style="margin-top:.2em; font-size: 16px; ">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>';
+    }
+    if (window.innerWidth > 985){
+        document.getElementById("ambassador-banner-text").innerHTML = '<p style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">We’re looking for engaged students to spread the word</p><p style="margin-top:.2em; font-size: 16px; margin-right:64px; float:right;">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>';
     }
 });
-var switchSignUp = true;
-const showSignUp = () => {
-  const signupForm = document.getElementById("signup-form");
-  if (switchSignUp){
-    if (switchLogIn = true){
-      switchLogIn=false;
-      showLogIn()
-    }
-    signupForm.setAttribute("style", "display:inline");
-    switchSignUp = false;
-  }
-  else{
-    signupForm.setAttribute("style", "display:none");
-    switchSignUp = true;
-  }
-  return false;
-}
-var switchLogIn = true;
-const showLogIn = () => {
-  if (switchSignUp = true){
-    switchSignUp=false;
-    showSignUp()
-  }
-  const loginForm = document.getElementById("login-form");
-  if (switchLogIn){
-    loginForm.setAttribute("style", "display:inline");
-    switchLogIn = false;
-  }
-  else{
-    loginForm.setAttribute("style", "display:none");
-    switchLogIn = true;
-  }
-  return false;
-}
 
-const hideExpandedContent = () => {
-  loginForm.setAttribute("style", "display:none");
-  signupForm.setAttribute("style", "display:none");
-}
+
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 10) {
+        $('#banner').addClass('floatingNav');
+    } else {
+        $('#banner').removeClass('floatingNav');
+    }
+});
 
 const renderHomeEvents = () => {
     db.collection('aug20events').get()
@@ -93,31 +71,11 @@ const setupEvents = (data, num, day) => {
         rowCheck++;
         const id = event.id;
 
-        /*
-        const month = (event.time.toDate().getMonth()+1).toString();
-        time += month;
-        const thisDay = event.time.toDate().getDate().toString();
-        time += "/" + thisDay;
-        const year = event.time.toDate().getFullYear().toString();
-        time += "/" + year + " ";
-
-        var hour = event.time.toDate().getHours();
-        if (hour < 12){
-            time += hour + "am";
-        }
-        else {
-            if (hour !== 12)
-                hour -= 12;
-            time += hour + "pm";
-        }*/ 
         const event_datetime = event.time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
         let opacity = ''
-        if (day == 1 || day == 2){
-            opacity = 'opacity: 0.45;'
-        }
-   
+
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
@@ -133,7 +91,6 @@ const setupEvents = (data, num, day) => {
 
         if (rowCheck%3 === 0){  // when to make a new row and empty buffer
             document.getElementById(`festivalDay${day}${curRow}`).innerHTML = html;
-            //html = '';
         }
         else{
             // last line, make sure to print out incomplete rows!
@@ -168,3 +125,25 @@ const setupEvents = (data, num, day) => {
         }
     });
 } 
+
+// mailing-list addition
+const mailingForm = document.querySelector('#mailing-form');
+mailingForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    var date = new Date();
+    var timestamp = date.getTime();
+    const name = mailingForm['name-mailing-signup'].value;
+    const email = mailingForm['email-mailing-signup'].value;
+    db.collection('mailinglist').doc()
+    .set({
+        firstName: `${name}`,
+        email: `${email}`,
+        time: timestamp
+    })
+    .then(() => {
+        $("#modal-thank-you").modal()
+    })
+    .catch(err => {
+        console.log('Error adding user to mailing list: ', err);
+    });
+});

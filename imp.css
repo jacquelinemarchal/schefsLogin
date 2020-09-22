@@ -1,21 +1,93 @@
 .container{
     display:contents;
 }
+
+.container-wrapper{
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+div#mobile-banner{
+    background-color:#F6FFBE; 
+    height:auto; 
+    width:auto;
+}
+div#banner{
+    overflow-x: hidden;
+    background-color:#F6FFBE; 
+    height:auto; 
+    width:auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    top: 30px;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+}
+#mailing-button{
+    overflow-x: auto; 
+    box-shadow: 0 8px 15px -6px #999;
+    background:white;
+    border-radius: 50%; 
+    width: 3rem;
+    height: 3rem;
+    outline:none;
+    border:none;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+#email-mailing-signup, #name-mailing-signup{
+    width:35%;
+    border:none;
+    border-bottom:
+    2px solid black;
+    outline:none;
+    font-size: 30px;
+    margin-bottom:2rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    background-color:#F6FFBE; 
+}
+
+#mobile-email-mailing-signup, #mobile-name-mailing-signup{
+    width:90%;
+    border:none;
+    border-bottom:2px solid black;
+    outline:none;
+    font-size: 20px;
+    margin-bottom:2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color:#F6FFBE; 
+}
+.banner-text{
+    margin-left: 4rem;
+    margin-right: 4rem;
+    color: black; 
+}
+
 table {
     font-family:'Roboto', sans-serif;
     font-size:20px;
     border-collapse: collapse;
-  }
+}
   
-  td, th {
+td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-  }
+}
   
-  tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #dddddd;
-  }
+}
 
 .navbar{
     position: fixed;
@@ -37,6 +109,7 @@ a{
     cursor: pointer;
     font-size: 16px;
 }
+
 input, textarea{
     border:none; 
     outline: none; 
@@ -46,6 +119,7 @@ input, textarea{
     margin-left: 4rem;
     margin-right: 4rem;
 }
+
 p{
     font-family:'Roboto', sans-serif;
     font-size:20px;
@@ -133,11 +207,18 @@ a.reserve{
     #fixed-footer{
         display: none;
     }
+    .pagewide {
+        height: 30px;
+        background-color: black;
+    }
     div#hostInfo{
         position: fixed;
     }
     div#mobileHostInterest{
         display: none;
+    }
+    #mobile-banner{
+        display:none;
     }
     div#webHostInterest{
         display: inline;
@@ -164,7 +245,7 @@ a.reserve{
         display: inline-block;
     }
 }
-  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  /* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
     .navbar{
         position: fixed;
@@ -176,6 +257,10 @@ a.reserve{
         padding-bottom: 1rem; 
         padding-top: 1rem;
         flex-direction: row;
+    }
+    .pagewide {
+        height: 30px;
+        background-color: black;
     }
     #mobilePrepare{
         display: inline-block;
@@ -189,7 +274,7 @@ a.reserve{
     }
     #webPrepare{
         display: none;
-    }    
+    } 
     div#mobileHostInterest{
         display: inline;
     } 
@@ -199,10 +284,12 @@ a.reserve{
     #mobileHome{
         display: inline-block;
     }
+    #banner{
+        display:none;
+    }
     #desktopHome{
         display: none;
     }
-
     #fixed-footer{
         display: flex;
         position: fixed;

@@ -221,7 +221,6 @@ const generateEventPage = (eventData, eventId, time, size) => {
         </div>
     `
 }
-let totalTix = 48;
 const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
     if (auth.currentUser){
@@ -240,9 +239,7 @@ const triggerReserve = (title, eventId) => {
                 phoneNumber: phone
              })
             .then(() => {
-                totalTix ++;
                 console.log('Success');
-                console.log(totalTix)
 
                 modalContent.innerHTML = `
                     <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
@@ -359,5 +356,4 @@ const showEventAttendees = (array) =>{
 
 const showSiteData = () => {
     const modalAdminSite = document.getElementById('site-admin-content');
-    modalAdminSite.innerHTML = `<p>Total Festival Tickets Reserved: ${totalTix}</p>`
 }
