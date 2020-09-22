@@ -6,11 +6,11 @@ auth.onAuthStateChanged(user => {
         db.collection('users').doc(uid).get().then(userSnap => {
             if (userSnap.data().isAdmin) {
                 let allAttendees = [];
-                console.log("attendee data");
+               // console.log("attendee data");
            //     attendeeData.forEach(attendee => allAttendees.push({
             //        ...attendee.data()
              //  }));
-                showEventAttendees(allAttendees);
+             //   showEventAttendees(allAttendees);
             }
         })
         .catch(err => console.log('Error getting tickets: ', err));
@@ -21,18 +21,17 @@ auth.onAuthStateChanged(user => {
     
     }
 })
-
-var path = storage.ref("gs://schefs.appspot.com/ambassador/ambassador.jpg");
+var storageRef = storage.ref();
+var listRef = storageRef.child('ambassador');
+var path = listRef.child("ambassador.jpg");
 path.getDownloadURL()
     .then((url) => {
-        var image = document.getElementById("ambPic");
+        var image = document.getElementById("thumb");
         image.src = url;
     })
     .catch(function(error) {
         console.log(error)
     });
-
-
 const showEventAttendees = (array) =>{
    // document.getElementById("admin-item").setAttribute('style', 'display: inline;');
     const modalAdminEvent = document.getElementById('event-admin-content');

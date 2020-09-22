@@ -15,6 +15,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
@@ -40,12 +41,22 @@
                 <div class="col-md-7">
                     <h1 id="title">Ambassador Town Hall</h1>
                     <p>Brunch • 08/08/2020 11 am EST</p>
-                        <img id="ambPic" alt="..." id="thumb">
-                    <p>You believe in bringing people together. You know the power of face-to-face conversation. Come  find out about our new ambassador program. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                        <img id="thumb" alt="...">
+                    <p>This open town hall is for anyone interested in the ambassador program to gather (via Zoom) with the Schefs team 
+                        (four undergrad students!) and discuss how we can grow this community of young thinkers and learners. You’ll learn more 
+                        about our plan for the program as well as have the opportunity to share your own thoughts. Schefs is all about collaboration: 
+                        it is by and for students to exchange ideas, passions, and knowledge with one another. So as we grow, we want to make our internal 
+                        plans as open-source, participatory, and inclusive as possible.<br><br>Our mission is to create spaces for college students to come together 
+                        in live conversation on topics they care about. We need your help to continue to create deeper and non-hierarchical ways for us students to 
+                        meet friends and collaborators and inspire one another through a community that values knowledge, passion, contribution, diverse 
+                        perspectives, and collective learning.<br><br>Stop by, say hello, and learn more about the ambassador program as we create it together!
+                        </p>
                     <br>
                     <h2 id="webPrepare">What to prepare:</h2>
                     <b><p id="mobilePrepare">What to prepare:</p></b>
-                    <p>Bring snacks and good energy! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                    <p>Come with an open mind and any questions or contributions you might have. A kind of Schefs event in and of itself, we will begin with a 
+                        short introduction from our team and then turn it into an open conversation. All participation, feedback, and perspectives welcome!
+                    </p>
                     <div id="mobileHost">
                         <p>Hosted by: Schefs Team</p><br>
                             <img src="${eventData.prof}" alt="..." id="hostMobilePic">
@@ -65,13 +76,19 @@
                     <div id="admin-item" style="display:none;">
                     <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                     </div>
-                    <p>Hosted by: </p>
+                    <p style="margin-top:4rem; font-size: 16px;">Hosted by: the Schefs Team</p>
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-sm-3">
-                            <img src="${eventData.prof}" alt="..." id="hostPic">
+                            <img alt="..." id="thumb">
+                            <img alt="..." id="thumb">
+                            <img alt="..." id="thumb">
+                            <img alt="..." id="thumb">
                         </div>
                         <div class="col-sm-1 offset-sm-1">
-                            <h2>Schefs Team</h2>
+                            <h2>Lola Lafia</h2>
+                            <h2>Jackie Marchal</h2>
+                            <h2>Chris Wang</h2>
+                            <h2>Pedro Damesceno</h2>
                         </div>
                     </div>
                 <!--   <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
@@ -199,6 +216,7 @@
             authDomain: "schefs.firebaseapp.com",
             databaseURL: "https://schefs.firebaseio.com",
             projectId: "schefs",
+            storageBucket: "schefs.appspot.com",
             messagingSenderId: "1078198186854",
             appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
             measurementId: "G-SFQEPY2PRN"
