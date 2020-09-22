@@ -31,9 +31,7 @@ table {
     flex-direction: row;
 }
 #rotate {
-    
     transform: rotate(180deg);
-
 }
 .responsiveImg{
     width: 25%;
@@ -49,6 +47,9 @@ table {
     float: left; 
     align-content: center;
     max-width: 300px;
+}
+#image-container:hover{
+    opacity: 1;
 }
 
 .floatingNav {

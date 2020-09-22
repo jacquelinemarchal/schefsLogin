@@ -19,10 +19,15 @@ const photoLibrary = () => {
         var count = 0;
         var thisRow = 0;
         res.items.forEach((itemRef) => {
+            var container = document.createElement("DIV");
+            container.setAttribute("class", "container");
+            container.setAttribute("id", "image-container");
+
             var image = document.createElement("IMG");
             image.setAttribute("id", `img${count}`);
-           
-            document.getElementById(`row-${thisRow}`).appendChild(image);
+
+            container.appendChild(image);
+            document.getElementById(`row-${thisRow}`).appendChild(container);
             
             addUrl(itemRef, count, lastRow)
             count++;
