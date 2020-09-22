@@ -53,21 +53,27 @@ const townHallReserve = () => {
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const uid = auth.currentUser.uid;
+        const eventDocId = "rGDKYaijppWVWkfuyrZE";
+        const eventTitle = "Ambassador Town Hall"
         var date = new Date();
         var timestamp = date.getTime();
 
         db.collection("users").doc(uid).get()
         .then(snap => {
             const user = snap.data();
-            const phone = user.phoneNumber
+            const phone = user.phoneNumber;
             const name = `${user.firstName} ${user.lastName}`;
-            db.collection('aug20events').doc("rGDKYaijppWVWkfuyrZE").collection('tickets').doc(uid)
+            // add ticket 
+            db.collection('aug20events').doc(eventDocId).collection('tickets').doc(uid)
             .set({
                 email: email,
                 name: name,
                 phoneNumber: phone,
                 time: timestamp
              })
+            .then(() => {
+                addToUsersEvents(uid, eventDocId, eventTitle, email, user.firstName, user.lastName)
+            })
             .catch(err => {
                 console.log('Error adding ticket: ', err);
                 modalContent.innerHTML = `
@@ -75,10 +81,22 @@ const townHallReserve = () => {
                 `;
             });
         })
+
     } else {
         console.log('Error: User not logged in anymore');
         modalContent.innerHTML = `
             <p>You are no longer logged in! Please log in and try again.</p>
         `;
     }
+}
+const addToUsersEvents = (uid, docId, title, email, fname, lname) => {
+    console.log("adding to user event collection")
+    db.collection("users").doc(uid).collection("events").doc(docId)
+    .set({
+        eventTitle: title,
+        email: email,
+        firstName: fname,
+        lastName: lname,
+        attended: false
+    })
 }
