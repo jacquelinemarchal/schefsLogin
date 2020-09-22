@@ -22,6 +22,17 @@ auth.onAuthStateChanged(user => {
     }
 })
 
+var path = storage.ref("gs://schefs.appspot.com/ambassador/ambassador.jpg");
+path.getDownloadURL()
+    .then((url) => {
+        var image = document.getElementById("ambPic");
+        image.src = url;
+    })
+    .catch(function(error) {
+        console.log(error)
+    });
+
+
 const showEventAttendees = (array) =>{
    // document.getElementById("admin-item").setAttribute('style', 'display: inline;');
     const modalAdminEvent = document.getElementById('event-admin-content');
