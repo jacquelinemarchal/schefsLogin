@@ -35,7 +35,10 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
-                <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`         
+                <div id="events-section">
+                <a class="btn btn-outline-dark reserve" onclick="displayUserEvents(${uid})" role="button">    Connect    </a>
+                </div>
+                <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
         })
 }
 const logOut = (user) => {
@@ -45,5 +48,18 @@ const logOut = (user) => {
     })
     .catch(function(error) {
         console.log("Error signing user out: ", error);
+    });
+}
+
+const displayUserEvents = (uid) => {
+    console.log(uid)
+    db.collection("users").doc(uid).collection("events")
+    .then(snap => {
+        snap.forEach(doc => {
+            console.log(doc.data());
+        })
+    })
+    .catch(err => {
+        console.log('Error adding ticket: ', err);
     });
 }
