@@ -19,15 +19,14 @@ const photoLibrary = () => {
         var count = 0;
         var thisRow = 0;
         res.items.forEach((itemRef) => {
-            var container = document.createElement("DIV");
-            container.setAttribute("class", "container");
-            container.setAttribute("id", "image-container");
-
             var image = document.createElement("IMG");
             image.setAttribute("id", `img${count}`);
+            $(image).on('click', function () {
+                $('#modal-image-select').modal('toggle');
+                fromRefToImg(itemRef, document.getElementById("event-img"));
+            });
 
-            container.appendChild(image);
-            document.getElementById(`row-${thisRow}`).appendChild(container);
+            document.getElementById(`row-${thisRow}`).appendChild(image);
             
             addUrl(itemRef, count, lastRow)
             count++;
@@ -41,9 +40,18 @@ const photoLibrary = () => {
         });
     })
 }
+const fromRefToImg = (ref, dest) => {
+    var path = storage.ref(`${ref.fullPath}`);
+    path.getDownloadURL()
+        .then((url) => {
+            dest.src = url;
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+}
 const addUrl = (reference, count, lastRow) => {
     var path = storage.ref(`${reference.fullPath}`);
-   // console.log(lastRow)
     path.getDownloadURL()
         .then((url) => {
             var image = document.getElementById(`img${count}`);

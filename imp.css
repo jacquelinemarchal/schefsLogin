@@ -48,8 +48,14 @@ table {
     align-content: center;
     max-width: 300px;
 }
-#image-container:hover{
-    opacity: 1;
+
+img.responsiveImg:hover{
+    background-color: #F6FFBE;
+    cursor: pointer;
+}
+img.responsiveLastRow:hover{
+    background-color: #F6FFBE;
+    cursor: pointer;
 }
 
 .floatingNav {
