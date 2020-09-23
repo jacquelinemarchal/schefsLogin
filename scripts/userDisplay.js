@@ -35,10 +35,16 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
-                <div id="events-section">
-                <a class="btn btn-outline-dark reserve" onclick="displayUserEvents(${uid})" role="button">    Connect    </a>
+                <div>
+                <div id="unconfirmed-events-section"><div>
+                <div id="events-section"><div>
                 </div>
                 <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
+                //<a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
+
+                $(connectBtn).on('click', () => {
+                    displayUserEvents(uid);
+                });
         })
 }
 const logOut = (user) => {
@@ -52,14 +58,21 @@ const logOut = (user) => {
 }
 
 const displayUserEvents = (uid) => {
-    console.log(uid)
-    db.collection("users").doc(uid).collection("events")
+    var unconfirmed = document.getElementById("unconfirmed-events-section")
+    var confirmed = document.getElementById("events-section")
+    db.collection("users").doc(uid).collection("events").get()
     .then(snap => {
         snap.forEach(doc => {
-            console.log(doc.data());
+            if (doc.attended){
+
+            }
+            if (!doc.attended){
+                var event
+                unconfirmed.innerHTML
+            }
         })
     })
     .catch(err => {
-        console.log('Error adding ticket: ', err);
+        console.log('Error finding events: ', err);
     });
 }
