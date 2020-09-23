@@ -1,0 +1,49 @@
+#ambass-info-main {
+    height: 100%;
+    width: 100%;
+}
+
+#ambass-info-left {
+    height: 100%;
+    width: 50%;
+    padding: 6rem 2rem 6rem 6rem;
+    position: fixed;
+}
+
+#ambass-info-left-content {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#ambass-info-right {
+    height: 100%;
+    width: 50%;
+    padding: 6rem 6rem 6rem 2rem;
+    margin-left: 50%;
+    overflow: auto;
+}
+
+#ambass-info-thumb {
+    max-width: 60%;
+    border-radius: 20px;
+}
+/* If the screen size is 768px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 767px) {
+    #ambass-info-main{
+        display: inline-block;
+    }
+    #ambass-info-mobile{
+        display: none;
+    }
+}
+
+/* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 767px) {
+    #ambass-info-mobile{
+        display: inline-block;
+    }
+    #ambass-info-main{
+        display: none;
+    }
+}

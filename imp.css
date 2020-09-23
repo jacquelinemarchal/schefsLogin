@@ -179,6 +179,23 @@ a.reserve{
     img#hostPic{
         padding-right: 3rem;
     }
+    #spread-word{
+        display:none;
+    }
+    #ambass-link{
+        display:block;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 935px) {
+    #spread-word{
+        display:inline-block;
+    }
+    #ambass-link{
+        margin-right: 64px; 
+        float:right;
+    }
 }
 
 /* If the screen size is 768px wide or more, set the font-size of <div> to 80px */
