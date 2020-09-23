@@ -61,10 +61,6 @@ const sendWelcomeEmail = async (email, name) => {
                 harnessing the collective intelligence of our generation.
             </p>
             <p>
-                Make sure to sign up for as many Festival events as you can, and feel 
-                free to reach out to us to talk ideas, musings, hosting future events, etc.
-            </p>
-            <p>
                 To many conversations,<br>
                 The Schefs Team<br>
                 <a href="www.schefs.us">www.schefs.us</a>
@@ -112,16 +108,11 @@ const sendReserveEmail = async (user_id, event_ref) => {
                 Thanks for signing up for a Schefs event:<br><br>
                 <b>
                 ${event_name}<br>
-                ${event_date}<br>
-                ${event_time}<br><br>
+                Sunday, September 27th<br>
+                5:00 PM EDT<br><br>
                 </b>
                 You will receive details for the scheduled Zoom the night before 
                 the event.
-            </p>
-            <p>
-                Let's make this an insane week of powerful themed conversations and 
-                start the fall with our minds running, hungry excited ravenous for
-                knowledge.
             </p>
             <p>
                 Yours truly,<br>
