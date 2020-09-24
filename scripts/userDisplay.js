@@ -62,16 +62,24 @@ const displayUserEvents = (uid) => {
     .then(snap => {
         snap.forEach(doc => {
             var eventData = doc.data();
-            
             if (eventData.attended){
                 var titleBtn = document.createElement("a")
+                var guestDiv = document.createElement("div")
+                guestDiv.setAttribute("id", `${eventData.eventTitle}`)
                 titleBtn.setAttribute("id", `${eventData.eventTitle}`)
                 titleBtn.setAttribute("class", "btn btn-outline-dark reserve")
                 titleBtn.setAttribute("role", "button")
                 titleBtn.innerHTML = `${eventData.eventTitle}`
                 confirmed.appendChild(titleBtn)
+                confirmed.appendChild(guestDiv)
                 $(titleBtn).on('click', function () {
-                    findGuests(doc.id);
+                    var isEmpty = guestDiv.innerHTML === "";
+                    if(isEmpty){
+                        findGuests(doc.id, guestDiv);
+                    }
+                    if (!isEmpty){
+                        guestDiv.innerHTML = ''
+                    }
                 });
             }
             if (!eventData.attended){
@@ -85,14 +93,18 @@ const displayUserEvents = (uid) => {
         console.log('Error finding events: ', err);
     });
 }
-const findGuests = (doc) => {
-    db.collection("aug20events").doc(doc).collection("tickets").get()
+const findGuests = (docId, div) => {
+    db.collection("aug20events").doc(docId).collection("tickets").get()
     .then(snap => {
         snap.forEach(doc => {
-          //  var guestList = document.createElement("p")
-           // guestList.innerHTML = `${doc.data().email}<br>`
+            var guestList = document.createElement("ul")
+            var guest = document.createElement("li")
+            guest.setAttribute("style", "list-style-type: none;")
+            guest.innerHTML=`${doc.data().name} • ${doc.data().email}`
+            guestList.appendChild(guest)
+            div.appendChild(guestList)
 
-            console.log(doc.data())
+           // console.log(doc.data())
         })
     })
 } 
