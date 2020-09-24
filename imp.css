@@ -268,7 +268,7 @@ a.reserve{
         display:none;
     }
     #mobile-amb-host{
-        display:inline-block;
+        display:block;
     }
     .navbar{
         position: fixed;
