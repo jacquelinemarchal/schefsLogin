@@ -156,6 +156,7 @@ img#hostPic{
 img#hostPicA{
     width: 6rem; 
     padding-right:14px;
+    height:100%;
 }
 img#hostMobilePic{
     width: 50vw;
