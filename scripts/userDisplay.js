@@ -36,14 +36,10 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
-                <div>
-                <div id="unconfirmed-events-section"><div>
-                <div id="events-section"><div>
-                </div>
+                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
                 <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
-                //<a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
-
                 $(connectBtn).on('click', () => {
+                    $('#modal-account').modal("hide");
                     displayUserEvents(uid);
                 });
         })
@@ -59,21 +55,44 @@ const logOut = (user) => {
 }
 
 const displayUserEvents = (uid) => {
+    $('#modal-personal-events').modal("show");
     var unconfirmed = document.getElementById("unconfirmed-events-section")
-    var confirmed = document.getElementById("events-section")
+    var confirmed = document.getElementById("personal-events-section")
     db.collection("users").doc(uid).collection("events").get()
     .then(snap => {
         snap.forEach(doc => {
-            if (doc.attended){
+            var eventData = doc.data();
+            
+            if (eventData.attended){
+                var titleBtn = document.createElement("a")
+                titleBtn.setAttribute("id", `${eventData.eventTitle}`)
+                titleBtn.setAttribute("class", "btn btn-outline-dark reserve")
+                titleBtn.setAttribute("role", "button")
+                titleBtn.innerHTML = `${eventData.eventTitle}`
+                confirmed.appendChild(titleBtn)
+                $(titleBtn).on('click', function () {
+                    findGuests(doc.id);
+                });
+            }
+            if (!eventData.attended){
+                appendTo = unconfirmed;
+            }
 
-            }
-            if (!doc.attended){
-                var event
-                unconfirmed.innerHTML
-            }
+
         })
     })
     .catch(err => {
         console.log('Error finding events: ', err);
     });
 }
+const findGuests = (doc) => {
+    db.collection("aug20events").doc(doc).collection("tickets").get()
+    .then(snap => {
+        snap.forEach(doc => {
+          //  var guestList = document.createElement("p")
+           // guestList.innerHTML = `${doc.data().email}<br>`
+
+            console.log(doc.data())
+        })
+    })
+} 
