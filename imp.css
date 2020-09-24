@@ -153,6 +153,10 @@ img#hostPic{
     width: 8rem; 
     padding-right:14px;
 }
+img#hostPicA{
+    width: 6rem; 
+    padding-right:14px;
+}
 img#hostMobilePic{
     width: 50vw;
 }
@@ -251,9 +255,21 @@ a.reserve{
     #webPrepare{
         display: inline-block;
     }
+    #amb-host{
+        display:inline-block;
+    }
+    #mobile-amb-host{
+        display:none;
+    }
 }
   /* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
+    #amb-host{
+        display:none;
+    }
+    #mobile-amb-host{
+        display:inline-block;
+    }
     .navbar{
         position: fixed;
         transition: 0.2s;

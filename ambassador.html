@@ -77,18 +77,41 @@
                     <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                     </div>
                     <p style="margin-top:4rem; font-size: 16px;">Hosted by: the Schefs Team</p>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-sm-3">
-                            <img alt="..." id="thumb">
-                            <img alt="..." id="thumb">
-                            <img alt="..." id="thumb">
-                            <img alt="..." id="thumb">
+                    <div class="row" id="amb-host" style="margin-top: 10px;">
+                        <div class="row">
+                            <img alt="..." src="assets/lola.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Lola Lafia</h2>
                         </div>
-                        <div class="col-sm-1 offset-sm-1">
-                            <h2>Lola Lafia</h2>
-                            <h2>Jackie Marchal</h2>
-                            <h2>Chris Wang</h2>
-                            <h2>Pedro Damesceno</h2>
+                        <div class="row">
+                            <img alt="..." src="assets/jackie.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Jackie Marchal</h2>
+                        </div>
+                        <div class="row">
+                            <img alt="..." src="assets/chris.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Chris Wang</h2>
+                        </div>
+                        <div class="row">
+                            <img alt="..." src="assets/pedro.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Pedro Damesceno</h2>
+                        </div>
+                    </div>
+                    
+                    <div class="row" id="mobile-amb-host" style="margin-top: 10px;">
+                        <div class="row">
+                            <img alt="..." src="assets/lola.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Lola Lafia</h2>
+                        </div>
+                        <div class="row">
+                            <img alt="..." src="assets/jackie.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Jackie Marchal</h2>
+                        </div>
+                        <div class="row">
+                            <img alt="..." src="assets/chris.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Chris Wang</h2>
+                        </div>
+                        <div class="row">
+                            <img alt="..." src="assets/pedro.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Pedro Damesceno</h2>
                         </div>
                     </div>
                 <!--   <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
@@ -100,7 +123,7 @@
             <div class="row" id="fixed-footer">
                 <p id="mobileReserve" class="ticket-count"></p> <!--x spots / x spots available-->
                 <div id="reserve-item-mobile">
-                    <a class="btn btn-outline-dark reserve" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                    <a class="btn btn-outline-dark reserve" style="margin-right: 7rem;" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
                 </div>
             </div>
         </div>
