@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>About - Schefs</title>
+<title>Event Builder - Schefs</title>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="imp.css">
@@ -16,7 +16,6 @@
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <!-- NAVBAR -->
@@ -62,7 +61,6 @@
                       <input name="event-img" style="display:none;" id="event-img-upload" onclick="uploadImage()">
                     </div>
 
-
                     <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="6" placeholder="My Event Description..."></textarea>
                     <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="3" placeholder="Event requirements..."></textarea>
                 </div>
@@ -72,22 +70,25 @@
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
                             <label for="prof-img-upload">
-                              <img src="assets/profholder.png" style="border-radius: 90%;"alt="..." id="hostPic">
+                                <div style="width: 125px;height: 125px;border-radius:50%;overflow: hidden;"> 
+                                    <img src="assets/profholder.png" style="height:auto; width: 100%;"alt="..." id="hostPic">
+                                </div>
                             </label>
                             <input name="hostPic" style="display:none;" type="file" id="prof-img-upload" onchange="uploadHostImage(this)">
                         </div>
-                            <div class="offset-sm-1">
-                                <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name">  
-                                <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
-                                <small id="passwordHelp" class="form-text text-muted">Enter both names if you plan to co-host</small>
-                            </div>
+                        <div class="col-sm-3 offset-sm-1">
+                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name">  
+                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
                         </div>
-                        <br>
-                        <input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" value="Columbia University">
-                        <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
-                        <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
-                        <br>
-                        <textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
+                    </div>
+                  <!---  <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+                    sagittis lacus vel augue laoreet rutrum faucibus.">Popover on bottom</button>-->
+                    <br>
+                    <input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" value="Columbia University">
+                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
+                    <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
+                    <br>
+                    <textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
                 </div>
             </div>
         </div>
@@ -95,6 +96,7 @@
     <div class="modal fade bd-example-modal-xl" id="modal-image-select" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-xl" style="overflow-y: initial;">
             <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-image-select-content"> 
+                <small class="form-text">Don't see a photo you like? Email schefs.us@gmail.com</small>
             </div>
         </div>
     </div>
@@ -138,6 +140,5 @@
     <script src="scripts/eventBuilder.js"></script>
     <script src="scripts/photoLibrary.js"></script>
     <script src="scripts/userDisplay.js"></script>
- 
 </body>
 </html>

@@ -32,7 +32,6 @@ const photoLibrary = () => {
             count++;
             if (count % 4 === 0){
                 thisRow++;
-                //console.log(thisRow, Math.floor(rows)-1)
                 if (thisRow === Math.floor(rows)-1){
                     lastRow = true;
                 }

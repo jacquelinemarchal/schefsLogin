@@ -30,6 +30,7 @@ table {
     padding-top: 1rem;
     flex-direction: row;
 }
+
 #rotate {
     transform: rotate(180deg);
 }
@@ -126,7 +127,8 @@ img#thumb{
 
 img#hostPic{
     width: 8rem; 
-    padding-right:14px;
+    margin-right:14px;
+
 }
 img#hostMobilePic{
     width: 50vw;
