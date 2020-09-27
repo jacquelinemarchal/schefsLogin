@@ -36,12 +36,13 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
-                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
                 <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
-                $(connectBtn).on('click', () => {
+               /* $(connectBtn).on('click', () => {
                     $('#modal-account').modal("hide");
                     displayUserEvents(uid);
                 });
+                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
+*/
         })
 }
 const logOut = (user) => {
