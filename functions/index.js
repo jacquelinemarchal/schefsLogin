@@ -93,7 +93,7 @@ const sendReserveEmail = async (user_id, event_ref) => {
 
     const mailOptions = {
         to: email,
-        subject: 'Your Schefs Reservation',
+        subject: 'Schefs Town Hall Registration: Today at 5pm EST',
         dsn: {
             id: 'Reserve - ' + email,
             return: 'headers',
@@ -113,12 +113,12 @@ const sendReserveEmail = async (user_id, event_ref) => {
                 </b>
                 We're excited to see you today! Here are the zoom details.<br>
                 <b>
-                Topic: Schefs Ambassador Town Hall
-                Time: Sep 27, 2020 05:00 PM Eastern Time (US and Canada)
-                Join Zoom Meeting
-                https://us02web.zoom.us/j/89754578699?pwd=YVc4YkFWTVozUXdqaXNyVXhXbXJiZz09
-                Meeting ID: 897 5457 8699
-                Passcode: schefs
+                Topic: Schefs Ambassador Town Hall<br>
+                Time: Sep 27, 2020 05:00 PM Eastern Time (US and Canada)<br>
+                Join Zoom Meeting<br>
+                https://us02web.zoom.us/j/89754578699?pwd=YVc4YkFWTVozUXdqaXNyVXhXbXJiZz09<br>
+                Meeting ID: 897 5457 8699<br>
+                Passcode: schefs<br>
                 </b>
             </p>
             <p>
