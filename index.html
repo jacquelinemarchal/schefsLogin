@@ -166,7 +166,9 @@
                             <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
                             <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
                         </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
                     </form>
                     <form id="login-form" style="display:none; align-items: center;">
                         <div class="form-group">
@@ -204,9 +206,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-personal-events-content">
                 <p>My unattended events</p>
-                <div id="unconfirmed-events-section"><div>
+                <div id="unconfirmed-events-section"></div>
                 <p>My attended events</p>
-                <div id="personal-events-section"><div>
+                <div id="personal-events-section"></div>
             </div>
         </div>
     </div>

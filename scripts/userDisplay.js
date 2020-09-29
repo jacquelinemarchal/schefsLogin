@@ -3,10 +3,12 @@ const acctInfo = document.getElementById('nav-items-right');
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
         db.collection("users").doc(user.uid).get()
-        .then((snap) => {
-            let userDB = snap.data();
-            let fullName = `${userDB.firstName} ${userDB.lastName}`
-            loggedInNav(fullName, user.uid)
+            .then((snap) => {
+                if (snap.exists){
+                    let userDB = snap.data();
+                    let fullName = `${userDB.firstName} ${userDB.lastName}`
+                    loggedInNav(fullName, user.uid)
+                }
         })
     }
     else{
