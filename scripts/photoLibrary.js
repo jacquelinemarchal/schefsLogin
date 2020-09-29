@@ -40,10 +40,15 @@ const photoLibrary = () => {
     })
 }
 const fromRefToImg = (ref, dest) => {
+    console.log(ref.fullPath)
+    var imageName= ref.fullPath.substring(17, ref.fullPath.length);
+    var loc = "chosenImages/"
+    var sendURL = loc.concat(imageName)
     var path = storage.ref(`${ref.fullPath}`);
     path.getDownloadURL()
         .then((url) => {
             dest.src = url;
+            dest.setAttribute("data-link", `${sendURL}`)
         })
         .catch(function(error) {
             console.log(error)

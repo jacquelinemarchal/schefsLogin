@@ -72,6 +72,10 @@ input, textarea{
     outline: none; 
     font-family:'Roboto', sans-serif;
 }
+.popover-dismiss:focus{
+    outline:0;
+}
+
 .container-wrapper{
     margin-left: 4rem;
     margin-right: 4rem;

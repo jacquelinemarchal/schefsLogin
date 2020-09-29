@@ -8,6 +8,11 @@ $(window).scroll(function() {
 if (window.innerWidth > 915){
     $("#modal-welcome-build").modal()
 }
+$('.popover-dismiss').popover({
+    trigger: 'focus' //,
+   // html : true,
+    //content: ""
+})
 auth.onAuthStateChanged(user => {
     if (user){
         var uid = user.uid;
@@ -75,6 +80,9 @@ logResults = () => {
 }
 
 createDocument = (inputs) => {
+    var date = new Date();
+    var eventImage = document.getElementById("event-img")
+    var storeURL = storage.ref(`${eventImage.dataset.link}`);
     db.collection('testevents').doc()
     .set({
         title: `${inputs[0]}`,
@@ -89,9 +97,9 @@ createDocument = (inputs) => {
         festivalDay: "1",
         req: `${inputs[8]}`,
         mealType: "Meal Type",
-        time: "timestamp",
+        time: date,
         prof: "prof",
-        thumb: "thumb"
+        thumb: `${storeURL}`
      })
     .then(() => {
         $("#modal-success").modal()
