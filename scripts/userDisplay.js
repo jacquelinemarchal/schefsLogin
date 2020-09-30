@@ -12,10 +12,10 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
         })
     }
     else{
-        //<a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a>
         acctInfo.innerHTML = 
-        `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
+        `<a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a>
+         <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+         <a style="color:black;"class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
 })
 // after user creates account and logs out, refresh modal
@@ -94,7 +94,6 @@ const findGuests = (doc) => {
         snap.forEach(doc => {
           //  var guestList = document.createElement("p")
            // guestList.innerHTML = `${doc.data().email}<br>`
-
             console.log(doc.data())
         })
     })
