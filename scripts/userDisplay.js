@@ -3,15 +3,18 @@ const acctInfo = document.getElementById('nav-items-right');
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
         db.collection("users").doc(user.uid).get()
-        .then((snap) => {
-            let userDB = snap.data();
-            let fullName = `${userDB.firstName} ${userDB.lastName}`
-            loggedInNav(fullName, user.uid)
+            .then((snap) => {
+                if (snap.exists){
+                    let userDB = snap.data();
+                    let fullName = `${userDB.firstName} ${userDB.lastName}`
+                    loggedInNav(fullName, user.uid)
+                }
         })
     }
     else{
+        //<a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a>
         acctInfo.innerHTML = 
-        `<a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a><a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+        `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
         <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
 })
@@ -34,7 +37,14 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
-                <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`         
+                <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
+               /* $(connectBtn).on('click', () => {
+                    $('#modal-account').modal("hide");
+                    displayUserEvents(uid);
+                });
+                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
+*/
+
         })
 }
 const logOut = (user) => {
@@ -46,3 +56,47 @@ const logOut = (user) => {
         console.log("Error signing user out: ", error);
     });
 }
+
+const displayUserEvents = (uid) => {
+    $('#modal-personal-events').modal("show");
+    var unconfirmed = document.getElementById("unconfirmed-events-section")
+    var confirmed = document.getElementById("personal-events-section")
+    db.collection("users").doc(uid).collection("events").get()
+    .then(snap => {
+        snap.forEach(doc => {
+            var eventData = doc.data();
+            
+            if (eventData.attended){
+                var titleBtn = document.createElement("a")
+                titleBtn.setAttribute("id", `${eventData.eventTitle}`)
+                titleBtn.setAttribute("class", "btn btn-outline-dark reserve")
+                titleBtn.setAttribute("role", "button")
+                titleBtn.innerHTML = `${eventData.eventTitle}`
+                confirmed.appendChild(titleBtn)
+                $(titleBtn).on('click', function () {
+                    findGuests(doc.id);
+                });
+            }
+            if (!eventData.attended){
+                appendTo = unconfirmed;
+            }
+
+
+        })
+    })
+    .catch(err => {
+        console.log('Error finding events: ', err);
+    });
+}
+const findGuests = (doc) => {
+    db.collection("aug20events").doc(doc).collection("tickets").get()
+    .then(snap => {
+        snap.forEach(doc => {
+          //  var guestList = document.createElement("p")
+           // guestList.innerHTML = `${doc.data().email}<br>`
+
+            console.log(doc.data())
+        })
+    })
+} 
+

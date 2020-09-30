@@ -93,7 +93,7 @@ const sendReserveEmail = async (user_id, event_ref) => {
 
     const mailOptions = {
         to: email,
-        subject: 'Your Schefs Reservation',
+        subject: 'Schefs Town Hall Registration: Today at 5pm EST',
         dsn: {
             id: 'Reserve - ' + email,
             return: 'headers',
@@ -151,4 +151,3 @@ exports.sendReserveEmail = functions.firestore
 
     return sendReserveEmail(user_id, event_ref);
 });
-

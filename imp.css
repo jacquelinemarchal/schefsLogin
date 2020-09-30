@@ -207,6 +207,11 @@ img#hostPic{
     margin-right:14px;
 
 }
+img#hostPicA{
+    width: 6rem; 
+    padding-right:14px;
+    height:100%;
+}
 img#hostMobilePic{
     width: 50vw;
 }
@@ -232,6 +237,23 @@ a.reserve{
 @media screen and (max-width: 935px) {
     img#hostPic{
         padding-right: 3rem;
+    }
+    #spread-word{
+        display:none;
+    }
+    #ambass-link{
+        display:block;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 935px) {
+    #spread-word{
+        display:inline-block;
+    }
+    #ambass-link{
+        margin-right: 64px; 
+        float:right;
     }
 }
 
@@ -288,9 +310,21 @@ a.reserve{
     #webPrepare{
         display: inline-block;
     }
+    #amb-host{
+        display:inline-block;
+    }
+    #mobile-amb-host{
+        display:none;
+    }
 }
   /* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
+    #amb-host{
+        display:none;
+    }
+    #mobile-amb-host{
+        display:block;
+    }
     .navbar{
         position: fixed;
         transition: 0.2s;

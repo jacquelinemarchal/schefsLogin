@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Schefs - Friendship through Food</title>
+<title>Schefs - Learn From Each Other</title>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -28,8 +28,8 @@
         <div class="container-wrapper">
             <div class="pagewide text-white d-lg-block fixed-top">
                 <div class="container" id="ambassador-banner-text">
-                    <p style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">We’re looking for engaged students to spread the word</p>
-                    <p style="margin-top:.2em; font-size: 16px; margin-right:64px; float:right;">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>
+                    <p id="spread-word" style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">Want to bring passionate people together?</p>
+                    <p id="ambass-link" style="font-size: 16px;margin-top:.2em; ">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador-info.html">here</a></p>
                 </div>
             </div>
             <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="top:30px; font-size: 16px;">
@@ -93,7 +93,9 @@
                             <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
                             <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
                         </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
                     </form>
                     <form id="login-form" style="display:none; align-items: center;">
                         <div class="form-group">
@@ -130,6 +132,17 @@
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-personal-events" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p>My unattended events</p>
+                <div id="unconfirmed-events-section"></div>
+                <p>My attended events</p>
+                <div id="personal-events-section"></div>
             </div>
         </div>
     </div>
@@ -171,6 +184,7 @@
     <script src="assets/js/src/moment.js"></script>
     <script src="assets/js/src/momenttz.js"></script>
     <script src="scripts/auth.js"></script>
+    <script src="scripts/userDisplay.js"></script>
     <script src="scripts/index.js"></script>
     <script src="scripts/events.js"></script>    
     <script src="scripts/userDisplay.js"></script>
