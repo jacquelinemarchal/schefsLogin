@@ -1,39 +1,59 @@
-// set initial state
-let state = {
-    indexDivStyle: '',  // empty style = being displayed
-    pageDivHtml: ''     // empty page  = event page not rendered
-};
+const indexDiv = document.getElementById("indexView");
+const pageDiv = document.getElementById("pageView");
 
-// initialize history state
-window.history.replaceState(state, null, '');
+var indexHtml = `
+    <div class="container">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
+                <div class="col-sm-7" style="justify-content: right;" >
+                    <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over <s>a meal</s> Zoom.</h1>
+                </div>
+                <div class="col-sm-5" style="font-size: 30px;">
+                    1. Click on an event <br>
+                    2. Reserve your ticket <br>
+                    3. Learn from and talk with college students from around the world
+                </div>
+            </div>
+            <div id="mobileHome">
+                <p>Multiplicities:<br>A week of themed learning experiences from students across the country.</p>
+            </div>
+            <br><br>
+            <!-- EVENT LIST -->
+            <div class="events">
+                <p style="margin-bottom: 0;">Monday, August 17th </p>
+                <h2 style="margin-bottom: 2rem;">Eroticisms</h2>
+                <div class ="festivalDay1"></div>
 
-// update display
-const render = () => {
-    window.scrollTo(0, 0);
-    indexDiv.setAttribute('style', state.indexDivStyle);
-    pageDiv.innerHTML = state.pageDivHtml;
-}
+                <p style="margin-bottom: 0;">Tuesday, August 18th </p>
+                <h2 style="margin-bottom: 2rem;">Digital Citizens</h2>
+                <div class ="festivalDay2"></div>
 
-// handle set state from history
-window.onpopstate = event => {
-    if (event.state) {
-        state = event.state;
-        render();
-    }
-}
+                <p style="margin-bottom: 0;">Wednesday, August 19th </p>
+                <h2 style="margin-bottom: 2rem;">Spaces & Places</h2>
+                <div class ="festivalDay3"></div>
 
-// handle click home button
-const displayHome = () => {
-    state.indexDivStyle = '';
-    state.pageDivHtml = '';
+                <p style="margin-bottom: 0;">Thursday, August 20th </p>
+                <h2 style="margin-bottom: 2rem;">Pandemic Society</h2>
+                <div class ="festivalDay4"></div>
 
-    window.history.pushState(state, null, '');
+                <p style="margin-bottom: 0;">Friday, August 21st </p>
+                <h2 style="margin-bottom: 2rem;">Art: The Performative Self</h2>
+                <div class ="festivalDay5"></div>
 
-    render();
-}
+                <p style="margin-bottom: 0;">Saturday, August 22nd</p>
+                <h2 style="margin-bottom: 2rem;">Autonomies</h2>
+                <div class ="festivalDay6"></div>
+
+                <p style="margin-bottom: 0;">Sunday, August 23rd</p>
+                <h2 style="margin-bottom: 2rem;">The Anthropocene</h2>
+                <div class ="festivalDay7"></div>
+            </div>
+        </div>
+    </div>
+`;
 
 // handle click some event
-const displayPage = (eventId, time) => {
+const displayPage = eventId => {
     const eventRef = db.collection('aug20events').doc(eventId);
     const ticketsRef = eventRef.collection('tickets');
 
@@ -43,9 +63,13 @@ const displayPage = (eventId, time) => {
             const size = snap.size;
             eventRef.get()
                 .then(snap => {
-                    const eventData = snap.data(); 
+                    const eventData = snap.data();
+                    const event_datetime = eventData.time.toDate();
+                    const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
+                    const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
+                    
                     state.pageDivHtml = generateEventPage(eventData, eventId, time, size);
-                    state.indexDivStyle = 'display: none';
+                    state.indexDivHtml = '';
 
                     window.history.pushState(state, null, '');
 
@@ -65,13 +89,21 @@ const displayPage = (eventId, time) => {
                         .catch(err => console.log('Error getting tickets: ', err));
                     }
                 })
-                .catch(err => console.log('Error getting event document: ', err));
+                .catch(err => {
+                    console.log('Error getting event document: ', err)
+                    return false;
+                });
         })
-        .catch(err => console.log('Error getting tickets: ', err));
+        .catch(err => {
+            console.log('Error getting tickets: ', err);
+            return false;
+        });
+
+    window.history.replaceState(state, '', '/index.html?event=' + eventId); 
+    return true;
 }
 
 // generate HTML for event page
-
 const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
     let soldOutStyle = '';
@@ -225,6 +257,65 @@ const triggerReserve = (title, eventId) => {
         modalContent.innerHTML = `
             <p>You are no longer logged in! Please log in and try again.</p>
         `;
+    }
+}
+
+// update display
+const render = () => {
+    window.scrollTo(0, 0);
+    indexDiv.innerHTML = state.indexDivHtml;
+    pageDiv.innerHTML = state.pageDivHtml;
+}
+
+// handle set state from history
+window.onpopstate = event => {
+    if (event.state) {
+        state = event.state;
+        render();
+    }
+}
+
+// set initial state
+let state = {
+    eventsRendered: false,
+    indexDivHtml: '',   // empty page = home page not rendered
+    pageDivHtml: ''     // empty page = event page not rendered
+};
+
+// check fake URL before rendering
+if (window.location.search.startsWith('?event=')) {
+    const eventId = window.location.search.slice('?event='.length);
+    if (!displayPage(eventId))
+        state.indexDivHtml = indexHtml;
+} else {
+    state.indexDivHtml = indexHtml;
+    render();
+    renderHomeEvents();
+    setTimeout(() => {
+        indexHtml = indexDiv.innerHTML;
+        state.indexDivHtml = indexHtml;
+        state.eventsRendered = true;
+    }, 2000);
+}
+
+//initialize history state
+window.history.replaceState(state, null, '');
+
+// handle click home button
+const displayHome = () => {
+    state.indexDivHtml = indexHtml; 
+    state.pageDivHtml = '';
+
+    window.history.pushState(state, null, '/index.html');
+
+    render();
+    if (!state.eventsRendered) {
+        renderHomeEvents();
+        setTimeout(() => {
+            indexHtml = indexDiv.innerHTML;
+            state.indexDivHtml = indexHtml;
+            state.eventsRendered = true;
+        }, 2000);
     }
 }
 

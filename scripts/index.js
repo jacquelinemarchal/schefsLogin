@@ -20,29 +20,28 @@ $(window).scroll(function() {
     }
 });
 
-const indexDiv = document.getElementById("indexView");
-const pageDiv = document.getElementById("pageView");
+const renderHomeEvents = () => {
+    db.collection('aug20events').get()
+        .then(snap => {
+            let allEvents = [];
+            // get all events from db
+            snap.forEach(doc => allEvents.push({
+                ...doc.data(),
+                id: doc.id
+            }));
 
-db.collection('aug20events').get()
-    .then(snap => {
-        let allEvents = [];
-        // get all events from db
-        snap.forEach(doc => allEvents.push({
-            ...doc.data(),
-            id: doc.id
-        }));
+            // sort by time
+            allEvents.sort((e1, e2) => e1.time - e2.time);
 
-        // sort by time
-        allEvents.sort((e1, e2) => e1.time - e2.time);
-
-        // filter by festivalDay
-        for (let i = 1; i <= 7; i++) {
-            const day = String(i);
-            const dayEvents = allEvents.filter(event => event.festivalDay === day);
-            setupEvents(dayEvents, dayEvents.length, day);
-        }
-    })
-    .catch(err => console.log('Error getting events: ', err));
+            // filter by festivalDay
+            for (let i = 1; i <= 7; i++) {
+                const day = String(i);
+                const dayEvents = allEvents.filter(event => event.festivalDay === day);
+                setupEvents(dayEvents, dayEvents.length, day);
+            }
+        })
+        .catch(err => console.log('Error getting events: ', err));
+}
 
 const setupEvents = (data, num, day) => {
     // where num is total number of elements
@@ -74,14 +73,13 @@ const setupEvents = (data, num, day) => {
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
-            <a onclick="displayPage('${id}', '${time}')">
+            <a onclick="displayPage('${id}')">
             <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%; ${opacity}">
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
             </div>
             </div>` //template string
         html += li; // fill 3-event-buffer
-
         var thisRow=(Math.floor(count/3)).toString(); 
 
         if (rowCheck%3 === 0){  // when to make a new row and empty buffer
@@ -93,7 +91,7 @@ const setupEvents = (data, num, day) => {
                 const secondToLast = `
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
-                    <a href="" onclick="displayPage('${id}', '${time}')">
+                    <a href="" onclick="displayPage('${id}')">
                     <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%; ${opacity}">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
                     <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>

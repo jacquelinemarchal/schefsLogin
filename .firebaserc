@@ -1,7 +1,6 @@
 {
   "projects": {
     "production": "schefs",
-    "prod": "schefs",
     "default": "schefs"
   }
 }
