@@ -1,6 +1,7 @@
 isProf = false;
 isThumb = false;
 profilePicture = new Blob();
+confirmed = false;
 
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
@@ -44,15 +45,21 @@ window.addEventListener(
         if (isCalendlyEvent(e)) {
             if (e.data.event === "calendly.date_and_time_selected"){
                     isBooked = true;
-                    console.log(e)
+                    e.preventDefault()
+                    document.getElementById("calendly-link").innerHTML = "<p>You have booked a time</p>";
                     return true;
             }
         }
     }
 );
 
+const submitResult = (r) => {
+    if (r===0){
+        isConfirmed = true;
+    }
+}
+
 logResults = () => {
-    console.log(isThumb)
     var x = document.getElementById("titleInput").value;
     var y = document.getElementById("descInput").value;
     var z = document.getElementById("uniInput").value;
@@ -76,9 +83,14 @@ logResults = () => {
     }
 
     if (emptyInput === 0 && isBooked && isProf){
-        var finalHostPic = document.getElementById("event-img-upload")
-        // add confirmation modal
-        createDocument(inputs)
+        $("#modal-confirm-submit").modal()
+        if (isConfirmed){
+            createDocument(inputs)
+        }
+        if (!isConfirmed){
+            $("#modal-confirm-submit").toggle()
+            return;
+        }
     }
     if (!isBooked){            
         document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please schedule a date</p>`
