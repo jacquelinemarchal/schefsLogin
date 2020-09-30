@@ -112,7 +112,6 @@ const setupEvents = (data, num, day) => {
             </div>
             </div>` //template string
         html += li; // fill 3-event-buffer
-
         var thisRow=(Math.floor(count/3)).toString(); 
 
         if (rowCheck%3 === 0){  // when to make a new row and empty buffer

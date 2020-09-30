@@ -24,8 +24,8 @@ const photoLibrary = () => {
             $(image).on('click', function () {
                 $('#modal-image-select').modal('toggle');
                 fromRefToImg(itemRef, document.getElementById("event-img"));
+                isThumb = true;
             });
-
             document.getElementById(`row-${thisRow}`).appendChild(image);
             
             addUrl(itemRef, count, lastRow)
@@ -73,4 +73,13 @@ const addUrl = (reference, count, lastRow) => {
         });
 }
 
-
+const deleteSelectableImage = (oldURL) => {
+    console.log("delete image here")
+    var oldReference = storage.refFromURL(oldURL)
+    oldReference.delete()
+    .then(function() {
+        console.log("success deleting old image")
+    }).catch(function(error) {
+        console.log(error)
+    });
+}

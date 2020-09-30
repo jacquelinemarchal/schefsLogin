@@ -1,3 +1,7 @@
+isProf = false;
+isThumb = false;
+profilePicture = new Blob();
+
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
         $('#navBar').addClass('floatingNav');
@@ -40,7 +44,7 @@ window.addEventListener(
         if (isCalendlyEvent(e)) {
             if (e.data.event === "calendly.date_and_time_selected"){
                     isBooked = true;
-                    console.log("switching")
+                    console.log(e)
                     return true;
             }
         }
@@ -48,6 +52,7 @@ window.addEventListener(
 );
 
 logResults = () => {
+    console.log(isThumb)
     var x = document.getElementById("titleInput").value;
     var y = document.getElementById("descInput").value;
     var z = document.getElementById("uniInput").value;
@@ -70,19 +75,30 @@ logResults = () => {
         }
     }
 
-    if (emptyInput === 0 && isBooked){
+    if (emptyInput === 0 && isBooked && isProf){
+        var finalHostPic = document.getElementById("event-img-upload")
+        // add confirmation modal
         createDocument(inputs)
     }
     if (!isBooked){            
         document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please schedule a date</p>`
         $("#modal-error").modal()
     }
+    if (!isProf){
+        document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please add a profile picture by clicking on the plus sign to the left of your name.</p>`
+        $("#modal-error").modal()    
+    }
+    if (!isThumb){
+        document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please select an event picture by clicking on the plus sign under your event title.</p>`
+        $("#modal-error").modal()
+    }
 }
-
 createDocument = (inputs) => {
     var date = new Date();
     var eventImage = document.getElementById("event-img")
     var storeURL = storage.ref(`${eventImage.dataset.link}`);
+    var uid = auth.currentUser.uid;
+    sendProfToDb(uid, inputs[0])
     db.collection('testevents').doc()
     .set({
         title: `${inputs[0]}`,
@@ -93,23 +109,31 @@ createDocument = (inputs) => {
         bio: `${inputs[5]}`,
         firstName: `${inputs[6]}`,
         isLive: false,
+        user: uid,
         lastName: `${inputs[7]}`,
-        festivalDay: "1",
         req: `${inputs[8]}`,
         mealType: "Meal Type",
         time: date,
-        prof: "prof",
         thumb: `${storeURL}`
-     })
+    })
     .then(() => {
         $("#modal-success").modal()
-
         $('#modal-success').on('hidden.bs.modal', function () {
             window.location.replace("/")
         });
+       // deleteSelectableImage(eventImage.src)
     })
     .catch(err => {
         console.log('Error adding event: ', err);
+    });
+}
+
+const sendProfToDb = (uid, eventTitle) => {
+    var pictureName = uid.concat("+", eventTitle)
+    var storageRef = storage.ref();
+    var indivImageRef = storageRef.child(`${pictureName}`);
+    var imageRef = storageRef.child(`hostPictures/${pictureName}`);
+    imageRef.put(profilePicture).then(function(snapshot) {
     });
 }
 
@@ -134,5 +158,8 @@ const uploadHostImage = (input) => {
     freader.readAsDataURL(input.files[0]);
     freader.onloadend = event => {
         document.getElementById(input.name).src = event.target.result;
+        document.getElementById("prof-img-upload").setAttribute("data-name", `${input.files[0].name}`);
+        isProf = true;
     }
+    profilePicture = input.files[0];
 }

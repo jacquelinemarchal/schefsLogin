@@ -76,7 +76,7 @@
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
                             <label for="prof-img-upload">
-                                <div style="width: 125px;height: 125px;border-radius:50%;overflow: hidden;"> 
+                                <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
                                     <img src="assets/profholder.png" style="height:auto; width: 100%;"alt="..." id="hostPic">
                                 </div>
                             </label>
@@ -87,8 +87,9 @@
                             <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
                         </div>
                     </div>
-                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: .5rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Co-hosts" data-content="If you are co-hosting an event, please follow these steps.">Co-host Guide</a>
-                    <br>
+                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: 2rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Co-hosts" data-content="If you are co-hosting an event, please follow these steps.">Co-host Guide</a>
+                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: 2rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Profile Pictures" data-content="For best results, upload a square image. If using a vertical image, make sure your face is centered.">Profile Picture Guide</a>
+                    <br><br>
                     <input type="text" id="uniInput" style=" font-size: 20px;" placeholder="My University" value="Columbia University">
                     <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
                     <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
@@ -132,9 +133,17 @@
             </div>
         </div>
     </div>
+    <div id="modal-confirm-submit" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem;">
+                <h2 style="text-align: center;"><b>Confirm</b></h2><br>
+                <p>Are you sure you're ready to submit your event?</p>
+            </div>
+        </div>
+    </div>
     <script src="scripts/firebase.js"></script>
-    <script src="scripts/eventBuilder.js"></script>
     <script src="scripts/photoLibrary.js"></script>
+    <script src="scripts/eventBuilder.js"></script>
     <script src="scripts/userDisplay.js"></script>
 </body>
 </html>
