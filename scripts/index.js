@@ -1,76 +1,53 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
-$(window).scroll(function() {
-    if ($(window).scrollTop() > 10) {
-        $('#navBar').addClass('floatingNav');
-    } else {
-        $('#navBar').removeClass('floatingNav');
+window.addEventListener("resize", checkWidth = () => {
+    if (window.innerWidth < 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "<br>";
+    }
+    if (window.innerWidth > 1042){
+        document.getElementById("breakpoint-banner").innerHTML = "";
+    }
+    if (window.innerWidth < 985){
+        document.getElementById("ambassador-banner-text").innerHTML = '<p class="text-center" style="margin-top:.2em; font-size: 16px; ">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>';
+    }
+    if (window.innerWidth > 985){
+        document.getElementById("ambassador-banner-text").innerHTML = '<p style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">We’re looking for engaged students to spread the word</p><p style="margin-top:.2em; font-size: 16px; margin-right:64px; float:right;">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>';
     }
 });
-var switchSignUp = true;
-const showSignUp = () => {
-  const signupForm = document.getElementById("signup-form");
-  if (switchSignUp){
-    if (switchLogIn = true){
-      switchLogIn=false;
-      showLogIn()
+
+
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 10) {
+        $('#banner').addClass('floatingNav');
+    } else {
+        $('#banner').removeClass('floatingNav');
     }
-    signupForm.setAttribute("style", "display:inline");
-    switchSignUp = false;
-  }
-  else{
-    signupForm.setAttribute("style", "display:none");
-    switchSignUp = true;
-  }
-  return false;
+});
+
+const renderHomeEvents = () => {
+    db.collection('aug20events').get()
+        .then(snap => {
+            let allEvents = [];
+            // get all events from db
+            snap.forEach(doc => allEvents.push({
+                ...doc.data(),
+                id: doc.id
+            }));
+
+            // sort by time
+            allEvents.sort((e1, e2) => e1.time - e2.time);
+
+            // filter by festivalDay
+            for (let i = 1; i <= 7; i++) {
+                const day = String(i);
+                const dayEvents = allEvents.filter(event => event.festivalDay === day);
+                setupEvents(dayEvents, dayEvents.length, day);
+            }
+        })
+        .catch(err => console.log('Error getting events: ', err));
 }
-var switchLogIn = true;
-const showLogIn = () => {
-  if (switchSignUp = true){
-    switchSignUp=false;
-    showSignUp()
-  }
-  const loginForm = document.getElementById("login-form");
-  if (switchLogIn){
-    loginForm.setAttribute("style", "display:inline");
-    switchLogIn = false;
-  }
-  else{
-    loginForm.setAttribute("style", "display:none");
-    switchLogIn = true;
-  }
-  return false;
-}
-
-const hideExpandedContent = () => {
-  loginForm.setAttribute("style", "display:none");
-  signupForm.setAttribute("style", "display:none");
-}
-
-const indexDiv = document.getElementById("indexView");
-const pageDiv = document.getElementById("pageView");
-
-db.collection('aug20events').get()
-    .then(snap => {
-        let allEvents = [];
-        // get all events from db
-        snap.forEach(doc => allEvents.push({
-            ...doc.data(),
-            id: doc.id
-        }));
-
-        // sort by time
-        allEvents.sort((e1, e2) => e1.time - e2.time);
-
-        // filter by festivalDay
-        for (let i = 1; i <= 7; i++) {
-            const day = String(i);
-            const dayEvents = allEvents.filter(event => event.festivalDay === day);
-            setupEvents(dayEvents, dayEvents.length, day);
-        }
-    })
-    .catch(err => console.log('Error getting events: ', err));
 
 const setupEvents = (data, num, day) => {
     // where num is total number of elements
@@ -98,14 +75,11 @@ const setupEvents = (data, num, day) => {
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
         let opacity = ''
-        if (day == 1 || day == 2){
-            opacity = 'opacity: 0.45;'
-        }
-   
+
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
-            <a onclick="displayPage('${id}', '${time}')">
+            <a onclick="displayPage('${id}')">
             <img src="${event.thumb}" href="" alt="..." style="inline-size: 100%; border-radius: 10%; ${opacity}">
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
@@ -123,7 +97,7 @@ const setupEvents = (data, num, day) => {
                 const secondToLast = `
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
-                    <a href="" onclick="displayPage('${id}', '${time}')">
+                    <a href="" onclick="displayPage('${id}')">
                     <img src="${event.thumb}" alt="..." href="" style="inline-size: 100%; border-radius: 10%; ${opacity}">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
                     <p style="font-size:16px;">${event.mealType} • ${event.university}<br>${time}</p></a>
@@ -150,3 +124,25 @@ const setupEvents = (data, num, day) => {
         }
     });
 } 
+
+// mailing-list addition
+const mailingForm = document.querySelector('#mailing-form');
+mailingForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    var date = new Date();
+    var timestamp = date.getTime();
+    const name = mailingForm['name-mailing-signup'].value;
+    const email = mailingForm['email-mailing-signup'].value;
+    db.collection('mailinglist').doc()
+    .set({
+        firstName: `${name}`,
+        email: `${email}`,
+        time: timestamp
+    })
+    .then(() => {
+        $("#modal-thank-you").modal()
+    })
+    .catch(err => {
+        console.log('Error adding user to mailing list: ', err);
+    });
+});
