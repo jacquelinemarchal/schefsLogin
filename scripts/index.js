@@ -1,16 +1,6 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
-window.addEventListener("resize", checkWidth = () => {
-    if (window.innerWidth < 1042){
-        document.getElementById("breakpoint-banner").innerHTML = "<br>";
-    }
-    if (window.innerWidth > 1042){
-        document.getElementById("breakpoint-banner").innerHTML = "";
-    }
-});
-
-
 
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
@@ -119,7 +109,7 @@ const setupEvents = (data, num, day) => {
     });
 } 
 
-// mailing-list addition
+/*
 const mailingForm = document.querySelector('#mailing-form');
 mailingForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -140,3 +130,4 @@ mailingForm.addEventListener('submit', (e) => {
         console.log('Error adding user to mailing list: ', err);
     });
 });
+*/
