@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Schefs - Friendship through Food</title>
+<title>Schefs - Learn From Each Other</title>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="imp.css">
@@ -59,9 +59,26 @@
                     </p>
                     <div id="mobileHost">
                         <p>Hosted by: Schefs Team</p><br>
-                            <img src="${eventData.prof}" alt="..." id="hostMobilePic">
-                      <!--  <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
-                        <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>-->
+                        <div class="row" id="mobile-amb-host" style="margin-top: 10px; width: 100%; margin: auto;">
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <img alt="..." src="assets/lola.png" id="hostPicA">
+                                <h2 style="margin-top:1rem;">Lola Lafia</h2>
+                            </div>
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <img alt="..." src="assets/jackie.png" id="hostPicA">
+                                <h2 style="margin-top:1rem;">Jackie Marchal</h2>
+                            </div>
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <img alt="..." src="assets/chris.png" id="hostPicA">
+                                <h2 style="margin-top:1rem;">Chris Wang</h2>
+                            </div>
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <img alt="..." src="assets/pedro.png" id="hostPicA">
+                                <h2 style="margin-top:1rem;">Pedro Damasceno</h2>
+                            </div>
+                            <br><p>Columbia University • 2022 + 2023</p>
+                        </div>                     
+                   <!--     <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>-->
                     </div>
                     <br><br>
                 </div>
@@ -76,23 +93,30 @@
                     <div id="admin-item" style="display:none;">
                     <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                     </div>
-                    <p style="margin-top:4rem; font-size: 16px;">Hosted by: the Schefs Team</p>
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-sm-3">
-                            <img alt="..." id="thumb">
-                            <img alt="..." id="thumb">
-                            <img alt="..." id="thumb">
-                            <img alt="..." id="thumb">
+                    <p style="margin-top:2rem; font-size: 16px;">Hosted by: the Schefs Team</p>
+                    <div class="row" id="amb-host" style="margin-top: 10px;">
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <img alt="..." src="assets/lola.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Lola Lafia</h2>
                         </div>
-                        <div class="col-sm-1 offset-sm-1">
-                            <h2>Lola Lafia</h2>
-                            <h2>Jackie Marchal</h2>
-                            <h2>Chris Wang</h2>
-                            <h2>Pedro Damesceno</h2>
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <img alt="..." src="assets/jackie.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Jackie Marchal</h2>
                         </div>
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <img alt="..." src="assets/chris.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Chris Wang</h2>
+                        </div>
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <img alt="..." src="assets/pedro.png" id="hostPicA">
+                            <h2 style="margin-top:1rem;">Pedro Damasceno</h2>
+                        </div>
+                        <br><p style="font-size: 16px;">Columbia University • 2022 + 2023</p>
+
                     </div>
-                <!--   <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
-                    <br><div class="hostBio"> ${eventData.bio}</div>--> 
+                    
+                    </div>
+                 <!--   <br><div class="hostBio"> ${eventData.bio}</div>--> 
                 </div>
             </div>         
         </div>
@@ -100,7 +124,7 @@
             <div class="row" id="fixed-footer">
                 <p id="mobileReserve" class="ticket-count"></p> <!--x spots / x spots available-->
                 <div id="reserve-item-mobile">
-                    <a class="btn btn-outline-dark reserve" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                    <a class="btn btn-outline-dark reserve" style="margin-right: 6rem;" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
                 </div>
             </div>
         </div>
@@ -234,6 +258,7 @@
     <script src="assets/js/src/moment.js"></script>
     <script src="assets/js/src/momenttz.js"></script>
     <script src="scripts/auth.js"></script>
+    <script src="scripts/userDisplay.js"></script>
     <script src="scripts/signup.js"></script>
     <script src="scripts/ambassador.js"></script>
 </body>
