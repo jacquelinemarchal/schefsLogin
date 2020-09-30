@@ -88,7 +88,9 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-
+.selected {
+    background: grey;
+}
 .navbar{
     position: fixed;
     transition: 0.2s;
@@ -99,6 +101,33 @@ tr:nth-child(even) {
     padding-bottom: 1rem; 
     padding-top: 1rem;
     flex-direction: row;
+}
+
+#rotate {
+    transform: rotate(180deg);
+}
+.responsiveImg{
+    width: 25%;
+    height: auto;
+    float: left; 
+    max-width: 300px;
+    border-radius: 25%;
+}
+.responsiveLastRow{
+    border-radius: 25%;
+    width: 250px;
+    height: auto;
+    float: left; 
+    align-content: center;
+}
+
+img.responsiveImg:hover{
+    background-color: #F6FFBE;
+    cursor: pointer;
+}
+img.responsiveLastRow:hover{
+    background-color: #F6FFBE;
+    cursor: pointer;
 }
 
 .floatingNav {
@@ -115,6 +144,10 @@ input, textarea{
     outline: none; 
     font-family:'Roboto', sans-serif;
 }
+.popover-dismiss:focus{
+    outline:0;
+}
+
 .container-wrapper{
     margin-left: 4rem;
     margin-right: 4rem;
@@ -152,6 +185,16 @@ img#thumb{
     border-radius: 10%;
 }
 
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #555;
+}
+
 .modal-content{
     border-radius: 2rem;
 }
@@ -161,7 +204,8 @@ img#thumb{
 
 img#hostPic{
     width: 8rem; 
-    padding-right:14px;
+    margin-right:14px;
+
 }
 img#hostMobilePic{
     width: 50vw;
@@ -329,7 +373,7 @@ a.reserve{
         margin-right: 1rem;
     }
 }
-@media screen and (max-width: 915px) {
+@media screen and (max-width: 1015px) {
     div#builder-content{
         display:none;
     }
@@ -337,7 +381,7 @@ a.reserve{
         display:inline;
     }
 }
-@media screen and (min-width: 915px) {
+@media screen and (min-width: 1015px) {
     div#builder-content{
         display:inline;
     }

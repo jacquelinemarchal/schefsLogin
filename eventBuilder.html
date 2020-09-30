@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>About - Schefs</title>
+<title>Event Builder - Schefs</title>
 <!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="imp.css">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="icon" href="assets/favicon.png">
@@ -14,9 +17,9 @@
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <!-- NAVBAR -->
     <div class="container">
@@ -42,6 +45,9 @@
     </div>
     <div class="container" id="builder-content">
         <div class="container-wrapper" style="padding-top: 4rem;">
+
+    <!-- Link Bootstrap CSS -->
+    <body> 
             <div class="row">
                 <div class="col-md-7">
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>
@@ -54,13 +60,12 @@
                     </p>          
                     <div>                     
                       <label for="event-img-upload">
-                        <div style="display: relative; width: 500px; height: 316.14px; overflow: hidden;">
+                        <div style="display: relative; width: 100%; overflow: hidden;">
                           <img id="event-img" src="assets/placeholder.png" style="max-width: 100%; border-radius: 4rem; width: 500px; height: auto;">
                         </div>
                       </label>
-                      <input name="event-img" style="display:none;" type="file" id="event-img-upload" onchange="uploadImage(this)">
+                      <input name="event-img" style="display:none;" id="event-img-upload" onclick="uploadImage()">
                     </div>
-
 
                     <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="6" placeholder="My Event Description..."></textarea>
                     <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="3" placeholder="Event requirements..."></textarea>
@@ -71,28 +76,39 @@
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
                             <label for="prof-img-upload">
-                              <img src="assets/profholder.png" style="border-radius: 90%;"alt="..." id="hostPic">
+                                <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                    <img src="assets/profholder.png" style="height:auto; width: 100%;"alt="..." id="hostPic">
+                                </div>
                             </label>
-                            <input name="hostPic" style="display:none;" type="file" id="prof-img-upload" onchange="uploadImage(this)">
+                            <input name="hostPic" style="display:none;" type="file" id="prof-img-upload" accept="image/jpeg, image/png" onchange="uploadHostImage(this)">
                         </div>
-                            <div class="offset-sm-1">
-                                <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name">  
-                                <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
-                                <small id="passwordHelp" class="form-text text-muted">Enter both names if you plan to co-host</small>
-                            </div>
+                        <div class="col-sm-3 offset-sm-1">
+                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name">  
+                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
                         </div>
-                        <br>
-                        <input type="text" id="uniInput" style=" font-size: 20px; padding-top:1rem" placeholder="My University" value="Columbia University">
-                        <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
-                        <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
-                        <br>
-                        <textarea type="text" id="bioInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
+                    </div>
+                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: 2rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Co-hosts" data-content="If you are co-hosting an event, please follow these steps.">Co-host Guide</a>
+                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: 2rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Profile Pictures" data-content="For best results, upload a square image. If using a vertical image, make sure your face is centered.">Profile Picture Guide</a>
+                    <br><br>
+                    <input type="text" id="uniInput" style=" font-size: 20px;" placeholder="My University" value="Columbia University">
+                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
+                    <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
+                    <br>
+                    <textarea type="text" id="bioInput" style="font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
                 </div>
-            </div>         
+            </div>
+        </div>
+    </div> 
+    <div class="modal fade bd-example-modal-xl" id="modal-image-select" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" style="overflow-y: initial;">
+            <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-image-select-content"> 
+                <small class="form-text">Don't see a photo you like? Email schefs.us@gmail.com</small>
+            </div>
         </div>
     </div>
+
     <div id="modal-account" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content"></div>
         </div>
     </div>
@@ -117,12 +133,17 @@
             </div>
         </div>
     </div>
+    <div id="modal-confirm-submit" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem;">
+                <h2 style="text-align: center;"><b>Confirm</b></h2><br>
+                <p>Are you sure you're ready to submit your event?</p>
+            </div>
+        </div>
+    </div>
     <script src="scripts/firebase.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
+    <script src="scripts/photoLibrary.js"></script>
     <script src="scripts/eventBuilder.js"></script>
     <script src="scripts/userDisplay.js"></script>
- 
 </body>
 </html>
