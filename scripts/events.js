@@ -272,6 +272,9 @@ window.onpopstate = event => {
     if (event.state) {
         state = event.state;
         render();
+
+        if (state.indexDivHtml)
+            window.history.replaceState(state, null, '/index.html');
     }
 }
 
