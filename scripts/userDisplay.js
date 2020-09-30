@@ -95,4 +95,3 @@ const findGuests = (doc) => {
         })
     })
 } 
-
