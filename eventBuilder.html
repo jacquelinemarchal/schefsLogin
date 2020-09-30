@@ -45,9 +45,7 @@
     </div>
     <div class="container" id="builder-content">
         <div class="container-wrapper" style="padding-top: 4rem;">
-
-    <!-- Link Bootstrap CSS -->
-    <body> 
+            <!-- Link Bootstrap CSS -->
             <div class="row">
                 <div class="col-md-7">
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>
@@ -140,8 +138,10 @@
             <div class="modal-content" style="padding: 2rem;">
                 <h2 style="text-align: center;"><b>Confirm</b></h2><br>
                 <p>Are you sure you're ready to submit your event?</p>
-                <a onclick="submitResult(0)" type="submit" class="btn btn-dark" style="color:#3e4042;background-color:white">Yes</a>
-                <a onclick="submitResult(1)" type="submit" class="btn btn-dark" style="color:#3e4042;background-color:white">No</a>
+                <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
+                    <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Yes</a>
+                    <a data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">No</a>
+                </div>
             </div>
         </div>
     </div>

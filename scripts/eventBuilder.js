@@ -1,7 +1,7 @@
 isProf = false;
 isThumb = false;
 profilePicture = new Blob();
-confirmed = false;
+isConfirmed = -1;
 
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
@@ -46,7 +46,7 @@ window.addEventListener(
             if (e.data.event === "calendly.date_and_time_selected"){
                     isBooked = true;
                     e.preventDefault()
-                    document.getElementById("calendly-link").innerHTML = "<p>You have booked a time</p>";
+            //        document.getElementById("calendly-link").innerHTML = "<p>You have booked a time</p>";
                     return true;
             }
         }
@@ -55,7 +55,8 @@ window.addEventListener(
 
 const submitResult = (r) => {
     if (r===0){
-        isConfirmed = true;
+        isConfirmed = 0;
+        logResults();
     }
 }
 
@@ -77,21 +78,21 @@ logResults = () => {
         if (inputs[i].length === 0){
             emptyInput++
             document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please complete all fields</p>`
-            $("#modal-error").modal()
-            break;
+          //  $("#modal-error").modal()
+           // break;
         }
     }
 
-    if (emptyInput === 0 && isBooked && isProf){
-        $("#modal-confirm-submit").modal()
-        if (isConfirmed){
+  //  if (emptyInput === 0 && isBooked && isProf){
+        if (isConfirmed != 0){
+            $("#modal-confirm-submit").modal()
+        }
+        if (isConfirmed === 0){
+            $('#modal-confirm-submit').modal('hide');
             createDocument(inputs)
         }
-        if (!isConfirmed){
-            $("#modal-confirm-submit").toggle()
-            return;
-        }
-    }
+
+ /*   }
     if (!isBooked){            
         document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please schedule a date</p>`
         $("#modal-error").modal()
@@ -103,7 +104,7 @@ logResults = () => {
     if (!isThumb){
         document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please select an event picture by clicking on the plus sign under your event title.</p>`
         $("#modal-error").modal()
-    }
+    }*/
 }
 createDocument = (inputs) => {
     var date = new Date();
