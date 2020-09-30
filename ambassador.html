@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Schefs - Friendship through Food</title>
 <!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="imp.css">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="icon" href="assets/favicon.png">
@@ -18,26 +16,18 @@
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
-<script src="scripts/firebase.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- NAVBAR -->
     <div class="container">
-        <div class="container-wrapper">
-            <div class="pagewide text-white d-lg-block fixed-top">
-                <div class="container" id="ambassador-banner-text">
-                    <p style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">We’re looking for engaged students to spread the word</p>
-                    <p style="margin-top:.2em; font-size: 16px; margin-right:64px; float:right;">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador.html">here</a></p>
-                </div>
-            </div>
-            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="top:30px; font-size: 16px;">
-                <a onclick="displayHome()" class="navbar-brand mr-auto p-2">
+        <div class="container-wrapper" style="padding-bottom: 4rem;">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
+                <a href="/" class="navbar-brand mr-auto p-2">
                     <img src="assets/logo.png" style="height: 34px;">
                 </a>
                 <div id="nav-items-right" style="display: flex;">
-                <a class="nav-item nav-link p-2" style="color: black;" href="eventBuilder.html">Event Builder</a>
                 <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
                 <a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-signup">Sign In</a>
                 </div>
@@ -45,9 +35,76 @@
         </div>
     </div>
     <br>
-    <!--HEADING-->
-    <div id="indexView"></div>
-    <div id="pageView" style="padding-top: 4rem;"></div>
+    <div class="container">
+        <div class="container-wrapper">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 id="title">Ambassador Town Hall</h1>
+                    <p>Sunday, 09/27/2020 @ 5 pm EST</p>
+                        <img id="thumb" alt="...">
+                    <p>This open town hall is for anyone interested in the ambassador program to gather (via Zoom) with the Schefs team 
+                        (four undergrad students!) and discuss how we can grow this community of young thinkers and learners. You’ll learn more 
+                        about our plan for the program as well as have the opportunity to share your own thoughts. Schefs is all about collaboration: 
+                        it is by and for students to exchange ideas, passions, and knowledge with one another. So as we grow, we want to make our internal 
+                        plans as open-source, participatory, and inclusive as possible.<br><br>Our mission is to create spaces for college students to come together 
+                        in live conversation on topics they care about. We need your help to continue to create deeper and non-hierarchical ways for us students to 
+                        meet friends and collaborators and inspire one another through a community that values knowledge, passion, contribution, diverse 
+                        perspectives, and collective learning.<br><br>Stop by, say hello, and learn more about the ambassador program as we create it together!
+                        </p>
+                    <br>
+                    <h2 id="webPrepare">What to prepare:</h2>
+                    <b><p id="mobilePrepare">What to prepare:</p></b>
+                    <p>Come with an open mind and any questions or contributions you might have. A kind of Schefs event in and of itself, we will begin with a 
+                        short introduction from our team and then turn it into an open conversation. All participation, feedback, and perspectives welcome!
+                    </p>
+                    <div id="mobileHost">
+                        <p>Hosted by: Schefs Team</p><br>
+                            <img src="${eventData.prof}" alt="..." id="hostMobilePic">
+                      <!--  <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
+                        <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>-->
+                    </div>
+                    <br><br>
+                </div>
+
+                <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
+                    <div id="reserve-item" style="display:none;">
+                        <a class="btn btn-outline-dark reserve" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
+                    </div>
+                    <div id="login-item" style="display:none;">
+                        <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
+                    </div>
+                    <div id="admin-item" style="display:none;">
+                    <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
+                    </div>
+                    <p style="margin-top:4rem; font-size: 16px;">Hosted by: the Schefs Team</p>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-sm-3">
+                            <img alt="..." id="thumb">
+                            <img alt="..." id="thumb">
+                            <img alt="..." id="thumb">
+                            <img alt="..." id="thumb">
+                        </div>
+                        <div class="col-sm-1 offset-sm-1">
+                            <h2>Lola Lafia</h2>
+                            <h2>Jackie Marchal</h2>
+                            <h2>Chris Wang</h2>
+                            <h2>Pedro Damesceno</h2>
+                        </div>
+                    </div>
+                <!--   <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
+                    <br><div class="hostBio"> ${eventData.bio}</div>--> 
+                </div>
+            </div>         
+        </div>
+        <div class="footer">
+            <div class="row" id="fixed-footer">
+                <p id="mobileReserve" class="ticket-count"></p> <!--x spots / x spots available-->
+                <div id="reserve-item-mobile">
+                    <a class="btn btn-outline-dark reserve" onclick="townHallReserve()" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- SIGN UP MODAL -->
     <div id="modal-signup" class="modal fade">
@@ -119,13 +176,6 @@
             </div>
         </div>
     </div>
-    <div id="modal-build-prompt" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;">
-                <p>You must be signed in to submit an event. Please make an account or log in. </p>
-            </div>
-        </div>
-    </div>
 
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
@@ -154,27 +204,37 @@
     <div id="modal-reserve" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-thank-you" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
+                <h2>Success!</h2><p>You have reserved a spot at Schefs Town Hall. Check your inbox for ticket information.</p>
             </div>
         </div>
     </div>
 </div>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
+            authDomain: "schefs.firebaseapp.com",
+            databaseURL: "https://schefs.firebaseio.com",
+            projectId: "schefs",
+            storageBucket: "schefs.appspot.com",
+            messagingSenderId: "1078198186854",
+            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
+            measurementId: "G-SFQEPY2PRN"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
     <script src="assets/js/src/moment.js"></script>
     <script src="assets/js/src/momenttz.js"></script>
     <script src="scripts/auth.js"></script>
-    <script src="scripts/index.js"></script>
-    <script src="scripts/events.js"></script>    
-    <script src="scripts/userDisplay.js"></script>
-    <script src="scripts/storage.js"></script>
-
+    <script src="scripts/signup.js"></script>
+    <script src="scripts/ambassador.js"></script>
 </body>
 </html>
