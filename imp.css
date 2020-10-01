@@ -108,7 +108,7 @@ tr:nth-child(even) {
 }
 .responsiveImg{
     width: 25%;
-    height: auto;
+    height: 100%;
     float: left; 
     max-width: 300px;
     border-radius: 25%;
@@ -116,7 +116,7 @@ tr:nth-child(even) {
 .responsiveLastRow{
     border-radius: 25%;
     width: 250px;
-    height: auto;
+    height: 100%;
     float: left; 
     align-content: center;
 }
@@ -217,6 +217,8 @@ img#hostMobilePic{
 }
 
 a.reserve{
+    -webkit-appearance: none;
+    -moz-appearance:none;
     font-size:20px; 
     letter-spacing: .05em; 
     border-radius: 1.3rem;
