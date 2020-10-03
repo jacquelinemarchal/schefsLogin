@@ -53,6 +53,17 @@ window.addEventListener(
     }
 );
 
+Calendly.initPopupWidget({
+    url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
+   /* prefill: {
+        name: "John Doe",
+        email: "john@doe2.com"
+    },*/
+    utm: {
+        utmSource: "Facebook"
+    }      
+});
+
 const submitResult = (r) => {
     if (r===0){
         isConfirmed = 0;
