@@ -154,4 +154,7 @@ exports.sendReserveEmail = functions.firestore
 
 exports.calendly = functions.https.onRequest((request, response) => {
     response.send("Endpoint for Calendly Webhooks");
+    var body = request.body.text	
+    response.send(`${body}`)
   });
+  //:850934
