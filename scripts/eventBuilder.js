@@ -2,6 +2,9 @@ isProf = false;
 isThumb = false;
 profilePicture = new Blob();
 isConfirmed = -1;
+userFName = "";
+userEmail = "";
+userLName = "";
 
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
@@ -25,11 +28,15 @@ auth.onAuthStateChanged(user => {
         .then((querySnapshot) => {
             // pre-fill entries
             let userInfo = querySnapshot.data();
+            userFName = userInfo.firstName;
+            userLName = userInfo.lastName;
+            userEmail = userInfo.email;
             document.getElementById("uniInput").value =`${userInfo.university}`; 
             document.getElementById("gradInput").value =`${userInfo.gradYear}`; 
-            document.getElementById("fnInput").value =`${userInfo.firstName}`; 
-            document.getElementById("lnInput").value =`${userInfo.lastName}`; 
+            document.getElementById("fnInput").value =`${userFName}`; 
+            document.getElementById("lnInput").value =`${userLName}`; 
             document.getElementById("majorInput").value =`${userInfo.major}`; 
+            document.getElementById("calendly-text").setAttribute("onclick", "Calendly.initPopupWidget({url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',prefill: {firstName: `${userFName}`,lastName: `${userLName}`,email: `${userEmail}`},utm: {utmSource: 'Facebook'}});return false;")
         })
     }
 })
@@ -52,17 +59,7 @@ window.addEventListener(
         }
     }
 );
-/*
-Calendly.initPopupWidget({
-    url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
-   /* prefill: {
-        name: "John Doe",
-        email: "john@doe2.com"
-    },
-    utm: {
-        utmSource: "Facebook"
-    }      
-});*/
+
 
 const submitResult = (r) => {
     if (r===0){

@@ -51,15 +51,10 @@
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>
                     <p style="margin-bottom: 0; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
                     <div id="calendly-link">
-                        <p><!-- Calendly link widget begin 
+                        <p>
                             <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
                             <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
-                            <a style="color:black; font-family:'Roboto', sans-serif;font-size:20px;"href="" onclick="Calendly.initPopupWidget({ url: 'https://calendly.com/schefs-event/schefs-event?primary_color=4d5055'});return false;">Choose a date</a>
-                            -->
-                            <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-                            <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
-                            <a style="color:black; font-family:'Roboto', sans-serif;font-size:20px;"href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055'});return false;">Choose a date</a>
-                            <!-- Calendly link widget end -->
+                            <a id="calendly-text" style="color:black; font-family:'Roboto', sans-serif;font-size:20px;"href="" onclick="">Choose a date</a>
                         </p>          
                     </div>
                     <div>                     
