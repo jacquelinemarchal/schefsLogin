@@ -227,30 +227,29 @@ const triggerReserve = (title, eventId) => {
         const email = auth.currentUser.email;
         const uid = auth.currentUser.uid;
 
-        db.collection("users").doc(uid).get()
-        .then(snap => {
+        db.collection("users").doc(uid).get().then(snap => {
             const user = snap.data();
             const phone = user.phoneNumber
             const name = `${user.firstName} ${user.lastName}`;
             db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
-            .set({
-                email: email,
-                name: name,
-                phoneNumber: phone
-             })
-            .then(() => {
-                console.log('Success');
+                .set({
+                    email: email,
+                    name: name,
+                    phoneNumber: phone
+                 })
+                .then(() => {
+                    console.log('Success');
 
-                modalContent.innerHTML = `
-                    <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
-                `;
-            })
-            .catch(err => {
-                console.log('Error adding ticket: ', err);
-                modalContent.innerHTML = `
-                    <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
-                `;
-            });
+                    modalContent.innerHTML = `
+                        <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
+                    `;
+                })
+                .catch(err => {
+                    console.log('Error adding ticket: ', err);
+                    modalContent.innerHTML = `
+                        <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
+                    `;
+                });
         })
     } else {
         console.log('Error: User not logged in anymore');

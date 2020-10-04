@@ -13,122 +13,12 @@
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const nodemailer = require('nodemailer');
 const moment = require('moment-timezone');
 
 admin.initializeApp();
 
-const email = functions.config().user.email;
-const password = functions.config().user.password;
-
-const transportOptions = {
-    name: 'schefs.us',
-    pool: true,
-    rateDelta: 86400000,    // 24 hours in ms, this prop will be deprecated
-    rateLimit: 300,         // 300 emails per day (Gmail limit is 500), this prop will be deprecated
-    service: 'gmail',
-    auth: {
-        user: email,
-        pass: password
-    }
-};
-
-const defaults = {
-    from: 'Schefs US <schefs.us@gmail.com>',
-    replyTo: 'schefs.us@gmail.com'
-};
-
-const transporter = nodemailer.createTransport(transportOptions, defaults);
-
-const sendWelcomeEmail = async (email, name) => {
-    const mailOptions = {
-        to: email,
-        subject: 'Welcome to Schefs!',
-        dsn: {
-            id: 'Welcome - ' + email,
-            return: 'headers',
-            notify: ['failure', 'delay'],
-            recipient: 'schefs.us@gmail.com'
-        },
-        html: `
-            <p>
-                Hi ${name},
-            </p>
-            <p>
-                Thanks for making a Schefs account! We’re psyched to have you join this 
-                community of college students who want to share with and learn from one
-                another, partaking in this joyous journey of knowledge exchange, and 
-                harnessing the collective intelligence of our generation.
-            </p>
-            <p>
-                To many conversations,<br>
-                The Schefs Team<br>
-                <a href="www.schefs.us">www.schefs.us</a>
-            </p>
-        `
-    };
-
-    await transporter.sendMail(mailOptions, (err, info) => {
-        if (err) console.log(err);
-        console.log(info);
-    });
-
-    return null;
-}
-
-const sendReserveEmail = async (user_id, event_ref) => {
-    const user_ref = admin.firestore().collection('users').doc(user_id);
-    const user_snap = await user_ref.get();
-    const user = user_snap.data();
-    const email = user.email;
-    const name = user.firstName;
-
-    const event_snap = await event_ref.get();
-    const event = event_snap.data();
-    const event_name = event.title;
-    const event_datetime = event.time.toDate();
-    
-    const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
-    const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
-
-    const mailOptions = {
-        to: email,
-        subject: 'Schefs Town Hall Registration: Today at 5pm EST',
-        dsn: {
-            id: 'Reserve - ' + email,
-            return: 'headers',
-            notify: ['failure', 'delay'],
-            recipient: 'schefs.us@gmail.com'
-        },
-        html: `
-            <p>
-                Hi ${name},
-            </p>
-            <p>
-                Thanks for signing up for a Schefs event:<br><br>
-                <b>
-                ${event_name}<br>
-                Sunday, September 27th<br>
-                5:00 PM EDT<br><br>
-                </b>
-                You will receive details for the scheduled Zoom the night before 
-                the event.
-            </p>
-            <p>
-                Yours truly,<br>
-                The Schefs Team<br>
-                <a href="www.schefs.us">www.schefs.us</a>
-            </p>
-        `
-    };
-    
-    await transporter.sendMail(mailOptions, (err, info) => {
-        if (err) console.log(err);
-        console.log(info);
-    });
-
-    return null;
-}
+const emailFunctions = require('./emails');
+const gcalFunctions = require('./gcalendar');
 
 exports.sendWelcomeEmail = functions.firestore
     .document('users/{userId}')
@@ -138,16 +28,89 @@ exports.sendWelcomeEmail = functions.firestore
     const email = user.email;
     const name = user.firstName;
 
-    return sendWelcomeEmail(email, name);
+    emailFunctions.sendWelcomeEmail(email, name);
+        
+    return null;
 });
 
-exports.sendReserveEmail = functions.firestore
-    .document('aug20events/{eventId}/tickets/{ticketId}')
-    .onCreate((snap, context) => {
+exports.handleReserveEvent = functions.firestore
+    .document('weekendevents/{eventId}/tickets/{ticketId}')
+    .onCreate(async (snap, context) => {
 
     const user_id = context.params.ticketId;
+    const event_id = context.params.eventId;
+
     const ticket_ref = snap.ref;
     const event_ref = ticket_ref.parent.parent;
+    const user_ref = admin.firestore().collection('users').doc(user_id);
 
-    return sendReserveEmail(user_id, event_ref);
+    const user_snap = await user_ref.get();
+    const user = user_snap.data();
+    const email = user.email;
+    const name = user.firstName;
+
+    const event_snap = await event_ref.get();
+    const event = event_snap.data();
+    const event_name = event.title;
+    const event_gcal_id = event.gcalId;
+
+    const event_datetime = event.time.toDate();
+    const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
+    const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+
+    gcalFunctions.addAttendeeToGcalEvent(event_id, email);
+    emailFunctions.sendReserveEmail(email, name, event_name, event_date, event_time);
+
+    return null;
 });
+
+exports.handleCreateEvent = functions.firestore
+    .document('weekendevents/{eventId}')
+    .onCreate((snap, context) => {
+
+    const event = snap.data();
+    const event_id = context.params.eventId;
+
+    const email = event.email;
+    const name = event.firstName;
+    const event_name = event.title;
+    
+    emailFunctions.sendEventSubmittedEmail(email, name, event_name);
+
+    return null;
+});
+
+exports.handleUpdateEvent = functions.firestore
+    .document('weekendevents/{eventId}')
+    .onUpdate((change, context) => {
+
+    const after = change.after.data();
+    const before = change.before.data();
+    const event_id = context.params.eventId;
+
+    const email = after.email;
+    const name = after.firstName;
+    const event_name = after.title;
+    const event_datetime = after.time.toDate();
+
+    if ((!before.zoomLink || !before.zoomId) && after.zoomLink && after.zoomId) {
+        const zoom_link = after.zoomLink;
+        const zoom_id = after.zoomId;
+        const start_time_utc = event_datetime.toISOString();
+        event_datetime.setHours(event_datetime.getHours()+1);
+        const end_time_utc = event_datetime.toISOString();
+        
+        gcalFunctions.createGcalEvent(event_name, event_id, zoom_link, zoom_id, start_time_utc, end_time_utc);
+    }
+
+    if (!before.approved && after.approved) {
+        const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
+        const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+
+        gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
+        emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time);
+    }
+
+    return null;
+});
+
