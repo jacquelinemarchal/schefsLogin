@@ -1,7 +1,7 @@
 isProf = false;
 isThumb = false;
+isConfirmed = false;
 profilePicture = new Blob();
-isConfirmed = -1;
 userFName = "";
 userEmail = "";
 userLName = "";
@@ -36,10 +36,31 @@ auth.onAuthStateChanged(user => {
             document.getElementById("fnInput").value =`${userFName}`; 
             document.getElementById("lnInput").value =`${userLName}`; 
             document.getElementById("majorInput").value =`${userInfo.major}`; 
-            document.getElementById("calendly-text").setAttribute("onclick", "Calendly.initPopupWidget({url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',prefill: {firstName: `${userFName}`,lastName: `${userLName}`,email: `${userEmail}`},utm: {utmSource: 'Facebook'}});return false;")
+
         })
     }
 })
+const initCalendly = (eventID) => {
+    var id = eventID.toString()
+    let calendly = "Calendly.initPopupWidget({url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',prefill: {firstName:"
+    calendly += `${userFName} +WORKING, lastName: ${userLName}, email: ${userEmail},},utm:{utmCampaign:${id}}})`
+    document.getElementById("newCalendly").setAttribute("onclick", `${calendly}`)
+
+    /*
+    Calendly.initPopupWidget({
+        url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
+        prefill: {
+            firstName: `${userFName} +WORKING`,
+            lastName: `${userLName}`,
+            email: `${userEmail}`,
+        },
+        utm: {
+            utmCampaign: `${id}`,
+        }         
+   });*/
+
+}
+
 var isBooked = false;
 isCalendlyEvent = (e) => {
     return e.data.event &&
@@ -60,10 +81,9 @@ window.addEventListener(
     }
 );
 
-
 const submitResult = (r) => {
     if (r===0){
-        isConfirmed = 0;
+        isConfirmed = true;
         logResults();
     }
 }
@@ -90,20 +110,14 @@ logResults = () => {
             break;
         }
     }
-
-    if (emptyInput === 0 && isBooked && isProf){
-        if (isConfirmed != 0){
+    if (emptyInput === 0 && isProf && isThumb){
+        if (!isConfirmed){
             $("#modal-confirm-submit").modal()
         }
-        if (isConfirmed === 0){
+        if (isConfirmed){
             $('#modal-confirm-submit').modal('hide');
             createDocument(inputs)
         }
-
-    }
-    if (!isBooked){            
-        document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please schedule a date</p>`
-        $("#modal-error").modal()
     }
     if (!isProf){
         document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please add a profile picture by clicking on the plus sign to the left of your name.</p>`
@@ -120,8 +134,8 @@ createDocument = (inputs) => {
     var storeURL = storage.ref(`${eventImage.dataset.link}`);
     var uid = auth.currentUser.uid;
     sendProfToDb(uid, inputs[0])
-    db.collection('testevents').doc()
-    .set({
+    db.collection('testevents')
+    .add({
         title: `${inputs[0]}`,
         desc: `${inputs[1]}`,
         university: `${inputs[2]}`,
@@ -137,12 +151,28 @@ createDocument = (inputs) => {
         time: date,
         thumb: `${storeURL}`
     })
-    .then(() => {
-        $("#modal-success").modal()
-        $('#modal-success').on('hidden.bs.modal', function () {
-            window.location.replace("/")
+    .then((docRef) => {
+        db.collection('users').doc(`${uid}`).collection('hostedEvents').doc(`${docRef.id}`)
+        .set({
+            title: `${inputs[0]}`
+        })
+        .then(() => {
+            initCalendly(docRef.id)
+            document.getElementById("builder-content").setAttribute("style", "display:none;")
+            document.getElementById("mobile-builder").setAttribute("style", "display:none;")
+            document.getElementById("calendly").setAttribute("style", "display:block;")
+           // $('newCalendly').trigger('click');
+            $("a.newCalendly").trigger("click");
+
+        //    $("#modal-success").modal()
+          //  $('#modal-success').on('hidden.bs.modal', function () {
+            //    window.location.replace("/")
+           // });
+           // deleteSelectableImage(eventImage.src)
+        })
+        .catch(err => {
+            console.log('Error adding event: ', err);
         });
-       // deleteSelectableImage(eventImage.src)
     })
     .catch(err => {
         console.log('Error adding event: ', err);
