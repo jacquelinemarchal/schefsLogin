@@ -152,9 +152,9 @@ exports.sendReserveEmail = functions.firestore
     return sendReserveEmail(user_id, event_ref);
 });
 
+
 exports.calendly = functions.https.onRequest((request, response) => {
-    response.send("Endpoint for Calendly Webhooks");
-    var body = request.body.text	
-    response.send(`${body}`)
+   // response.send("Endpoint for Calendly Webhooks");
+    var body = request.body
+    response.send(JSON.stringify(body))
   });
-  //:850934

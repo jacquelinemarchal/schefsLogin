@@ -49,14 +49,7 @@
             <div class="row">
                 <div class="col-md-7">
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>
-                    <p style="margin-bottom: 0; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
-                    <div id="calendly-link">
-                        <p>
-                            <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-                            <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
-                            <a id="calendly-text" style="color:black; font-family:'Roboto', sans-serif;font-size:20px;"href="" onclick="">Choose a date</a>
-                        </p>          
-                    </div>
+                    <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
                     <div>                     
                       <label for="event-img-upload">
                         <div style="display: relative; width: 100%; overflow: hidden;">
@@ -71,7 +64,7 @@
                 </div>
                
                 <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
-                    <a onclick="logResults()" type="submit" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SUBMIT</a>
+                    <a onclick="logResults()" type="submit" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SET DATE & SUBMIT</a>
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
                             <label for="prof-img-upload">
@@ -136,14 +129,23 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem;">
                 <h2 style="text-align: center;"><b>Confirm</b></h2><br>
-                <p>Are you sure you're ready to submit your event?</p>
+                <p>Are you ready to submit your event? You will no longer be able to edit your event</p>
                 <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
-                    <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Yes</a>
+                    <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Continue</a>
                     <a data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">No</a>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Calendly inline widget begin -->
+    <div class="container" id="calendly" style="margin-top: 2rem;">
+        <!-- Calendly link widget begin -->
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+        <a href="" id="newCalendly"></a>
+        <!-- Calendly link widget end -->
+    </div>
+    <!-- Calendly inline widget end -->
     <script src="scripts/firebase.js"></script>
     <script src="scripts/photoLibrary.js"></script>
     <script src="scripts/eventBuilder.js"></script>
