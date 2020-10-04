@@ -11,7 +11,11 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+try {
+    firebase.analytics();
+    } catch (error) {
+    console.error(error);
+  }
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();

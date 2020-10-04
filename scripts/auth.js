@@ -7,6 +7,7 @@ loginForm.addEventListener('submit', (e) => {
     auth.signInWithEmailAndPassword(email, password).then(cred =>{
         loginForm.reset();
         $('#modal-signup').modal("hide");
+        $('.modal-backdrop').remove();
         loginForm.reset();
     }).catch((error) => {
         alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
@@ -63,6 +64,7 @@ const storeProfile = (userId, email, fName, lName, gradYear, major, university, 
             .then(() => {
                 $("#modal-signup").modal("hide");
                 $("#modal-welcome").modal("show");
+                $('.modal-backdrop').remove();
             })
             .catch((error) => {
                 console.log("Error storing user info: ", error);
@@ -73,7 +75,6 @@ const storeProfile = (userId, email, fName, lName, gradYear, major, university, 
             console.log("Error logging in user: ", error);
     });
 }
-
 
 // logout
 const logOutUser = (user) => {

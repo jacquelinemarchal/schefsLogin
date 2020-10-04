@@ -1,6 +1,10 @@
 isProf = false;
 isThumb = false;
 profilePicture = new Blob();
+isConfirmed = -1;
+userFName = "";
+userEmail = "";
+userLName = "";
 
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
@@ -14,7 +18,7 @@ if (window.innerWidth > 915){
 }
 $('.popover-dismiss').popover({
     trigger: 'focus' //,
-   // html : true,
+    // html : true,
     //content: ""
 })
 auth.onAuthStateChanged(user => {
@@ -24,11 +28,15 @@ auth.onAuthStateChanged(user => {
         .then((querySnapshot) => {
             // pre-fill entries
             let userInfo = querySnapshot.data();
+            userFName = userInfo.firstName;
+            userLName = userInfo.lastName;
+            userEmail = userInfo.email;
             document.getElementById("uniInput").value =`${userInfo.university}`; 
             document.getElementById("gradInput").value =`${userInfo.gradYear}`; 
-            document.getElementById("fnInput").value =`${userInfo.firstName}`; 
-            document.getElementById("lnInput").value =`${userInfo.lastName}`; 
+            document.getElementById("fnInput").value =`${userFName}`; 
+            document.getElementById("lnInput").value =`${userLName}`; 
             document.getElementById("majorInput").value =`${userInfo.major}`; 
+            document.getElementById("calendly-text").setAttribute("onclick", "Calendly.initPopupWidget({url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',prefill: {firstName: `${userFName}`,lastName: `${userLName}`,email: `${userEmail}`},utm: {utmSource: 'Facebook'}});return false;")
         })
     }
 })
@@ -44,15 +52,23 @@ window.addEventListener(
         if (isCalendlyEvent(e)) {
             if (e.data.event === "calendly.date_and_time_selected"){
                     isBooked = true;
-                    console.log(e)
+                    e.preventDefault()
+            //        document.getElementById("calendly-link").innerHTML = "<p>You have booked a time</p>";
                     return true;
             }
         }
     }
 );
 
+
+const submitResult = (r) => {
+    if (r===0){
+        isConfirmed = 0;
+        logResults();
+    }
+}
+
 logResults = () => {
-    console.log(isThumb)
     var x = document.getElementById("titleInput").value;
     var y = document.getElementById("descInput").value;
     var z = document.getElementById("uniInput").value;
@@ -76,9 +92,14 @@ logResults = () => {
     }
 
     if (emptyInput === 0 && isBooked && isProf){
-        var finalHostPic = document.getElementById("event-img-upload")
-        // add confirmation modal
-        createDocument(inputs)
+        if (isConfirmed != 0){
+            $("#modal-confirm-submit").modal()
+        }
+        if (isConfirmed === 0){
+            $('#modal-confirm-submit').modal('hide');
+            createDocument(inputs)
+        }
+
     }
     if (!isBooked){            
         document.getElementById("modal-error-content").innerHTML = `<p style="margin-bottom: 0;">Please schedule a date</p>`
