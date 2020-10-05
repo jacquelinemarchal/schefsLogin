@@ -16,7 +16,7 @@ const admin = require('firebase-admin');
 const moment = require('moment-timezone');
 
 admin.initializeApp();
-
+const db = admin.firestore()
 const emailFunctions = require('./emails');
 const gcalFunctions = require('./gcalendar');
 
@@ -116,9 +116,16 @@ exports.handleUpdateEvent = functions.firestore
 
 
 exports.calendly = functions.https.onRequest((request, response) => {
-   // response.send("Endpoint for Calendly Webhooks");
-    var body = request.body
-    response.send(JSON.stringify(body))
-  });
-  //:850934
-
+    var raw = request.body.payload;
+    var eventID = raw.tracking.utm_campaign;
+    var time = raw.event.start_time;
+    var zoomLink = raw.event.location;
+    var zoomID = zoomLink.substring(26);
+    var zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7));
+   
+    db.collection("testevents").doc(eventID).set({
+        time: time,
+        zoomId: zoomIDFormat,
+        zoomLink: zoomLink
+    }, { merge: true });
+});

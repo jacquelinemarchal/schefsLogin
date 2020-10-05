@@ -41,23 +41,18 @@ auth.onAuthStateChanged(user => {
     }
 })
 const initCalendly = (eventID) => {
-    var id = eventID.toString()
-    let calendly = "Calendly.initPopupWidget({url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',prefill: {firstName:"
-    calendly += `${userFName} +WORKING, lastName: ${userLName}, email: ${userEmail},},utm:{utmCampaign:${id}}})`
-    document.getElementById("newCalendly").setAttribute("onclick", `${calendly}`)
-
-    /*
-    Calendly.initPopupWidget({
+    Calendly.initInlineWidget({
         url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
+        parentElement: document.getElementById('calendly'),
         prefill: {
-            firstName: `${userFName} +WORKING`,
+            firstName: `${userFName}`,
             lastName: `${userLName}`,
             email: `${userEmail}`,
         },
         utm: {
-            utmCampaign: `${id}`,
-        }         
-   });*/
+            utmCampaign: `${eventID}`,
+        }     
+    });
 
 }
 
@@ -71,10 +66,12 @@ window.addEventListener(
     'message',
     function(e) {
         if (isCalendlyEvent(e)) {
-            if (e.data.event === "calendly.date_and_time_selected"){
-                    isBooked = true;
+            if (e.data.event === "calendly.event_scheduled"){
                     e.preventDefault()
-            //        document.getElementById("calendly-link").innerHTML = "<p>You have booked a time</p>";
+                 //   $("#modal-success").modal()
+                  //  $('#modal-success').on('hidden.bs.modal', function () {
+                   // window.location.replace("/")
+             //   });
                     return true;
             }
         }
@@ -145,10 +142,11 @@ createDocument = (inputs) => {
         firstName: `${inputs[6]}`,
         isLive: false,
         user: uid,
+        email: userEmail,
         lastName: `${inputs[7]}`,
         req: `${inputs[8]}`,
         mealType: "Meal Type",
-        time: date,
+        submit_time: date,
         thumb: `${storeURL}`
     })
     .then((docRef) => {
@@ -160,14 +158,7 @@ createDocument = (inputs) => {
             initCalendly(docRef.id)
             document.getElementById("builder-content").setAttribute("style", "display:none;")
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
-            document.getElementById("calendly").setAttribute("style", "display:block;")
-           // $('newCalendly').trigger('click');
-            $("a.newCalendly").trigger("click");
-
-        //    $("#modal-success").modal()
-          //  $('#modal-success').on('hidden.bs.modal', function () {
-            //    window.location.replace("/")
-           // });
+            document.getElementById("calendly").classList.remove("d-none")
            // deleteSelectableImage(eventImage.src)
         })
         .catch(err => {
