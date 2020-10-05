@@ -121,11 +121,13 @@ exports.calendly = functions.https.onRequest((request, response) => {
     var time = raw.event.start_time;
     var zoomLink = raw.event.location;
     var zoomID = zoomLink.substring(26);
+    var pretty = raw.event.start_time_pretty;
     var zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7));
    
     db.collection("testevents").doc(eventID).set({
-        time: time,
+        start_time: time,
         zoomId: zoomIDFormat,
-        zoomLink: zoomLink
+        zoomLink: zoomLink,
+        start_time_pretty: pretty
     }, { merge: true });
 });

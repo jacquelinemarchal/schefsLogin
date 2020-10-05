@@ -145,7 +145,6 @@ createDocument = (inputs) => {
         email: userEmail,
         lastName: `${inputs[7]}`,
         req: `${inputs[8]}`,
-        mealType: "Meal Type",
         submit_time: date,
         thumb: `${storeURL}`
     })

@@ -20,10 +20,23 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
 });
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
-    const info = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Event Builder</a> <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
-                    <a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
-                    <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`;
-    acctInfo.innerHTML = info;
+    var eventBuilder = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Event Builder</a>`
+    var about = `<a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>`
+    var account = `<a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
+    <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`
+
+    if (window.location.href.indexOf("eventBuilder") > -1) {
+        const info = about.concat(account)
+        acctInfo.innerHTML = info;    
+    }
+    if (window.location.href.indexOf("approval-events") > -1) {
+        const info = account;
+        acctInfo.innerHTML = info;    
+    }
+    else{
+        const info = eventBuilder.concat(about, account);
+        acctInfo.innerHTML = info;
+    }
 }
 
 const displayUserInfo = (uid) => {
@@ -41,8 +54,7 @@ const displayUserInfo = (uid) => {
                     $('#modal-account').modal("hide");
                     displayUserEvents(uid);
                 });
-                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
-*/
+                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>*/
         })
 }
 const logOut = (user) => {
