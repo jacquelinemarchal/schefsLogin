@@ -20,6 +20,7 @@ const db = admin.firestore()
 const emailFunctions = require('./emails');
 const gcalFunctions = require('./gcalendar');
 
+// send email on user registration
 exports.sendWelcomeEmail = functions.firestore
     .document('users/{userId}')
     .onCreate((snap, context) => {
@@ -33,6 +34,7 @@ exports.sendWelcomeEmail = functions.firestore
     return null;
 });
 
+// invite to GCal event + send email on reserving event ticket
 exports.handleReserveEvent = functions.firestore
     .document('weekendevents/{eventId}/tickets/{ticketId}')
     .onCreate(async (snap, context) => {
@@ -64,22 +66,7 @@ exports.handleReserveEvent = functions.firestore
     return null;
 });
 
-exports.handleCreateEvent = functions.firestore
-    .document('weekendevents/{eventId}')
-    .onCreate((snap, context) => {
-
-    const event = snap.data();
-    const event_id = context.params.eventId;
-
-    const email = event.email;
-    const name = event.firstName;
-    const event_name = event.title;
-    
-    emailFunctions.sendEventSubmittedEmail(email, name, event_name);
-
-    return null;
-});
-
+// various functions on event update for hosts
 exports.handleUpdateEvent = functions.firestore
     .document('weekendevents/{eventId}')
     .onUpdate((change, context) => {
@@ -93,22 +80,33 @@ exports.handleUpdateEvent = functions.firestore
     const event_name = after.title;
     const event_datetime = after.start_time.toDate();
 
+    // on Zoom meeting creation (after receiving Calendly info), create GCal event and send submit confirmation email
     if ((!before.zoomLink || !before.zoomId) && after.zoomLink && after.zoomId) {
+        // Zoom + time info
         const zoom_link = after.zoomLink;
         const zoom_id = after.zoomId;
         const start_time_utc = event_datetime.toISOString();
         event_datetime.setHours(event_datetime.getHours()+1);
         const end_time_utc = event_datetime.toISOString();
+       
+        // host info for email 
+        const email = after.email;
+        const name = after.firstName;
+        const event_name = after.title;
         
         gcalFunctions.createGcalEvent(event_name, event_id, zoom_link, zoom_id, start_time_utc, end_time_utc);
+        emailFunctions.sendEventSubmittedEmail(email, name, event_name);
     }
 
+    // on event approval
     if ((!before.status || before.status === 'denied') && after.status === 'approved') {
         const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
         const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
 
         gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
         emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time);
+    
+    // on event denial
     } else if ((!before.status || before.status === 'approved') && after.status === 'denied') {
         const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
         const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
@@ -120,7 +118,7 @@ exports.handleUpdateEvent = functions.firestore
     return null;
 });
 
-
+// add Zoom info to Firebase using Calendly webhooks
 exports.calendly = functions.https.onRequest((request, response) => {
     var raw = request.body.payload;
     var eventID = raw.tracking.utm_campaign;
