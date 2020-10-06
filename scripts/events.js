@@ -1,6 +1,7 @@
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
 
+
 var indexHtml = `
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">

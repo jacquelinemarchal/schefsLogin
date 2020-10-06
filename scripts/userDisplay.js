@@ -1,24 +1,23 @@
-const acctInfo = document.getElementById('nav-items-right');
+var acctInfo = document.getElementById('nav-items-right');
 // listen for auth status changes
 auth.onAuthStateChanged(user => { // returns null if user logs out
     if (user) { // when user logs in
         db.collection("users").doc(user.uid).get()
-            .then((snap) => {
-                if (snap.exists){
-                    let userDB = snap.data();
-                    let fullName = `${userDB.firstName} ${userDB.lastName}`
-                    loggedInNav(fullName, user.uid)
-                }
+        .then((snap) => {
+            if (snap.exists){
+                let userDB = snap.data();
+                let fullName = `${userDB.firstName} ${userDB.lastName}`
+                loggedInNav(fullName, user.uid)
+            }
         })
     }
     else{
-        //<a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a>
         acctInfo.innerHTML = 
-        `<a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
-        <a class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
+        `<a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a>
+         <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
+         <a style="color:black;"class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
-})
-// after user creates account and logs out, refresh modal
+});
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
     const info = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Event Builder</a> <a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>
@@ -44,12 +43,12 @@ const displayUserInfo = (uid) => {
                 });
                 <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
 */
-
         })
 }
 const logOut = (user) => {
     auth.signOut().then(() => {
         $('#modal-account').modal("hide");
+        $('.modal-backdrop').remove();
         window.location.replace("/")
     })
     .catch(function(error) {
@@ -80,8 +79,6 @@ const displayUserEvents = (uid) => {
             if (!eventData.attended){
                 appendTo = unconfirmed;
             }
-
-
         })
     })
     .catch(err => {
@@ -94,9 +91,7 @@ const findGuests = (doc) => {
         snap.forEach(doc => {
           //  var guestList = document.createElement("p")
            // guestList.innerHTML = `${doc.data().email}<br>`
-
             console.log(doc.data())
         })
     })
 } 
-
