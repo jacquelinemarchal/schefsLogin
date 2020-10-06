@@ -57,12 +57,12 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
+                <a class="btn btn-outline-dark reserve" id="myEventsBtn" style="margin-bottom:1rem;" role="button">    My Events    </a>
                 <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
                 $(myEventsBtn).on('click', () => {
                     $('#modal-account').modal("hide");
                     displayUserHostedEvents(uid);
                 });
-                <a class="btn btn-outline-dark reserve" id="myEventsBtn" style="margin-bottom:1rem;"role="button">    My Events    </a>
                /* $(connectBtn).on('click', () => {
                     $('#modal-account').modal("hide");
                     displayUserEvents(uid);
@@ -81,6 +81,31 @@ const logOut = (user) => {
     });
 }
 
+const displayUserHostedEvents = (uid) => {
+    var eventDiv = document.getElementById("modal-hosted-events-content")
+    $('#modal-hosted-events').modal("show");
+    db.collection("users").doc(uid).collection("hostedEvents").get()
+    .then(snap => {
+        snap.forEach(doc => {
+            var eventList = document.createElement("ul")
+            var event = document.createElement("li")
+            event.setAttribute("style", "list-style-type: none;")
+            status = "";
+            if (event.isLive){
+                status = "approved"
+            }
+            if (!event.isLive){
+                status = "pending approval"
+            }
+            event.innerHTML=`${doc.data().title} • this event is ${status}`
+            eventList.appendChild(event)
+            eventDiv.appendChild(eventList)
+        })
+    })
+}
+$('#modal-hosted-events').on('hidden.bs.modal', function (e) {
+    $('.modal-backdrop').remove();
+})
 const displayUserEvents = (uid) => {
     $('#modal-personal-events').modal("show");
     var unconfirmed = document.getElementById("unconfirmed-events-section")

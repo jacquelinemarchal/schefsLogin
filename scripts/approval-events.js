@@ -13,7 +13,7 @@ auth.onAuthStateChanged(user => {
 const displayEvents = () => {
     document.getElementById("notAdmin").setAttribute("style", "display:none;")
 
-    db.collection('testevents').get()
+    db.collection('weekendevents').get()
     .then(snap => {
         let allEvents = [];
         snap.forEach(doc => allEvents.push({

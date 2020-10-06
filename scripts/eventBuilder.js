@@ -128,7 +128,7 @@ createDocument = (inputs) => {
     var storeURL = storage.ref(`${eventImage.dataset.link}`);
     var uid = auth.currentUser.uid;
     sendProfToDb(uid, inputs[0])
-    db.collection('testevents')
+    db.collection('weekendevents')
     .add({
         title: `${inputs[0]}`,
         desc: `${inputs[1]}`,

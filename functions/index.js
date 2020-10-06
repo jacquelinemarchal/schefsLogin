@@ -260,7 +260,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
         }
     }
 
-    db.collection("testevents").doc(eventID).set({
+    db.collection("weekendevents").doc(eventID).set({
         start_time: time,
         zoomId: zoomIDFormat,
         zoomLink: zoomLink,
