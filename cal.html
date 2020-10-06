@@ -36,27 +36,68 @@
     </div>
     <br>
     <!--HEADING-->
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script> 
+    <div class="container">
+        <div class="container-wrapper" style="margin-top:4rem;">
+            <div class="container  d-none">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-8" style="padding-top:6rem;">
+                        <h2 style="text-align: center;">Thank you for submitting your event!</h2><br>
+                        <p>Check your email for a confirmation<br><br>Our team will review your event within 24 hours before publishing it to the site if approved.</p>
+                        <br><p>Talk soon!</p>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm" style="text-align: center;">
+                            <a href="/eventBuilder.html" type="submit" class="btn btn-dark reserve" style="width:260px;font-size: 18px; padding-left: 10px;padding-right: 10px;color:#3e4042;background-color:white">SUBMIT ANOTHER EVENT</a>
 
-    <div style="min-width:320px;height:630px;" id="calendly"></div>
-    <!-- Calendly inline widget end -->
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="/index.html" class="btn btn-dark reserve" style="font-size: 18px; padding-left: 10px;padding-right: 10px;color:#3e4042;background-color:white">BROWSE EVENTS</a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank"  href="https://www.instagram.com/schefs.us/" class="btn btn-dark reserve" style="font-size: 18px; padding-left: 10px;padding-right: 10px;color:#3e4042;background-color:white">FOLLOW @SCHEFS.US</a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="container" id="complete">
+        <div class="container-wrapper" style="margin-top:4rem;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-8" style="padding-top:6rem;">
+                        <h2 style="text-align: center;">Thank you for submitting your event!</h2><br>
+                        <p>Check your email for a confirmation<br><br>Our team will review your event within 24 hours before publishing it to the site if approved.</p>
+                        <br><p>Talk soon!</p>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm" style="text-align: center;">
+                            <a href="/eventBuilder.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>&lsaquo; Submit another Event</u></a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="/index.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Browse Events</u></a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="https://www.instagram.com/schefs.us/" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Follow @schefs.us</u></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Calendly inline widget end -->
 
-    <script>
-
-    Calendly.initInlineWidget({
-        url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
-        parentElement: document.getElementById('calendly'),
-        prefill: {
-            firstName: `${userFName} +WORKING`,
-            lastName: `${userLName}`,
-            email: `${userEmail}`,
-        },
-        utm: {
-            utmCampaign: `${id}`,
-        }     
-    });
-    </script>
+    
     <!-- Calendly inline widget end -->
     <script src="scripts/firebase.js"></script>
     <script src="scripts/photoLibrary.js"></script>

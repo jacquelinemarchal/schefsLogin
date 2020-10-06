@@ -67,11 +67,8 @@ window.addEventListener(
     function(e) {
         if (isCalendlyEvent(e)) {
             if (e.data.event === "calendly.event_scheduled"){
-                    e.preventDefault()
-                 //   $("#modal-success").modal()
-                  //  $('#modal-success').on('hidden.bs.modal', function () {
-                   // window.location.replace("/")
-             //   });
+                    document.getElementById("complete").classList.remove("d-none")
+                    document.getElementById("calendly").classList.add("d-none")
                     return true;
             }
         }
