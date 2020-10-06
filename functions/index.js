@@ -54,7 +54,7 @@ exports.handleReserveEvent = functions.firestore
     const event_name = event.title;
     const event_gcal_id = event.gcalId;
 
-    const event_datetime = event.time.toDate();
+    const event_datetime = event.start_time.toDate();
     const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
     const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
 
@@ -91,7 +91,7 @@ exports.handleUpdateEvent = functions.firestore
     const email = after.email;
     const name = after.firstName;
     const event_name = after.title;
-    const event_datetime = after.time.toDate();
+    const event_datetime = after.start_time.toDate();
 
     if ((!before.zoomLink || !before.zoomId) && after.zoomLink && after.zoomId) {
         const zoom_link = after.zoomLink;
@@ -103,12 +103,18 @@ exports.handleUpdateEvent = functions.firestore
         gcalFunctions.createGcalEvent(event_name, event_id, zoom_link, zoom_id, start_time_utc, end_time_utc);
     }
 
-    if (!before.approved && after.approved) {
+    if ((!before.status || before.status === 'denied') && after.status === 'approved') {
         const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
         const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
 
         gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
         emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time);
+    } else if ((!before.status || before.status === 'approved') && after.status === 'denied') {
+        const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
+        const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+
+        gcalFunctions.deleteGcalEvent(event_id);
+        // emailFunctions.sendEventDeniedEmail(email, name, event_name, event_date, event_time);
     }
 
     return null;
