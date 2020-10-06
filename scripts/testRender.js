@@ -1,5 +1,5 @@
 
-db.collection('testevents').get()
+db.collection('weekendevents').get()
 .then(snap => {
     let allEvents = [];
     // get all events from db

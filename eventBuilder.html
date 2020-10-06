@@ -36,6 +36,38 @@
     </div>
     <br>
     <!--HEADING-->
+    <div class="container d-none" id="complete">
+        <div class="container-wrapper" style="margin-top:4rem;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-8" style="padding-top:6rem;">
+                        <h2 style="text-align: center;">Thank you for submitting your event!</h2><br>
+                        <p>Check your email for a confirmation<br><br>Our team will review your event within 24 hours before publishing it to the site if approved.</p>
+                        <br><p>Talk soon!</p>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm" style="text-align: center;">
+                            <a href="/eventBuilder.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>&lsaquo; Submit another Event</u></a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="/index.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Browse Events</u></a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="https://www.instagram.com/schefs.us/" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Follow @schefs.us</u></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script> 
+    <div class="d-none" style="min-width:320px;height:630px;" id="calendly"></div>
+
     <div class="container" id="mobile-builder">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <br>
@@ -48,7 +80,7 @@
             <!-- Link Bootstrap CSS -->
             <div class="row">
                 <div class="col-md-7">
-                    <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title" required>
+                    <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title..." required>
                     <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
                     <div>                     
                       <label for="event-img-upload">
@@ -64,7 +96,10 @@
                 </div>
                
                 <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
-                    <a onclick="logResults()" type="submit" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SET DATE & SUBMIT</a>
+                    <div class="row">
+                        <a onclick="logResults()" type="submit" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SET DATE & SUBMIT</a>
+                        <a onclick="helpModal()" type="submit" class="btn btn-dark reserve" style="margin-left:1rem;color:#3e4042;background-color:white">HELP</a>
+                    </div>
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
                             <label for="prof-img-upload">
@@ -75,16 +110,14 @@
                             <input name="hostPic" style="display:none;" type="file" id="prof-img-upload" accept="image/jpeg, image/png" onchange="uploadHostImage(this)">
                         </div>
                         <div class="col-sm-3 offset-sm-1">
-                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name">  
-                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name" aria-describedby="passwordHelp">
+                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name...">  
+                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name..." aria-describedby="passwordHelp">
                         </div>
                     </div>
-                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: 2rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Co-hosts" data-content="If you are co-hosting an event, please provide both of your respective bios, university names, graduation years, and majors in the box below. Instead of filling out both of your first and last names, we ask you to provide Host 1's first name in the First Name box, and Host 2's first name in the Last Name box, separated by an '&' sign. You may provide one profile picture for your event. ">Co-host Guide</a>
-                    <a tabindex="0" style="margin-bottom: 2rem;margin-top: 2rem; margin-left: .5rem;" class="btn-sm btn-outline-dark popover-dismiss" role="button" data-toggle="popover" data-trigger="focus" title="Event Builder Tips for Profile Pictures" data-content="For best results, upload a square image. If using a vertical image, make sure your face is centered.">Profile Picture Guide</a>
                     <br><br>
-                    <input type="text" id="uniInput" style=" font-size: 20px;" placeholder="My University" value="Columbia University">
-                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year">
-                    <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major">
+                    <input type="text" id="uniInput" style=" font-size: 20px;" placeholder="My University" value="Columbia University...">
+                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year...">
+                    <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major...">
                     <br>
                     <textarea type="text" id="bioInput" style="font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
                 </div>
@@ -104,7 +137,12 @@
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content"></div>
         </div>
     </div>
-
+    <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
+            </div>
+        </div>
+    </div>
     <div id="modal-error" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-error-content"></div>
@@ -118,10 +156,28 @@
         </div>
     </div>
     <div id="modal-welcome-build" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem;">
-                <h2 style="text-align: center;"><b>Welcome to the Event Builder</b></h2><br>
-                <p>Your information is pre-loaded from your account information. You can change the fields if you wish by highlighting and re-typing what you wish.<br><br> When you are done, click submit and we will evaluate your event.</p>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div id="modal-help-content" class="modal-content" style="padding-left: 4rem; padding-right: 4rem; padding-top: 2rem; padding-bottom: 2rem;">
+                
+                <h2 style="text-align: center;">Welcome to the Event Builder</h2><br>
+                <div style="padding-left: 4rem; padding-right: 4rem;">
+
+                    <p style="text-align: center;">Your information is pre-loaded from your account information. You can change the fields if you wish by highlighting and re-typing what you wish.<br><br> After you submit, your event will be reviewed within 24 hours.</p>
+                    <br><p>Browse Resources:</p>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <a style="color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;" onclick="displayImageGuide()">Image Guide</a>
+                        </div>
+                        <div class="col-sm">
+                            <a style="color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;"  onclick="displayCoHostGuide()">Co-host Guide</a>
+                        </div>
+                        <div class="col-sm">
+                            <a target="_blank" href="/archive.html" style="font-family:'Roboto', sans-serif;font-size:20px;">Event Inspiration</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -130,25 +186,18 @@
             <div class="modal-content" style="padding: 2rem;">
                 <h2 style="text-align: center;"><b>Confirm</b></h2><br>
                 <p>Are you ready to submit your event? You will no longer be able to edit your event</p>
-                <div class="col-sm-3" style="margin-left:auto;margin-right:auto;">
-                    <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Continue</a>
+                <div style="margin-left:auto;margin-right:auto;text-align: center;">
+                    <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Continue</a><br>
                     <a data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">No</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Calendly inline widget begin -->
-    <div class="container" id="calendly" style="margin-top: 2rem;">
-        <!-- Calendly link widget begin -->
-        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
-        <a href="" id="newCalendly"></a>
-        <!-- Calendly link widget end -->
-    </div>
-    <!-- Calendly inline widget end -->
+
     <script src="scripts/firebase.js"></script>
     <script src="scripts/photoLibrary.js"></script>
     <script src="scripts/eventBuilder.js"></script>
+    <script src="scripts/helpModal.js"></script>
     <script src="scripts/userDisplay.js"></script>
 </body>
 </html>

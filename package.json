@@ -13,7 +13,9 @@
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-plugin-promise": "^4.2.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

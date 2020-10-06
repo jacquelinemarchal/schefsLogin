@@ -16,7 +16,7 @@ const admin = require('firebase-admin');
 const moment = require('moment-timezone');
 
 admin.initializeApp();
-
+const db = admin.firestore()
 const emailFunctions = require('./emails');
 const gcalFunctions = require('./gcalendar');
 
@@ -122,9 +122,159 @@ exports.handleUpdateEvent = functions.firestore
 
 
 exports.calendly = functions.https.onRequest((request, response) => {
-   // response.send("Endpoint for Calendly Webhooks");
-    var body = request.body
-    response.send(JSON.stringify(body))
-  });
-  //:850934
+    var raw = request.body.payload;
+    var eventID = raw.tracking.utm_campaign;
+    var time = raw.event.start_time;
+    var zoomLink = raw.event.location;
+    var zoomID = zoomLink.substring(26);
+    var zoomPassword = zoomLink.substring(42)
+    var pretty = raw.event.start_time_pretty;
+    var zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
 
+    // make week field
+    //2020-10-09T12:00:00-04:00 
+    var month = time.substring(5,7)
+    var day = time.substring(8,10)
+    
+    week = 0;
+    weekDay = ""
+    if (month === "10"){
+        if (day > "15"){
+            week = 1;
+            if (day === "16"){
+                weekDay = "Friday"
+            }
+            if (day === "17"){
+                weekDay = "Saturday"
+            }
+            if (day === "18"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "22"){
+            week = 2;
+            if (day === "23"){
+                weekDay = "Friday"
+            }
+            if (day === "24"){
+                weekDay = "Saturday"
+            }
+            if (day === "25"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "29"){
+            week = 3;
+            if (day === "30"){
+                weekDay = "Friday"
+            }
+            if (day === "31"){
+                weekDay = "Saturday"
+            }
+        }
+    }
+    if (month === "11"){
+        if (day === "1"){
+            week = 3;
+            weekDay = "Sunday"
+        }
+        if (day > "5"){
+            week = 4;
+            if (day === "6"){
+                weekDay = "Friday"
+            }
+            if (day === "7"){
+                weekDay = "Saturday"
+            }
+            if (day === "8"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "12"){
+            week = 5;
+            if (day === "13"){
+                weekDay = "Friday"
+            }
+            if (day === "14"){
+                weekDay = "Saturday"
+            }
+            if (day === "15"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "19"){
+            week = 6;
+            if (day === "20"){
+                weekDay = "Friday"
+            }
+            if (day === "21"){
+                weekDay = "Saturday"
+            }
+            if (day === "22"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "26"){
+            week = 7;
+            if (day === "27"){
+                weekDay = "Friday"
+            }
+            if (day === "28"){
+                weekDay = "Saturday"
+            }
+            if (day === "29"){
+                weekDay = "Sunday"
+            }
+        }
+    }
+    if (month === "12"){
+        if (day > "3"){
+            week = 8;
+            if (day === "4"){
+                weekDay = "Friday"
+            }
+            if (day === "5"){
+                weekDay = "Saturday"
+            }
+            if (day === "6"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "10"){
+            week = 9;
+            if (day === "11"){
+                weekDay = "Friday"
+            }
+            if (day === "12"){
+                weekDay = "Saturday"
+            }
+            if (day === "13"){
+                weekDay = "Sunday"
+            }
+        }
+        if (day > "17"){
+            week = 10;
+            if (day === "18"){
+                weekDay = "Friday"
+            }
+            if (day === "19"){
+                weekDay = "Saturday"
+            }
+            if (day === "20"){
+                weekDay = "Sunday"
+            }
+        }
+    }
+
+    db.collection("weekendevents").doc(eventID).set({
+        start_time: time,
+        zoomId: zoomIDFormat,
+        zoomLink: zoomLink,
+        start_time_pretty: pretty,
+        zoomPassword: zoomPassword,
+        week: week,
+        month: month,
+        weekDay: weekDay,
+        day: day
+    }, { merge: true });
+});
