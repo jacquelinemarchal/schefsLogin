@@ -2,6 +2,7 @@ isProf = false;
 isThumb = false;
 isConfirmed = false;
 profilePicture = new Blob();
+proPicPath = "";
 userFName = "";
 userEmail = "";
 userLName = "";
@@ -144,7 +145,8 @@ createDocument = (inputs) => {
         req: `${inputs[8]}`,
         submit_time: date,
         status: "",
-        thumb: `${storeURL}`
+        thumb: `${storeURL}`,
+        prof: `${proPicPath}`
     })
     .then((docRef) => {
         db.collection('users').doc(`${uid}`).collection('hostedEvents').doc(`${docRef.id}`)
@@ -156,7 +158,7 @@ createDocument = (inputs) => {
             document.getElementById("builder-content").setAttribute("style", "display:none;")
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
             document.getElementById("calendly").classList.remove("d-none")
-           // deleteSelectableImage(eventImage.src)
+            deleteSelectableImage(eventImage.src)
         })
         .catch(err => {
             console.log('Error adding event: ', err);
@@ -173,6 +175,7 @@ const sendProfToDb = (uid, eventTitle) => {
     var indivImageRef = storageRef.child(`${pictureName}`);
     var imageRef = storageRef.child(`hostPictures/${pictureName}`);
     imageRef.put(profilePicture).then(function(snapshot) {
+        proPicPath = snapshot.fullPath;
     });
 }
 
