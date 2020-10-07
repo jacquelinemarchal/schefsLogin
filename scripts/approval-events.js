@@ -10,16 +10,24 @@ auth.onAuthStateChanged(user => {
     }
 })
 
+const approveEvent = (event) => {
+    console.log(event)
+};
 const displayEvents = () => {
     document.getElementById("notAdmin").setAttribute("style", "display:none;")
 
     db.collection('weekendevents').get()
     .then(snap => {
         let allEvents = [];
-        snap.forEach(doc => allEvents.push({
-            ...doc.data(),
-            id: doc.id
-        }));
+        snap.forEach((doc) => {
+            console.log(doc.data().status)
+            if (doc.data().status != "approved" && doc.data().status != "denied"){
+                allEvents.push({
+                    ...doc.data(),
+                    id: doc.id
+                })
+            }
+        });
 
         // sort by time
         allEvents.sort((e1, e2) => e1.submit_time - e2.submit_time);
@@ -61,8 +69,52 @@ const displayEvents = () => {
                         <br><b>Major</b>${allEvents[i].major}<br>
                         <br><b>Grad Year</b>${allEvents[i].gradYear}<br>
                         <br><b>Zoom</b>${allEvents[i].zoomLink}<br>
+                        </div><br>
+                        <div id="buttons" style="margin-left:auto;margin-right:auto;text-align: center;">
+                            <a id="showButtons" type="submit" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Show Buttons</a><br>
+                        </div>
+                        <div class="d-none" style="margin-left:auto;margin-right:auto;text-align: center;" id="buttonsDiv">
+                            <a id="approveButton" type="submit" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Approve</a><br>
+                            <a id="denyButton" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Deny</a>
                         </div>`
                         document.getElementById("modal-event-content").innerHTML = last;
+                        var show = document.getElementById("buttons")
+                        $(show).on('click', function () {
+                            document.getElementById("buttonsDiv").classList.remove("d-none")
+                        });
+
+                        var approve = document.getElementById("approveButton")
+                        $(approve).on('click', function () {
+                            db.collection("weekendevents").doc(allEvents[i].id)
+                            .set({
+                                status: "approved",
+                                isLive: true
+                            }, { merge: true })
+                            .then(function() {
+                                document.getElementById("modal-status-content").innerHTML = `<b>${allEvents[i].title}</b> was approved.`;
+                                $("#modal-event").modal("hide")
+                                $("#event-status").modal()
+                            })
+                            .catch(function(error) {
+                                console.log(error)
+                            });
+                        });
+                        var deny = document.getElementById("denyButton")
+                        $(deny).on('click', function () {
+                            db.collection("weekendevents").doc(allEvents[i].id)
+                            .set({
+                                status: "denied",
+                                isLive: false
+                            }, { merge: true })
+                            .then(function() {
+                                document.getElementById("modal-status-content").innerHTML = `<b>${allEvents[i].title}</b> was denied.`;
+                                $("#modal-event").modal("hide")
+                                $("#event-status").modal()
+                            })
+                            .catch(function(error) {
+                                console.log(error)
+                            });
+                        });
                     })
                     .catch(function(error) {
                         console.log(error)
@@ -72,36 +124,10 @@ const displayEvents = () => {
                 $("#modal-event").modal()
             });
 
-
             var curRow = "row-"+i.toString();
             row.setAttribute("id", `${curRow}`);
             document.getElementById("events").appendChild(row);
-
-
         }
-
-       // displaySamples(allEvents)
     })
     .catch(err => console.log('Error getting events: ', err));
-
-    const displaySamples = ((allEvents) => {
-        allEvents.forEach(event => {
-            var reference = storage.refFromURL(event.thumb)
-            reference.getDownloadURL()
-            .then((url) => {
-                const last = `
-                <div class="col-sm-4" style="margin-bottom: 2rem;>
-                <div class="card border-0" style="max-width: 20rem;">
-                <img src="${url}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
-                <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                <p style="font-size:16px;">${event.mealType} • ${event.university}<br>TIME</p></a>
-                </div>
-                </div>`
-                document.getElementById("events-section").innerHTML = last;
-            })
-            .catch(function(error) {
-                console.log(error)
-            });
-        });
-    });
 }

@@ -143,6 +143,7 @@ createDocument = (inputs) => {
         lastName: `${inputs[7]}`,
         req: `${inputs[8]}`,
         submit_time: date,
+        status: "",
         thumb: `${storeURL}`
     })
     .then((docRef) => {
