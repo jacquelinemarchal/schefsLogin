@@ -99,7 +99,7 @@ exports.handleUpdateEvent = functions.firestore
     }
 
     // on event approval
-    if ((!before.status || before.status === 'denied') && after.status === 'approved') {
+    if ((!before.status || before.status !== 'approved') && after.status === 'approved') {
         const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
         const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
 
@@ -107,12 +107,13 @@ exports.handleUpdateEvent = functions.firestore
         emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time);
     
     // on event denial
-    } else if ((!before.status || before.status === 'approved') && after.status === 'denied') {
-        const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
-        const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+    } else if ((!before.status || before.status !== 'denied') && after.status === 'denied') {
+        const event_description = after.desc;
+        const event_requirements = after.req;
+        const event_hostbio = after.bio;
 
         gcalFunctions.deleteGcalEvent(event_id);
-        // emailFunctions.sendEventDeniedEmail(email, name, event_name, event_date, event_time);
+        emailFunctions.sendEventDeniedEmail(email, name, event_name, event_description, event_requirements, event_hostbio);
     }
 
     return null;
@@ -265,7 +266,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
     }
 
     db.collection("weekendevents").doc(eventID).set({
-        start_time: time,
+        start_time: moment.parseZone(time),
         zoomId: zoomIDFormat,
         zoomLink: zoomLink,
         start_time_pretty: pretty,

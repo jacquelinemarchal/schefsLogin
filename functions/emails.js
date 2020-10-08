@@ -107,7 +107,7 @@ exports.sendReserveEmail = async (email, name,  event_name, event_date, event_ti
 exports.sendEventSubmittedEmail = async (email, name, event_name) => {
     const mailOptions = {
         to: email,
-        subject: '[Schefs] Your event has been submitted',
+        subject: 'Schefs Event Submission Confirmation',
         dsn: {
             id: 'Submit - ' + email,
             return: 'headers',
@@ -119,11 +119,12 @@ exports.sendEventSubmittedEmail = async (email, name, event_name) => {
                 Hi ${name},
             </p>
             <p>
-                Thanks for submitting an event idea! We've received your submission and
-                will get back to you on its approval as soon as possible.
-            </p>
-            <p>
-                Your event: <b>${event_name}</b>
+                Thank you for signing up to host a Schefs conversation!<br><br>
+                Your event, <b>${event_name}</b>, has been submitted. We will 
+                review your event and get back to you with a response within 24 
+                hours before publishing it on our site.<br><br>
+
+                If you have any questions, please reach out to schefs.us@gmail.com.
             </p>
             <p>
                 To many conversations,<br>
@@ -144,7 +145,7 @@ exports.sendEventSubmittedEmail = async (email, name, event_name) => {
 exports.sendEventApprovedEmail = async (email, name, event_name, event_date, event_time) => {
     const mailOptions = {
         to: email,
-        subject: '[Schefs] Your event has been approved',
+        subject: 'Your Schefs Event Is Approved!',
         dsn: {
             id: 'Approval - ' + email,
             return: 'headers',
@@ -156,21 +157,87 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
                 Hi ${name},
             </p>
             <p>
-                Congratulations! Your event has been approved!
+                Wohoooo! Your event, ${event_name}, has been approved and 
+                will be up on our website on Tuesday, October 13. Share your 
+                link and invite whoever you want. Anyone with a Schefs account
+                will be able to sign up to attend!
             </p>
             <p>
-                Event Details:<br><br>
+                Event Information:<br><br>
                 <b>
                     ${event_name}<br>
                     ${event_date}<br>
-                    ${event_time}<br>
+                    ${event_time}
                 </b>
             </p>
             <p>
-                To many conversations,<br>
+                If you’d like us to make a personalized flyer for your event to
+                help promote it, reply to this email... we’ve got some cool
+                designs up our sleeve :)<br><br>
+
+                And if you have any questions about anything at all, don’t hesitate to reach out!
+            </p>
+            <p>
+                Here’s to many conversations,<br>
                 The Schefs Team<br>
                 <a href="www.schefs.us">www.schefs.us</a>
             </p>
+        `
+    };
+
+    await transporter.sendMail(mailOptions, (err, info) => {
+        if (err) console.log(err);
+        console.log(info);
+    });
+
+    return null
+};
+
+exports.sendEventDeniedEmail = async (email, name, event_name, event_description, event_requirements, event_hostbio) => {
+    const mailOptions = {
+        to: email,
+        subject: 'Your Schefs Event Is Approved!',
+        dsn: {
+            id: 'Approval - ' + email,
+            return: 'headers',
+            notify: ['failure', 'delay'],
+            recipient: 'schefs.us@gmail.com'
+        },
+        html: `
+            <p>
+                Hi ${name},
+            </p>
+            <p>
+                Thank you for submitting a Schefs event!<br><br>
+
+                Your event, <b>${event_name}</b>, has been reviewed but unfortunately wasn’t approved. However, we encourage you to resubmit with edits.
+            </p>
+            <p>
+                Here are some tips for submitting a successful event proposal:
+                <ul>
+                    <li>Schefs believes that everybody should have a stake in each conversation. Make sure that your event isn’t structured as a lecture, but that your event encourages active participation from those who are experts, from those who are enthusiasts, and from those who are totally new to your event’s topic.</li>
+                    <li>The most successful Schefs events tackle a very specific topic as a catalyst for conversation. Make sure that your event topic isn’t too broad.</li>
+                    <li>Make sure that your event’s description gives potential guests an idea of what will be discussed at your event, and that it’s at least 5 sentences long</li>
+                    <li>Most Schefs participants are unable to prepare extensively for each event. We encourage you to share resources for guests to browse before each event, but don’t ask guests to read a whole book!</li>
+                </ul>
+            </p>
+            <p>
+                A copy of the information you submitted is below. Feel free to edit and resubmit if you’d like!<br><br>
+
+                If you have any questions, don’t hesitate to reach out!
+            </p>
+            <p>
+                Cheers,<br>
+                The Schefs Team<br>
+                <a href="www.schefs.us">www.schefs.us</a>
+            </p>
+            <hr>
+            <p><b>
+                ${event_name}<br>
+                ${event_description}<br>
+                ${event_requirements}<br>
+                ${event_hostbio}
+            </b></p>
         `
     };
 
