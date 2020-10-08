@@ -61,13 +61,16 @@ const displayUserInfo = (uid) => {
                 <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
                 $(myEventsBtn).on('click', () => {
                     $('#modal-account').modal("hide");
-                    displayUserHostedEvents(uid);
+                    var eventDiv = document.getElementById("modal-hosted-events-content")
+                    var areEventsEmpty = eventDiv.innerHTML === "";
+                    if(areEventsEmpty){
+                        displayUserHostedEvents(uid, eventDiv);
+                    }
+                    if (!areEventsEmpty){
+                        eventDiv.innerHTML = '';
+                        displayUserHostedEvents(uid, eventDiv);
+                    }
                 });
-               /* $(connectBtn).on('click', () => {
-                    $('#modal-account').modal("hide");
-                    displayUserEvents(uid);
-                });
-                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>*/
         })
 }
 const logOut = (user) => {
@@ -81,8 +84,7 @@ const logOut = (user) => {
     });
 }
 
-const displayUserHostedEvents = (uid) => {
-    var eventDiv = document.getElementById("modal-hosted-events-content")
+const displayUserHostedEvents = (uid, eventDiv) => {
     $('#modal-hosted-events').modal("show");
     db.collection("users").doc(uid).collection("hostedEvents").get()
     .then(snap => {
