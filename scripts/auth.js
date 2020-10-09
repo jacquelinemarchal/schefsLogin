@@ -63,6 +63,9 @@ const storeProfile = (userId, email, fName, lName, gradYear, major, university, 
             })
             .then(() => {
                 $("#modal-signup").modal("hide");
+                if (location.pathname === "/eventBuilder.html"){
+                    location.reload();
+                }
                 $("#modal-welcome").modal("show");
                 $('.modal-backdrop').remove();
             })

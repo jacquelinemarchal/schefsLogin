@@ -75,6 +75,13 @@
             <p style="text-align: center; vertical-align: middle">This page is only available on web</p>
         </div>
     </div>
+    <div class="container d-none" id="logged-out">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <br>
+            <h1 style="text-align: center; vertical-align: middle;">Sorry</h1>
+            <p style="text-align: center; vertical-align: middle">You must be logged in to creat an event</p>
+        </div>
+    </div>
     <div class="container" id="builder-content">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <!-- Link Bootstrap CSS -->
@@ -132,6 +139,106 @@
         </div>
     </div>
 
+  <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
+                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
+                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
+                <div class="forms">
+                    <form id="signup-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="signup-email">School email</label>
+                            <input type="email" class="form-control" id="signup-email" required
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
+                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" class="form-control" id="signup-password" required aria-describedby="passwordHelp">
+                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="firstName" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="lastName" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School</label>
+                            <input type="school" class="form-control" id="school" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="gradYear">Expected graduation year</label>
+                            <input type="gradYear" class="form-control" id="gradYear" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="major">Major</label>
+                            <input type="major" class="form-control" id="major" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="phone">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
+                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
+                        </div>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
+                    </form>
+                    <form id="login-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="login-email">Email address</label>
+                            <input type="email" class="form-control" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" class="form-control" id="login-password" required>
+                            <small>Forgot your password? Email schefs.us@gmail.com</small>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-account" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
+            </div>
+        </div>
+    </div>    
+    <div id="modal-logged-out" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Success! You logged out</h2>
+            </div>
+        </div>
+    </div>
+    <div id="modal-personal-events" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p>My unattended events</p>
+                <div id="unconfirmed-events-section"></div>
+                <p>My attended events</p>
+                <div id="personal-events-section"></div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
+            </div>
+        </div>
+    </div>
+    <div id="modal-welcome" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
+            </div>
+        </div>
+    </div>
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content"></div>
@@ -199,5 +306,8 @@
     <script src="scripts/eventBuilder.js"></script>
     <script src="scripts/helpModal.js"></script>
     <script src="scripts/userDisplay.js"></script>
+    <script src="scripts/signup.js"></script>
+    <script src="scripts/auth.js"></script>
+
 </body>
 </html>

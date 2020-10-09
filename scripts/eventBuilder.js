@@ -14,19 +14,16 @@ $(window).scroll(function() {
         $('#navBar').removeClass('floatingNav');
     }
 });
-if (window.innerWidth > 915){
-    $("#modal-welcome-build").modal()
-}
-$('.popover-dismiss').popover({
-    trigger: 'focus' //,
-    // html : true,
-    //content: ""
-})
+
 auth.onAuthStateChanged(user => {
     if (user){
         var uid = user.uid;
+        $("#modal-welcome-build").modal()
         db.collection("users").doc(uid).get()
         .then((querySnapshot) => {
+            document.getElementById("mobile-builder").classList.remove("d-none")
+            document.getElementById("builder-content").classList.remove("d-none")
+            document.getElementById("logged-out").classList.add("d-none")
             // pre-fill entries
             let userInfo = querySnapshot.data();
             userFName = userInfo.firstName;
@@ -39,6 +36,11 @@ auth.onAuthStateChanged(user => {
             document.getElementById("majorInput").value =`${userInfo.major}`; 
 
         })
+    }
+    else{
+        document.getElementById("mobile-builder").classList.add("d-none")
+        document.getElementById("builder-content").classList.add("d-none")
+        document.getElementById("logged-out").classList.remove("d-none")
     }
 })
 const initCalendly = (eventID) => {
