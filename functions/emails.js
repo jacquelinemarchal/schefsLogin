@@ -196,7 +196,7 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
 exports.sendEventDeniedEmail = async (email, name, event_name, event_description, event_requirements, event_hostbio) => {
     const mailOptions = {
         to: email,
-        subject: 'Your Schefs Event Is Approved!',
+        subject: `Schefs Event Update: ${event_name}`,
         dsn: {
             id: 'Approval - ' + email,
             return: 'headers',
@@ -232,11 +232,11 @@ exports.sendEventDeniedEmail = async (email, name, event_name, event_description
                 <a href="www.schefs.us">www.schefs.us</a>
             </p>
             <hr>
-            <p><b>
-                ${event_name}<br>
-                ${event_description}<br>
-                ${event_requirements}<br>
-                ${event_hostbio}
+            <p>
+                Title: <b>${event_name}</b><br>
+                Description: <b>${event_description}</b><br>
+                Requirements: <b>${event_requirements}</b><br>
+                Bio: <b>${event_hostbio}</b>
             </b></p>
         `
     };
