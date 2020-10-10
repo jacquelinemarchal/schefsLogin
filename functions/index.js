@@ -131,7 +131,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
     var zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
 
     // make week field
-    //2020-10-09T12:00:00-04:00 
     var month = time.substring(5,7)
     var day = time.substring(8,10)
     
@@ -276,4 +275,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
         weekDay: weekDay,
         day: day
     }, { merge: true });
+  
+    response.status(204).send()
 });

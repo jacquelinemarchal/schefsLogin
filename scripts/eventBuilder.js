@@ -2,6 +2,7 @@ isProf = false;
 isThumb = false;
 isConfirmed = false;
 profilePicture = new Blob();
+proPicPath = "";
 userFName = "";
 userEmail = "";
 userLName = "";
@@ -13,19 +14,16 @@ $(window).scroll(function() {
         $('#navBar').removeClass('floatingNav');
     }
 });
-if (window.innerWidth > 915){
-    $("#modal-welcome-build").modal()
-}
-$('.popover-dismiss').popover({
-    trigger: 'focus' //,
-    // html : true,
-    //content: ""
-})
+
 auth.onAuthStateChanged(user => {
     if (user){
         var uid = user.uid;
+        $("#modal-welcome-build").modal()
         db.collection("users").doc(uid).get()
         .then((querySnapshot) => {
+            document.getElementById("mobile-builder").classList.remove("d-none")
+            document.getElementById("builder-content").classList.remove("d-none")
+            document.getElementById("logged-out").classList.add("d-none")
             // pre-fill entries
             let userInfo = querySnapshot.data();
             userFName = userInfo.firstName;
@@ -38,6 +36,11 @@ auth.onAuthStateChanged(user => {
             document.getElementById("majorInput").value =`${userInfo.major}`; 
 
         })
+    }
+    else{
+        document.getElementById("mobile-builder").classList.add("d-none")
+        document.getElementById("builder-content").classList.add("d-none")
+        document.getElementById("logged-out").classList.remove("d-none")
     }
 })
 const initCalendly = (eventID) => {
@@ -122,12 +125,12 @@ logResults = () => {
         $("#modal-error").modal()
     }
 }
-createDocument = (inputs) => {
+createDocument = async (inputs) => {
     var date = new Date();
     var eventImage = document.getElementById("event-img")
     var storeURL = storage.ref(`${eventImage.dataset.link}`);
     var uid = auth.currentUser.uid;
-    sendProfToDb(uid, inputs[0])
+    await sendProfToDb(uid, inputs[0])
     db.collection('weekendevents')
     .add({
         title: `${inputs[0]}`,
@@ -143,7 +146,9 @@ createDocument = (inputs) => {
         lastName: `${inputs[7]}`,
         req: `${inputs[8]}`,
         submit_time: date,
-        thumb: `${storeURL}`
+        status: "",
+        thumb: `${storeURL}`,
+        prof: `${proPicPath}`
     })
     .then((docRef) => {
         db.collection('users').doc(`${uid}`).collection('hostedEvents').doc(`${docRef.id}`)
@@ -155,7 +160,7 @@ createDocument = (inputs) => {
             document.getElementById("builder-content").setAttribute("style", "display:none;")
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
             document.getElementById("calendly").classList.remove("d-none")
-           // deleteSelectableImage(eventImage.src)
+            deleteSelectableImage(eventImage.src)
         })
         .catch(err => {
             console.log('Error adding event: ', err);
@@ -171,8 +176,7 @@ const sendProfToDb = (uid, eventTitle) => {
     var storageRef = storage.ref();
     var indivImageRef = storageRef.child(`${pictureName}`);
     var imageRef = storageRef.child(`hostPictures/${pictureName}`);
-    imageRef.put(profilePicture).then(function(snapshot) {
-    });
+    return imageRef.put(profilePicture)
 }
 
 function countChars(obj){
