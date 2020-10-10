@@ -270,4 +270,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
         weekDay: weekDay,
         day: day
     }, { merge: true });
+
+    response.status(200).send
 });

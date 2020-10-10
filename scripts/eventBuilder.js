@@ -125,12 +125,12 @@ logResults = () => {
         $("#modal-error").modal()
     }
 }
-createDocument = (inputs) => {
+createDocument = async (inputs) => {
     var date = new Date();
     var eventImage = document.getElementById("event-img")
     var storeURL = storage.ref(`${eventImage.dataset.link}`);
     var uid = auth.currentUser.uid;
-    sendProfToDb(uid, inputs[0])
+    await sendProfToDb(uid, inputs[0])
     db.collection('weekendevents')
     .add({
         title: `${inputs[0]}`,
@@ -176,9 +176,7 @@ const sendProfToDb = (uid, eventTitle) => {
     var storageRef = storage.ref();
     var indivImageRef = storageRef.child(`${pictureName}`);
     var imageRef = storageRef.child(`hostPictures/${pictureName}`);
-    imageRef.put(profilePicture).then(function(snapshot) {
-        proPicPath = snapshot.fullPath;
-    });
+    return imageRef.put(profilePicture)
 }
 
 function countChars(obj){
