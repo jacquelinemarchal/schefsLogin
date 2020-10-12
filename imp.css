@@ -157,6 +157,12 @@ p{
     font-family:'Roboto', sans-serif;
     font-size:20px;
 }
+
+li{
+    font-family:'Roboto', sans-serif;
+    font-size:20px;
+}
+
 .ticket-count{
     color: #888;
     padding-top: 1rem;

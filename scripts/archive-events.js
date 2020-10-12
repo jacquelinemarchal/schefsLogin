@@ -108,26 +108,3 @@ const setupEvents = (data, num, day) => {
         }
     });
 } 
-
-/*
-const mailingForm = document.querySelector('#mailing-form');
-mailingForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    var date = new Date();
-    var timestamp = date.getTime();
-    const name = mailingForm['name-mailing-signup'].value;
-    const email = mailingForm['email-mailing-signup'].value;
-    db.collection('mailinglist').doc()
-    .set({
-        firstName: `${name}`,
-        email: `${email}`,
-        time: timestamp
-    })
-    .then(() => {
-        $("#modal-thank-you").modal()
-    })
-    .catch(err => {
-        console.log('Error adding user to mailing list: ', err);
-    });
-});
-*/
