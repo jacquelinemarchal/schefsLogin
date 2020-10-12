@@ -88,21 +88,26 @@ const displayUserHostedEvents = (uid, eventDiv) => {
     $('#modal-hosted-events').modal("show");
     db.collection("users").doc(uid).collection("hostedEvents").get()
     .then(snap => {
-        snap.forEach(doc => {
-            var eventList = document.createElement("ul")
-            var event = document.createElement("li")
-            event.setAttribute("style", "list-style-type: none;")
-            status = "";
-            if (event.isLive){
-                status = "approved"
-            }
-            if (!event.isLive){
-                status = "pending approval"
-            }
-            event.innerHTML=`${doc.data().title} • this event is ${status}`
-            eventList.appendChild(event)
-            eventDiv.appendChild(eventList)
-        })
+        if (snap.empty){
+            eventDiv.innerHTML = `<p style="text-align: center; margin-bottom:0;">You are not hosting any events. Head over to our Event Builder to make one!</p>`
+        }
+        if (!snap.empty){
+            snap.forEach(doc => {
+                var eventList = document.createElement("ul")
+                var event = document.createElement("li")
+                event.setAttribute("style", "list-style-type: none;")
+                status = "";
+                if (event.isLive){
+                    status = "approved"
+                }
+                if (!event.isLive){
+                    status = "pending approval"
+                }
+                event.innerHTML=`${doc.data().title} • this event is ${status}`
+                eventList.appendChild(event)
+                eventDiv.appendChild(eventList)
+            })
+        }
     })
 }
 $('#modal-hosted-events').on('hidden.bs.modal', function (e) {

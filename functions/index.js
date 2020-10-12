@@ -128,7 +128,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
     var zoomID = zoomLink.substring(26);
     var pretty = raw.event.start_time_pretty;
     var zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
-    console.log("vars created")
     // make week field
     var month = time.substring(5,7)
     var day = time.substring(8,10)
@@ -262,7 +261,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
             }
         }
     }
-    console.log("exited conditional hell")
 
     db.collection("weekendevents").doc(eventID).set({
         start_time: moment.parseZone(time),
@@ -275,7 +273,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
         day: day
     }, { merge: true })
     .then(() => {
-        console.log("successfully added to firestore")
         response.status(204).send()
         return "yay"
     })

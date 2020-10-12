@@ -81,6 +81,8 @@ window.addEventListener(
 const submitResult = (r) => {
     if (r===0){
         isConfirmed = true;
+        document.getElementById("builder-spinner").classList.remove("d-none")
+        document.getElementById("builder-content").classList.add("d-none")
         logResults();
     }
 }
@@ -160,6 +162,7 @@ createDocument = async (inputs) => {
             document.getElementById("builder-content").setAttribute("style", "display:none;")
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
             document.getElementById("calendly").classList.remove("d-none")
+            document.getElementById("builder-spinner").classList.add("d-none")
             deleteSelectableImage(eventImage.src)
         })
         .catch(err => {
