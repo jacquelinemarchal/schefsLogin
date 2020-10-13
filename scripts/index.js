@@ -4,31 +4,29 @@ $('.modal').on('shown.bs.modal', function () {
 
 const renderHomeEvents = async () => {
     db.collection('weekendevents').get()
-        .then(snap => {
+        .then(async snap => {
             let allEvents = [];
-            snap.forEach( async (doc) => {
+            snap.forEach( (doc) => {
                 var data = doc.data();
                 if ((data.week === 1 || data.week === 2 || data.week === 3) && (data.status === "approved" || data.status === "")){
-                    var url = giveURL(data.thumb)
-                    //console.log(url)
-                    allEvents.push({
-                        ...data,
-                        id: doc.id,
-                        thumbURL: url
-                    })
+                    var reference = storage.refFromURL(data.thumb)
+                    allEvents.push(new Promise(async res => {
+                        var url = await reference.getDownloadURL();
+                        res({
+                            ...data,
+                            id: doc.id,
+                            thumbURL: url
+                        });
+                    }))
                 }
-
             });
+            allEvents = await Promise.all(allEvents);
             // sort by time
             allEvents.sort((e1, e2) => e1.start_time - e2.start_time);
-
+          //  console.log(allEvents)
             setupEvents(allEvents, allEvents.length);
         })
         .catch(err => console.log('Error getting events: ', err));
-}
-const giveURL = async (thumb) => {
-    var reference = storage.refFromURL(thumb)
-    return (await reference.getDownloadURL())
 }
 
 const setupEvents = (data, num) => {
@@ -46,9 +44,10 @@ const setupEvents = (data, num) => {
     let count = -1;
     let rowCheck = 0;
     let remainder ='';
+   // console.log(data)
 
     data.forEach(event => {
-       // console.log(event)
+      //  console.log(event)
         count++;
         rowCheck++;
         const id = event.id;

@@ -22,15 +22,15 @@ const displayPage = eventId => {
             const attendeeData = snap;
             const size = snap.size;
             eventRef.get()
-                .then(snap => {
+                .then(async snap => {
                     const eventData = snap.data();
                     const event_datetime = eventData.start_time.toDate();
                     const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
                     const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
                     
-                    state.pageDivHtml = generateEventPage(eventData, eventId, time, size);
+                    state.pageDivHtml = await generateEventPage(eventData, eventId, time, size);
                     state.indexDivHtml = '';
-
+                    console.log(state)
                     window.history.pushState(state, null, '');
 
                     render();
@@ -63,8 +63,25 @@ const displayPage = eventId => {
     return true;
 }
 
+const getURL = (ref) => {
+    return ref.getDownloadURL();
+}
+
+const getProfURL = (proref) => {
+    return proref.getDownloadURL()
+}
+
 // generate HTML for event page
-const generateEventPage = (eventData, eventId, time, size) => { 
+const generateEventPage = async (eventData, eventId, time, size) => { 
+
+    var reference = storage.refFromURL(eventData.thumb)
+    var thumbUrl = await getURL(reference);
+
+    var fileName = (eventData.user).concat("+", eventData.title)
+    var path = storage.ref('hostPictures')
+    var proPicRef = path.child(fileName)
+    var profUrl = await getProfURL(proPicRef);
+    
     let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
@@ -76,42 +93,21 @@ const generateEventPage = (eventData, eventId, time, size) => {
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
-    // one anthropocene event should be able to book 15 people
-    if (eventId === "SRWp7iAWdWOtiVzNMCWY"){ 
-        capacity = 15;
-        remainingTickets = 15;
-        
-        if (size > 15){
-            remainingTickets = 0;
-            reserveStyle = 'display: none;';
+    if (size > 14) {
+        remainingTickets = 0;
+        reserveStyle = 'display: none;';
+        loginStyle = 'display: none;';
+    } else {
+        if (size >= 6)
+            remainingTickets = 2;
+        else
+            remainingTickets = 7 - size;
+
+        soldOutStyle = 'display: none;';
+        if (auth.currentUser)
             loginStyle = 'display: none;';
-        }
-        else {
-            remainingTickets = 15 - size;
-            soldOutStyle = 'display: none;';
-            if (auth.currentUser)
-                loginStyle = 'display: none;';
-            else
-                reserveStyle = 'display: none;';
-        }
-    }
-    else{
-        if (size > 14) {
-            remainingTickets = 0;
+        else
             reserveStyle = 'display: none;';
-            loginStyle = 'display: none;';
-        } else {
-            if (size >= 6)
-                remainingTickets = 2;
-            else
-                remainingTickets = 7 - size;
-    
-            soldOutStyle = 'display: none;';
-            if (auth.currentUser)
-                loginStyle = 'display: none;';
-            else
-                reserveStyle = 'display: none;';
-        }
     }
 
     return `
@@ -120,8 +116,8 @@ const generateEventPage = (eventData, eventId, time, size) => {
                 <div class="row">
                     <div class="col-md-7">
                         <h1 id="title">${eventData.title}</h1>
-                        <p>${eventData.mealType} • ${time}</p>
-                           <img src="${eventData.thumb}" alt="..." id="thumb">
+                        <p>${time}</p>
+                           <img src="${thumbUrl}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
                         <br>
                         <h2 id="webPrepare">What to prepare:</h2>
@@ -129,7 +125,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
                             <p>Hosted by: ${name}</p><br>
-                                <img src="${eventData.prof}" alt="..." id="hostMobilePic">
+                                <img src="${profUrl}" alt="..." id="hostMobilePic">
                             <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
@@ -153,7 +149,9 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3">
-                                <img src="${eventData.prof}" alt="..." id="hostPic">
+                                <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                    <img src="${profUrl}"  style="height:auto; width: 100%;"alt="..." id="hostPic">
+                                </div>
                             </div>
                             <div class="col-sm-1 offset-sm-1">
                                 <h2>${name}</h2>
@@ -199,7 +197,6 @@ const triggerReserve = (title, eventId) => {
                  })
                 .then(() => {
                     console.log('Success');
-
                     modalContent.innerHTML = `
                         <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
                     `;
@@ -210,6 +207,12 @@ const triggerReserve = (title, eventId) => {
                         <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
                     `;
                 });
+            db.collection('totaltickets').doc()
+                .set({
+                    name: name,
+                    user: uid,
+                    eventId: eventId
+                })
         })
     } else {
         console.log('Error: User not logged in anymore');
