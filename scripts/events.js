@@ -5,49 +5,8 @@ const pageDiv = document.getElementById("pageView");
 var indexHtml = `
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">
-            <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
-                <div class="col-sm-7" style="justify-content: right;" >
-                    <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over <s>a meal</s> Zoom.</h1>
-                </div>
-                <div class="col-sm-5" style="font-size: 30px;">
-                    1. Click on an event <br>
-                    2. Reserve your ticket <br>
-                    3. Learn from and talk with college students from around the world
-                </div>
-            </div>
-            <div id="mobileHome">
-                <p>Multiplicities:<br>A week of themed learning experiences from students across the country.</p>
-            </div>
-            <br><br>
             <!-- EVENT LIST -->
-            <div class="events">
-                <p style="margin-bottom: 0;">Monday, August 17th </p>
-                <h2 style="margin-bottom: 2rem;">Eroticisms</h2>
-                <div class ="festivalDay1"></div>
-
-                <p style="margin-bottom: 0;">Tuesday, August 18th </p>
-                <h2 style="margin-bottom: 2rem;">Digital Citizens</h2>
-                <div class ="festivalDay2"></div>
-
-                <p style="margin-bottom: 0;">Wednesday, August 19th </p>
-                <h2 style="margin-bottom: 2rem;">Spaces & Places</h2>
-                <div class ="festivalDay3"></div>
-
-                <p style="margin-bottom: 0;">Thursday, August 20th </p>
-                <h2 style="margin-bottom: 2rem;">Pandemic Society</h2>
-                <div class ="festivalDay4"></div>
-
-                <p style="margin-bottom: 0;">Friday, August 21st </p>
-                <h2 style="margin-bottom: 2rem;">Art: The Performative Self</h2>
-                <div class ="festivalDay5"></div>
-
-                <p style="margin-bottom: 0;">Saturday, August 22nd</p>
-                <h2 style="margin-bottom: 2rem;">Autonomies</h2>
-                <div class ="festivalDay6"></div>
-
-                <p style="margin-bottom: 0;">Sunday, August 23rd</p>
-                <h2 style="margin-bottom: 2rem;">The Anthropocene</h2>
-                <div class ="festivalDay7"></div>
+            <div class="events" id="main-events-div">
             </div>
         </div>
     </div>

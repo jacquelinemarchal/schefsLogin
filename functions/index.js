@@ -170,7 +170,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
         }
     }
     if (month === "11"){
-        if (day === "1"){
+        if (day === "01"){
             week = 3;
             weekDay = "Sunday"
         }
