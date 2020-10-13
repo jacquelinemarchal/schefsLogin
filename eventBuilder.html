@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-8" style="padding-top:6rem;">
                         <h2 style="text-align: center;">Thank you for submitting your event!</h2><br>
-                        <p>Check your email for a confirmation<br><br>Our team will review your event within 24 hours before publishing it to the site if approved.</p>
+                        <p>Check your email for a confirmation.<br><br>Our team will review your event within 24 hours before publishing it to the site if approved.</p>
                         <br><p>Talk soon!</p>
                     <br><br>
                     <div class="row">
@@ -71,8 +71,7 @@
     <div class="container" id="mobile-builder">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <br>
-            <h1 style="text-align: center; vertical-align: middle;">Sorry</h1>
-            <p style="text-align: center; vertical-align: middle">This page is only available on web</p>
+            <p style="text-align: center; vertical-align: middle">The event builder only works on a desktop. Make sure your browser window is as wide as possible!</p>
         </div>
     </div>
     <div class="container d-none" id="logged-out">
@@ -88,7 +87,7 @@
             <div class="row">
                 <div class="col-md-7">
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title..." required>
-                    <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 30 characters</p>
+                    <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 65 characters</p>
                     <div>                     
                       <label for="event-img-upload">
                         <div style="display: relative; width: 100%; overflow: hidden;">
@@ -99,13 +98,13 @@
                     </div>
 
                     <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="My Event Description..."></textarea>
-                    <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="Event requirements..."></textarea>
+                    <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="Event requirements (Optional)..."></textarea>
                 </div>
                
                 <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
                     <div class="row">
-                        <a onclick="logResults()" type="submit" class="btn btn-dark reserve" style="color:#3e4042;background-color:white">SET DATE & SUBMIT</a>
-                        <a onclick="helpModal()" type="submit" class="btn btn-dark reserve" style="margin-left:1rem;color:#3e4042;background-color:white">HELP</a>
+                        <a onclick="logResults()" type="submit" class="btn btn-dark reserve" id="set-date-submit" style="color:#3e4042;background-color:white">SET DATE & SUBMIT</a>
+                        <a onclick="helpModal()" type="submit" class="btn btn-dark reserve" id="help-btn" style="margin-left:1rem;color:#3e4042;background-color:white">HELP</a>
                     </div>
                     <div class="row" style="margin-top:3rem;">
                         <div class="col-sm-3">
@@ -124,9 +123,9 @@
                     <br><br>
                     <input type="text" id="uniInput" style=" font-size: 20px;" placeholder="My University" value="Columbia University...">
                     <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year...">
-                    <input type="text" id="majorInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Major...">
+                    <input type="text" id="majorInput" style="width:20em ;font-size: 20px; padding-top:1rem" placeholder="My Major...">
                     <br>
-                    <textarea type="text" id="bioInput" style="font-size: 20px; width: 500px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
+                    <textarea type="text" id="bioInput" style="font-size: 20px; width: 375px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
                 </div>
             </div>
         </div>
@@ -137,7 +136,7 @@
     <div class="modal fade bd-example-modal-xl" id="modal-image-select" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-xl" style="overflow-y: initial;">
             <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-image-select-content"> 
-                    <small class="form-text">Don't see a photo you like? Pick any image here as a placeholder and email schefs.us@gmail.com</small>
+                    <small class="form-text">Don't see a photo you like? Pick one of these images as a placeholder for now and email schefs.us@gmail with the name of your event & your new image of choice.</small>
             </div>
         </div>
     </div>
@@ -273,16 +272,16 @@
                 <div style="padding-left: 4rem; padding-right: 4rem;">
 
                     <p style="text-align: center;">Your information is pre-loaded from your account information. You can change the fields if you wish by highlighting and re-typing what you wish.<br><br> After you submit, your event will be reviewed within 24 hours.</p>
-                    <br><p>Browse Resources:</p>
+                    <br><p style="text-align: center;">Browse Resources:</p>
 
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm" style="text-align: center;">
                             <a style="color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;" onclick="displayImageGuide()">Image Guide</a>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm" style="text-align: center;">
                             <a style="color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;"  onclick="displayCoHostGuide()">Co-host Guide</a>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm" style="text-align: center;">
                             <a target="_blank" href="/archive.html" style="font-family:'Roboto', sans-serif;font-size:20px;">Event Inspiration</a>
                         </div>
                     </div>
@@ -295,7 +294,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem;">
                 <h2 style="text-align: center;"><b>Confirm</b></h2><br>
-                <p>Are you ready to submit your event? You will no longer be able to edit your event</p>
+                <p>Are you ready to submit your event? You will no longer be able to edit it.</p>
                 <div style="margin-left:auto;margin-right:auto;text-align: center;">
                     <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Continue</a><br>
                     <a data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">No</a>

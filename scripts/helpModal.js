@@ -6,7 +6,7 @@ const displayImageGuide = () => {
     var modal = document.getElementById("modal-help-content");
     let imageGuide = `
         <h2 style="text-align:center;">Image Guide</h2><br>
-        <p>Profile pictures: For best results, upload a square image. If using a vertical image, make sure that subject is centered</p>
+        <p>Profile pictures: For best results, upload a square image. If using a vertical image, make sure that subject is centered.</p>
         <br><p>Event Images: Our event image library is specially curated by the Schefs team! If you don’t find an image that works for your event, shoot us an email ASAP with a proposed image and we’ll figure something out.</p>
         <br>
         <a style="text-align:center;color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;" onclick="resetModal()">&lsaquo; Back to Event Builder Help</a>

@@ -96,8 +96,7 @@ logResults = () => {
     var c = document.getElementById("bioInput").value;
     var aa = document.getElementById("fnInput").value;
     var bb = document.getElementById("lnInput").value;
-    var cc = document.getElementById("reqInput").value;
-    var inputs = [x, y, z, a, b, c, aa, bb, cc]
+    var inputs = [x, y, z, a, b, c, aa, bb]
 
     // if any fields are left empty
     for (let i = 0; i < inputs.length; i++) {
@@ -109,6 +108,10 @@ logResults = () => {
             break;
         }
     }
+
+    var req = document.getElementById("reqInput").value;
+    inputs.push(req)
+
     if (emptyInput === 0 && isProf && isThumb){
         if (!isConfirmed){
             $("#modal-confirm-submit").modal()
@@ -183,7 +186,7 @@ const sendProfToDb = (uid, eventTitle) => {
 }
 
 function countChars(obj){
-    var maxLength = 30;
+    var maxLength = 65;
     var strLength = obj.value.length;
     if(strLength > maxLength){
         document.getElementById("charNum").innerHTML = '<span style="color: red;">'+strLength+' / '+maxLength+' characters</span>';
