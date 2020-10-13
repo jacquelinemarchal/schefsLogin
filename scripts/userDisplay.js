@@ -13,7 +13,8 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
     }
     else{
         acctInfo.innerHTML = 
-        `<a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Host</a>
+        `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="open-mind-archive.html">Open Mind Archive</a>
+         <a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Host</a>
          <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
          <a style="color:black;"class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
