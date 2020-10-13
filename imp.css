@@ -432,6 +432,12 @@ a.reserve{
     div#mobile-content{
         display:inline;
     }
+    div#mobile-oma{
+        display:inline;
+    }
+    div#oma{
+        display:none;
+    }
 }
 @media screen and (min-width: 1082px) {
     div#builder-content{
@@ -439,6 +445,12 @@ a.reserve{
     }
     div#mobile-builder{
         display:none;
+    }
+    div#mobile-oma{
+        display:none;
+    }
+    div#oma{
+        display:inline;
     }
 }
 
