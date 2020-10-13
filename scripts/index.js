@@ -1,24 +1,29 @@
 $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
-var eventURL;
 
 const renderHomeEvents = () => {
+    let allEvents = [];
     db.collection('weekendevents').get()
         .then(snap => {
-            let allEvents = [];
             snap.forEach((doc) => {
                 var data = doc.data();
                 if ((data.week === 1 || data.week === 2 || data.week === 3) && (data.status === "approved" || data.status === "")){
-                    var url = giveURL(data.thumb)
-                    allEvents.push({
-                        ...data,
-                        id: doc.id,
-                        thumbURL: url
+                    giveURL(data.thumb).then((url) => {
+                        allEvents.push({
+                            ...data,
+                            id: doc.id,
+                            thumbURL: url
+                        })
                     })
+                    .catch(err => console.log('Error getting events: ', err));
+
                 }
             });
             // sort by time
+
+        })
+        .then (() => {
             allEvents.sort((e1, e2) => e1.start_time - e2.start_time);
 
             setupEvents(allEvents, allEvents.length);
@@ -28,11 +33,7 @@ const renderHomeEvents = () => {
 }
 const giveURL = (thumb) => {
     var reference = storage.refFromURL(thumb)
-    reference.getDownloadURL()
-    .then((url) => {
-        return url;
-    })
-    .catch(err => console.log('Error getting image: ', err));
+    return reference.getDownloadURL()
 }
 const setupEvents = (data, num) => {
     // where num is total number of elements
@@ -65,7 +66,7 @@ const setupEvents = (data, num) => {
             <a onclick="displayPage('${id}')">
             <img src="${event.thumbURL}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;">
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-            <p style="font-size:16px;">By ${event.firstName} • ${event.university}<br>${time}</p></a>
+            <p style="font-size:16px;">Hosted by ${event.firstName} • ${event.university}<br>${time}</p></a>
             </div>
             </div>` //template string
         html += li; // fill 3-event-buffer
@@ -83,7 +84,7 @@ const setupEvents = (data, num) => {
                     <a href="" onclick="displayPage('${id}')">
                     <img src="${event.thumbURL}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                    <p style="font-size:16px;">By ${event.firstName} • ${event.university}<br>${time}</p></a>
+                    <p style="font-size:16px;">Hosted by ${event.firstName} • ${event.university}<br>${time}</p></a>
                     </div>
                     </div>`
                 remainder += secondToLast; // fill 3-event-buffer
@@ -97,7 +98,7 @@ const setupEvents = (data, num) => {
                     <a href="" onclick="displayPage('${id}', '${time}')">
                     <img src="${event.thumbURL}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
-                    <p style="font-size:16px;">By ${event.firstName} • ${event.university}<br>${time}</p></a>
+                    <p style="font-size:16px;">Hosted by ${event.firstName} • ${event.university}<br>${time}</p></a>
                     </div>
                     </div>`
                 remainder += last;

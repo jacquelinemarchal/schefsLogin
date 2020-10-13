@@ -14,7 +14,7 @@ var indexHtml = `
 
 // handle click some event
 const displayPage = eventId => {
-    const eventRef = db.collection('aug20events').doc(eventId);
+    const eventRef = db.collection('weekendevents').doc(eventId);
     const ticketsRef = eventRef.collection('tickets');
 
     ticketsRef.get()
@@ -24,7 +24,7 @@ const displayPage = eventId => {
             eventRef.get()
                 .then(snap => {
                     const eventData = snap.data();
-                    const event_datetime = eventData.time.toDate();
+                    const event_datetime = eventData.start_time.toDate();
                     const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
                     const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
                     
@@ -191,7 +191,7 @@ const triggerReserve = (title, eventId) => {
             const user = snap.data();
             const phone = user.phoneNumber
             const name = `${user.firstName} ${user.lastName}`;
-            db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
+            db.collection('weekendevents').doc(eventId).collection('tickets').doc(uid)
                 .set({
                     email: email,
                     name: name,
