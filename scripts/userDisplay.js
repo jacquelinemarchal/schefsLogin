@@ -13,14 +13,14 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
     }
     else{
         acctInfo.innerHTML = 
-        `<a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Event Builder</a>
+        `<a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Host</a>
          <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
          <a style="color:black;"class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
     }
 });
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
-    var eventBuilder = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Event Builder</a>`
+    var eventBuilder = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Host</a>`
     var about = `<a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>`
     var account = `<a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
     <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`
@@ -88,21 +88,26 @@ const displayUserHostedEvents = (uid, eventDiv) => {
     $('#modal-hosted-events').modal("show");
     db.collection("users").doc(uid).collection("hostedEvents").get()
     .then(snap => {
-        snap.forEach(doc => {
-            var eventList = document.createElement("ul")
-            var event = document.createElement("li")
-            event.setAttribute("style", "list-style-type: none;")
-            status = "";
-            if (event.isLive){
-                status = "approved"
-            }
-            if (!event.isLive){
-                status = "pending approval"
-            }
-            event.innerHTML=`${doc.data().title} • this event is ${status}`
-            eventList.appendChild(event)
-            eventDiv.appendChild(eventList)
-        })
+        if (snap.empty){
+            eventDiv.innerHTML = `<p style="text-align: center; margin-bottom:0;">You are not hosting any events. Head over to our Event Builder to make one!</p>`
+        }
+        if (!snap.empty){
+            snap.forEach(doc => {
+                var eventList = document.createElement("ul")
+                var event = document.createElement("li")
+                event.setAttribute("style", "list-style-type: none;")
+                status = "";
+                if (event.isLive){
+                    status = "approved"
+                }
+                if (!event.isLive){
+                    status = "pending approval"
+                }
+                event.innerHTML=`${doc.data().title} • this event is ${status}`
+                eventList.appendChild(event)
+                eventDiv.appendChild(eventList)
+            })
+        }
     })
 }
 $('#modal-hosted-events').on('hidden.bs.modal', function (e) {

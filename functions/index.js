@@ -126,10 +126,8 @@ exports.calendly = functions.https.onRequest((request, response) => {
     var time = raw.event.start_time;
     var zoomLink = raw.event.location;
     var zoomID = zoomLink.substring(26);
-    var zoomPassword = zoomLink.substring(42)
     var pretty = raw.event.start_time_pretty;
     var zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
-
     // make week field
     var month = time.substring(5,7)
     var day = time.substring(8,10)
@@ -172,7 +170,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
         }
     }
     if (month === "11"){
-        if (day === "1"){
+        if (day === "01"){
             week = 3;
             weekDay = "Sunday"
         }
@@ -269,12 +267,16 @@ exports.calendly = functions.https.onRequest((request, response) => {
         zoomId: zoomIDFormat,
         zoomLink: zoomLink,
         start_time_pretty: pretty,
-        zoomPassword: zoomPassword,
         week: week,
         month: month,
         weekDay: weekDay,
         day: day
-    }, { merge: true });
-  
-    response.status(204).send()
+    }, { merge: true })
+    .then(() => {
+        response.status(204).send()
+        return "yay"
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
 });

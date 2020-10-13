@@ -157,6 +157,12 @@ p{
     font-family:'Roboto', sans-serif;
     font-size:20px;
 }
+
+li{
+    font-family:'Roboto', sans-serif;
+    font-size:20px;
+}
+
 .ticket-count{
     color: #888;
     padding-top: 1rem;
@@ -236,6 +242,16 @@ a.reserve{
     align-items: center;
 }
 
+#builder-spinner{
+    width: 3rem; 
+    height: 3rem; 
+    position: absolute; 
+    margin: auto; 
+    top:0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+}
 @media screen and (max-width: 935px) {
     img#hostPic{
         padding-right: 3rem;
@@ -409,7 +425,7 @@ a.reserve{
         margin-right: 1rem;
     }
 }
-@media screen and (max-width: 1015px) {
+@media screen and (max-width: 1082px) {
     div#builder-content{
         display:none;
     }
@@ -417,7 +433,7 @@ a.reserve{
         display:inline;
     }
 }
-@media screen and (min-width: 1015px) {
+@media screen and (min-width: 1082px) {
     div#builder-content{
         display:inline;
     }

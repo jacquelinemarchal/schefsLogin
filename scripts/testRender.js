@@ -19,6 +19,7 @@ const displaySamples = ((allEvents) => {
         var reference = storage.refFromURL(event.thumb)
         reference.getDownloadURL()
         .then((url) => {
+            console.log(url)
             const last = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem;">

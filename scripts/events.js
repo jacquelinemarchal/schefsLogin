@@ -5,49 +5,8 @@ const pageDiv = document.getElementById("pageView");
 var indexHtml = `
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">
-            <div class="row" style="font-family: 'Roboto', sans-serif;" id="desktopHome">
-                <div class="col-sm-7" style="justify-content: right;" >
-                    <h1>Schefs Festival: <br> Micro think tanks for peer-to-peer knowledge exchange between college students, over <s>a meal</s> Zoom.</h1>
-                </div>
-                <div class="col-sm-5" style="font-size: 30px;">
-                    1. Click on an event <br>
-                    2. Reserve your ticket <br>
-                    3. Learn from and talk with college students from around the world
-                </div>
-            </div>
-            <div id="mobileHome">
-                <p>Multiplicities:<br>A week of themed learning experiences from students across the country.</p>
-            </div>
-            <br><br>
             <!-- EVENT LIST -->
-            <div class="events">
-                <p style="margin-bottom: 0;">Monday, August 17th </p>
-                <h2 style="margin-bottom: 2rem;">Eroticisms</h2>
-                <div class ="festivalDay1"></div>
-
-                <p style="margin-bottom: 0;">Tuesday, August 18th </p>
-                <h2 style="margin-bottom: 2rem;">Digital Citizens</h2>
-                <div class ="festivalDay2"></div>
-
-                <p style="margin-bottom: 0;">Wednesday, August 19th </p>
-                <h2 style="margin-bottom: 2rem;">Spaces & Places</h2>
-                <div class ="festivalDay3"></div>
-
-                <p style="margin-bottom: 0;">Thursday, August 20th </p>
-                <h2 style="margin-bottom: 2rem;">Pandemic Society</h2>
-                <div class ="festivalDay4"></div>
-
-                <p style="margin-bottom: 0;">Friday, August 21st </p>
-                <h2 style="margin-bottom: 2rem;">Art: The Performative Self</h2>
-                <div class ="festivalDay5"></div>
-
-                <p style="margin-bottom: 0;">Saturday, August 22nd</p>
-                <h2 style="margin-bottom: 2rem;">Autonomies</h2>
-                <div class ="festivalDay6"></div>
-
-                <p style="margin-bottom: 0;">Sunday, August 23rd</p>
-                <h2 style="margin-bottom: 2rem;">The Anthropocene</h2>
-                <div class ="festivalDay7"></div>
+            <div class="events" id="main-events-div">
             </div>
         </div>
     </div>
@@ -55,7 +14,7 @@ var indexHtml = `
 
 // handle click some event
 const displayPage = eventId => {
-    const eventRef = db.collection('aug20events').doc(eventId);
+    const eventRef = db.collection('weekendevents').doc(eventId);
     const ticketsRef = eventRef.collection('tickets');
 
     ticketsRef.get()
@@ -63,15 +22,15 @@ const displayPage = eventId => {
             const attendeeData = snap;
             const size = snap.size;
             eventRef.get()
-                .then(snap => {
+                .then(async snap => {
                     const eventData = snap.data();
-                    const event_datetime = eventData.time.toDate();
+                    const event_datetime = eventData.start_time.toDate();
                     const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
                     const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
                     
-                    state.pageDivHtml = generateEventPage(eventData, eventId, time, size);
+                    state.pageDivHtml = await generateEventPage(eventData, eventId, time, size);
                     state.indexDivHtml = '';
-
+                    console.log(state)
                     window.history.pushState(state, null, '');
 
                     render();
@@ -104,8 +63,25 @@ const displayPage = eventId => {
     return true;
 }
 
+const getURL = (ref) => {
+    return ref.getDownloadURL();
+}
+
+const getProfURL = (proref) => {
+    return proref.getDownloadURL()
+}
+
 // generate HTML for event page
-const generateEventPage = (eventData, eventId, time, size) => { 
+const generateEventPage = async (eventData, eventId, time, size) => { 
+
+    var reference = storage.refFromURL(eventData.thumb)
+    var thumbUrl = await getURL(reference);
+
+    var fileName = (eventData.user).concat("+", eventData.title)
+    var path = storage.ref('hostPictures')
+    var proPicRef = path.child(fileName)
+    var profUrl = await getProfURL(proPicRef);
+    
     let capacity = 7;
     let soldOutStyle = '';
     let reserveStyle = '';
@@ -113,46 +89,33 @@ const generateEventPage = (eventData, eventId, time, size) => {
     let adminStyle = 'display: none;';
     let remainingTickets = 7;
 
+    const pretty_time = eventData.start_time_pretty.substring(10, eventData.start_time_pretty.length-6)
+    var hour = eventData.start_time_pretty.substring(0, 8)
+    if (hour.substring(0, 1) === "0"){
+        hour = hour.substring(1)
+    }
+    const formatTime = pretty_time.concat(" @ ", hour, "EST")
+
+
     // escape apostrophes & quotes
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
-    // one anthropocene event should be able to book 15 people
-    if (eventId === "SRWp7iAWdWOtiVzNMCWY"){ 
-        capacity = 15;
-        remainingTickets = 15;
-        
-        if (size > 15){
-            remainingTickets = 0;
-            reserveStyle = 'display: none;';
+    if (size > 14) {
+        remainingTickets = 0;
+        reserveStyle = 'display: none;';
+        loginStyle = 'display: none;';
+    } else {
+        if (size >= 6)
+            remainingTickets = 2;
+        else
+            remainingTickets = 7 - size;
+
+        soldOutStyle = 'display: none;';
+        if (auth.currentUser)
             loginStyle = 'display: none;';
-        }
-        else {
-            remainingTickets = 15 - size;
-            soldOutStyle = 'display: none;';
-            if (auth.currentUser)
-                loginStyle = 'display: none;';
-            else
-                reserveStyle = 'display: none;';
-        }
-    }
-    else{
-        if (size > 14) {
-            remainingTickets = 0;
+        else
             reserveStyle = 'display: none;';
-            loginStyle = 'display: none;';
-        } else {
-            if (size >= 6)
-                remainingTickets = 2;
-            else
-                remainingTickets = 7 - size;
-    
-            soldOutStyle = 'display: none;';
-            if (auth.currentUser)
-                loginStyle = 'display: none;';
-            else
-                reserveStyle = 'display: none;';
-        }
     }
 
     return `
@@ -161,8 +124,8 @@ const generateEventPage = (eventData, eventId, time, size) => {
                 <div class="row">
                     <div class="col-md-7">
                         <h1 id="title">${eventData.title}</h1>
-                        <p>${eventData.mealType} • ${time}</p>
-                           <img src="${eventData.thumb}" alt="..." id="thumb">
+                        <p>${formatTime}</p>
+                           <img src="${thumbUrl}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
                         <br>
                         <h2 id="webPrepare">What to prepare:</h2>
@@ -170,7 +133,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
                             <p>Hosted by: ${name}</p><br>
-                                <img src="${eventData.prof}" alt="..." id="hostMobilePic">
+                                <img src="${profUrl}" alt="..." id="hostMobilePic">
                             <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
@@ -194,7 +157,9 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3">
-                                <img src="${eventData.prof}" alt="..." id="hostPic">
+                                <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                    <img src="${profUrl}"  style="height:auto; width: 100%;"alt="..." id="hostPic">
+                                </div>
                             </div>
                             <div class="col-sm-1 offset-sm-1">
                                 <h2>${name}</h2>
@@ -232,7 +197,7 @@ const triggerReserve = (title, eventId) => {
             const user = snap.data();
             const phone = user.phoneNumber
             const name = `${user.firstName} ${user.lastName}`;
-            db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
+            db.collection('weekendevents').doc(eventId).collection('tickets').doc(uid)
                 .set({
                     email: email,
                     name: name,
@@ -240,7 +205,6 @@ const triggerReserve = (title, eventId) => {
                  })
                 .then(() => {
                     console.log('Success');
-
                     modalContent.innerHTML = `
                         <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
                     `;
@@ -251,6 +215,12 @@ const triggerReserve = (title, eventId) => {
                         <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
                     `;
                 });
+            db.collection('totaltickets').doc()
+                .set({
+                    name: name,
+                    user: uid,
+                    eventId: eventId
+                })
         })
     } else {
         console.log('Error: User not logged in anymore');

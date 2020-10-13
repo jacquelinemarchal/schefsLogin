@@ -20,10 +20,10 @@ const displayEvents = () => {
     .then(snap => {
         let allEvents = [];
         snap.forEach((doc) => {
-            console.log(doc.data().status)
-            if (doc.data().status != "approved" && doc.data().status != "denied"){
+            var data = doc.data();
+            if (data.status === ""){
                 allEvents.push({
-                    ...doc.data(),
+                    ...data,
                     id: doc.id
                 })
             }
