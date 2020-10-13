@@ -2,39 +2,35 @@ $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
 
-const renderHomeEvents = () => {
-    let allEvents = [];
+const renderHomeEvents = async () => {
     db.collection('weekendevents').get()
         .then(snap => {
-            snap.forEach((doc) => {
+            let allEvents = [];
+            snap.forEach( async (doc) => {
                 var data = doc.data();
                 if ((data.week === 1 || data.week === 2 || data.week === 3) && (data.status === "approved" || data.status === "")){
-                    giveURL(data.thumb).then((url) => {
-                        allEvents.push({
-                            ...data,
-                            id: doc.id,
-                            thumbURL: url
-                        })
+                    var url = giveURL(data.thumb)
+                    //console.log(url)
+                    allEvents.push({
+                        ...data,
+                        id: doc.id,
+                        thumbURL: url
                     })
-                    .catch(err => console.log('Error getting events: ', err));
-
                 }
+
             });
             // sort by time
-
-        })
-        .then (() => {
             allEvents.sort((e1, e2) => e1.start_time - e2.start_time);
 
             setupEvents(allEvents, allEvents.length);
-            console.log(allEvents)
         })
         .catch(err => console.log('Error getting events: ', err));
 }
-const giveURL = (thumb) => {
+const giveURL = async (thumb) => {
     var reference = storage.refFromURL(thumb)
-    return reference.getDownloadURL()
+    return (await reference.getDownloadURL())
 }
+
 const setupEvents = (data, num) => {
     // where num is total number of elements
     var numRows=(Math.floor(num/3))+1; 
@@ -52,6 +48,7 @@ const setupEvents = (data, num) => {
     let remainder ='';
 
     data.forEach(event => {
+       // console.log(event)
         count++;
         rowCheck++;
         const id = event.id;
