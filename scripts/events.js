@@ -89,6 +89,14 @@ const generateEventPage = async (eventData, eventId, time, size) => {
     let adminStyle = 'display: none;';
     let remainingTickets = 7;
 
+    const pretty_time = eventData.start_time_pretty.substring(10, eventData.start_time_pretty.length-6)
+    var hour = eventData.start_time_pretty.substring(0, 8)
+    if (hour.substring(0, 1) === "0"){
+        hour = hour.substring(1)
+    }
+    const formatTime = pretty_time.concat(" @ ", hour, "EST")
+
+
     // escape apostrophes & quotes
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
@@ -116,7 +124,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                 <div class="row">
                     <div class="col-md-7">
                         <h1 id="title">${eventData.title}</h1>
-                        <p>${time}</p>
+                        <p>${formatTime}</p>
                            <img src="${thumbUrl}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
                         <br>

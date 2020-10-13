@@ -3,6 +3,8 @@ $('.modal').on('shown.bs.modal', function () {
 })
 
 const renderHomeEvents = async () => {
+    document.getElementById("indexView").classList.add("d-none")
+    document.getElementById("builder-spinner").classList.remove("d-none")
     db.collection('weekendevents').get()
         .then(async snap => {
             let allEvents = [];
@@ -47,14 +49,20 @@ const setupEvents = (data, num) => {
    // console.log(data)
 
     data.forEach(event => {
-      //  console.log(event)
         count++;
         rowCheck++;
         const id = event.id;
-
+/*
         const event_datetime = event.start_time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
+*/
+        const pretty_time = event.start_time_pretty.substring(10, event.start_time_pretty.length-6)
+        var hour = event.start_time_pretty.substring(0, 8)
+        if (hour.substring(0, 1) === "0"){
+            hour = hour.substring(1)
+        }
+        const time = pretty_time.concat(" @ ", hour, "EST")
 
         const li = `
             <div class="col-sm-4" style="margin-bottom: 2rem;>
@@ -99,7 +107,9 @@ const setupEvents = (data, num) => {
                     </div>`
                 remainder += last;
                 document.getElementById(`event-row-${curRow}`).innerHTML = html;
-            }     
+            }
         }
+        document.getElementById("indexView").classList.remove("d-none")
+        document.getElementById("builder-spinner").classList.add("d-none")
     });
 }
