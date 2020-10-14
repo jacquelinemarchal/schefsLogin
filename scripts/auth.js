@@ -7,6 +7,7 @@ loginForm.addEventListener('submit', (e) => {
     auth.signInWithEmailAndPassword(email, password).then(cred =>{
         loginForm.reset();
         $('#modal-signup').modal("hide");
+        $('.modal-backdrop').remove();
         loginForm.reset();
     }).catch((error) => {
         alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
@@ -18,59 +19,63 @@ loginForm.addEventListener('submit', (e) => {
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    document.getElementById("submit-sign-up").innerHTML = `<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>`
     const email = signupForm['signup-email'].value; // look in signupForm and find input with id signup-email
     const password = signupForm['signup-password'].value; 
     
-    auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        handleNewLogIn(auth, email, password);
-        $('#modal-signup').modal("hide");
-        $('#modal-welcome').modal("show");
-    })
-    .catch(function(error){
-        console.log("Error logging in user: ", error);
-        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
-    }); 
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            const fName = signupForm['firstName'].value;
+            const lName = signupForm['lastName'].value;
+            const gradYear = signupForm['gradYear'].value;
+            const major = signupForm['major'].value;
+            const university = signupForm['school'].value;
+            const phone = signupForm['phone'].value;
+            const user = auth.currentUser;
+            const name = fName + " " + lName;
+            user.updateProfile({displayName: name})
+                .catch(function(error) {
+                    console.log("Error updating auth username: ", error);
+                })
+            loggedInNav(name, user.uid);
+            storeProfile(user.uid, email, fName, lName, gradYear, major, university, phone, password);
+        })
+        .catch(function(error){
+            console.log("Error logging in user: ", error);
+            alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
+        })
 });
 
-const storeProfile = (userId, email, fName, lName, gradYear, major, university, phone) => {
-    db.collection("users").doc(userId).set({
-        email: email,
-        firstName: fName,
-        lastName: lName,
-        gradYear: gradYear,
-        major: major,
-        university: university,
-        isAdmin: false,
-        phoneNumber: phone
-    })
-    .catch((error) => {
-        console.log("Error storing user info: ", error);
-    });
-}
-
-const handleNewLogIn = (auth, email, password) => {
-    auth.signInWithEmailAndPassword(email, password).then(cred => {
-        const fName = signupForm['firstName'].value;
-        const lName = signupForm['lastName'].value;
-        const gradYear = signupForm['gradYear'].value;
-        const major = signupForm['major'].value;
-        const university = signupForm['school'].value;
-        const phone = signupForm['phone'].value;
-
-        const user = auth.currentUser;
-        const name = fName + " " + lName;
-
-        user.updateProfile({displayName: name})
-            .catch(function(error) {
-                console.log("Error updating auth username: ", error);
+const storeProfile = (userId, email, fName, lName, gradYear, major, university, phone, password) => {
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            var time = new Date();
+            db.collection("users").doc(userId).set({
+                email: email,
+                firstName: fName,
+                lastName: lName,
+                gradYear: gradYear,
+                major: major,
+                university: university,
+                isAdmin: false,
+                phoneNumber: phone,
+                timestamp: time
+            })
+            .then(() => {
+                $("#modal-signup").modal("hide");
+                if (location.pathname === "/eventBuilder.html"){
+                    location.reload();
+                }
+                $("#modal-welcome").modal("show");
+                $('.modal-backdrop').remove();
+            })
+            .catch((error) => {
+                console.log("Error storing user info: ", error);
             });
-
-        loggedInNav(name, user.uid);
-        storeProfile(user.uid, email, fName, lName, gradYear, major, university, phone);
-    })
-    .catch(function(error){
-        alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
-        console.log("Error logging in user: ", error);
+        })
+        .catch(function(error){
+            alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
+            console.log("Error logging in user: ", error);
     });
 }
 

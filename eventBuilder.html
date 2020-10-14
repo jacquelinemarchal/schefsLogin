@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Event Builder - Schefs</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="imp.css">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/favicon.png">
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <div class="container">
+        <div class="container-wrapper">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="font-size: 16px;">
+                <a href="/" class="navbar-brand mr-auto p-2">
+                    <img src="assets/logo.png" style="height: 34px;">
+                </a>
+                <div id="nav-items-right" style="display: flex;">
+                <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br>
+    <!--HEADING-->
+    <div class="container d-none" id="complete">
+        <div class="container-wrapper" style="margin-top:4rem;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                    </div>
+                    <div class="col-8" style="padding-top:6rem;">
+                        <h2 style="text-align: center;">Thank you for submitting your event!</h2><br>
+                        <p>Check your email for a confirmation.<br><br>Our team will review your event within 24 hours before publishing it to the site if approved.</p>
+                        <br><p>Click on "My Events" in your profile to see the status of your event.</p>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm" style="text-align: center;">
+                            <a href="/eventBuilder.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>&lsaquo; Submit another Event</u></a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="/index.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Browse Events</u></a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="https://www.instagram.com/schefs.us/" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Follow @schefs.us</u></a>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script> 
+    <div class="d-none" style="min-width:320px;height:630px;" id="calendly"></div>
+
+    <div class="container" id="mobile-builder">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <br>
+            <p style="text-align: center; vertical-align: middle">The event builder only works on a desktop. Make sure your browser window is as wide as possible!</p>
+        </div>
+    </div>
+    <div class="container d-none" id="logged-out">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <br>
+            <h1 style="text-align: center; vertical-align: middle;">Sorry</h1>
+            <p style="text-align: center; vertical-align: middle">You must be logged in to create an event</p>
+        </div>
+    </div>
+    <div class="container" id="builder-content">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <!-- Link Bootstrap CSS -->
+            <div class="row">
+                <div class="col-md-7">
+                    <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title..." required>
+                    <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 65 characters</p>
+                    <div>                     
+                      <label for="event-img-upload">
+                        <div style="display: relative; width: 100%; overflow: hidden;">
+                          <img id="event-img" src="assets/placeholder.png" style="max-width: 100%; border-radius: 4rem; width: 500px; height: auto;">
+                        </div>
+                      </label>
+                      <input name="event-img" style="display:none;" id="event-img-upload" onclick="uploadImage()">
+                    </div>
+
+                    <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="My Event Description..."></textarea>
+                    <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="Event Requirements (Optional)..."></textarea>
+                </div>
+               
+                <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
+                    <div class="row">
+                        <a onclick="logResults()" type="submit" class="btn btn-dark reserve" id="set-date-submit" style="color:#3e4042;background-color:white">SET DATE & SUBMIT</a>
+                        <a onclick="helpModal()" type="submit" class="btn btn-dark reserve" id="help-btn" style="margin-left:1rem;color:#3e4042;background-color:white">HELP</a>
+                    </div>
+                    <div class="row" style="margin-top:3rem;">
+                        <div class="col-sm-3">
+                            <label for="prof-img-upload">
+                                <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                    <img src="assets/profholder.png" style="height:auto; width: 100%;"alt="..." id="hostPic">
+                                </div>
+                            </label>
+                            <input name="hostPic" style="display:none;" type="file" id="prof-img-upload" accept="image/jpeg, image/png" onchange="uploadHostImage(this)">
+                        </div>
+                        <div class="col-sm-3 offset-sm-1">
+                            <br><input type="text" id="fnInput" style=" font-size: 20px; padding-top:1rem" placeholder="First Name...">  
+                            <br><input type="text" id="lnInput" style=" font-size: 20px; padding-top:1rem" placeholder="Last Name..." aria-describedby="passwordHelp">
+                        </div>
+                    </div>
+                    <br><br>
+                    <input type="text" id="uniInput" style=" font-size: 20px;" placeholder="My University" value="Columbia University...">
+                    <input type="text" id="gradInput" style=" font-size: 20px; padding-top:1rem" placeholder="My Grad Year...">
+                    <input type="text" id="majorInput" style="width:20em ;font-size: 20px; padding-top:1rem" placeholder="My Major...">
+                    <br>
+                    <textarea type="text" id="bioInput" style="font-size: 20px; width: 375px;padding-top:1rem" rows="8" placeholder="My Bio..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="spinner-border d-none" id="builder-spinner" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="modal fade bd-example-modal-xl" id="modal-image-select" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-xl" style="overflow-y: initial;">
+            <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-image-select-content"> 
+                    <small class="form-text">Don't see a photo you like? Pick one of these images as a placeholder for now and email schefs.us@gmail with the name of your event & your new image of choice.</small>
+            </div>
+        </div>
+    </div>
+
+  <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
+                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
+                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
+                <div class="forms">
+                    <form id="signup-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="signup-email">School email</label>
+                            <input type="email" class="form-control" id="signup-email" required
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
+                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" class="form-control" id="signup-password" required aria-describedby="passwordHelp">
+                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="firstName" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="lastName" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School</label>
+                            <input type="school" class="form-control" id="school" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="gradYear">Expected graduation year</label>
+                            <input type="gradYear" class="form-control" id="gradYear" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="major">Major</label>
+                            <input type="major" class="form-control" id="major" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="phone">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
+                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
+                        </div>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
+                    </form>
+                    <form id="login-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="login-email">Email address</label>
+                            <input type="email" class="form-control" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" class="form-control" id="login-password" required>
+                            <small>Forgot your password? Email schefs.us@gmail.com</small>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-account" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
+            </div>
+        </div>
+    </div>    
+    <div id="modal-logged-out" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Success! You logged out</h2>
+            </div>
+        </div>
+    </div>
+    <div id="modal-personal-events" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p>My unattended events</p>
+                <div id="unconfirmed-events-section"></div>
+                <p>My attended events</p>
+                <div id="personal-events-section"></div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
+            </div>
+        </div>
+    </div>
+    <div id="modal-welcome" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
+            </div>
+        </div>
+    </div>
+    <div id="modal-account" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content"></div>
+        </div>
+    </div>
+    <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
+            </div>
+        </div>
+    </div>
+    <div id="modal-error" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-error-content"></div>
+        </div>
+    </div>
+    <div id="modal-success" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-success-content">            
+                <h2 style="text-align: center;"><b>Success</b></h2><br>
+                <p>Your event has been submitted. We will get back to you soon</p></div>
+        </div>
+    </div>
+    <div id="modal-welcome-build" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div id="modal-help-content" class="modal-content" style="padding-left: 4rem; padding-right: 4rem; padding-top: 2rem; padding-bottom: 2rem;">
+                
+                <h2 style="text-align: center;">Welcome to the Event Builder</h2><br>
+                <div style="padding-left: 4rem; padding-right: 4rem;">
+
+                    <p style="text-align: center;">Your information is pre-loaded from your account information. You can change the fields if you wish by highlighting and re-typing what you wish.<br><br> After you submit, your event will be reviewed within 24 hours.</p>
+                    <br><p style="text-align: center;">Browse Resources:</p>
+
+                    <div class="row">
+                        <div class="col-sm" style="text-align: center;">
+                            <a style="color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;" onclick="displayImageGuide()">Image Guide</a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a style="color: #007bff; font-family:'Roboto', sans-serif;font-size:20px;"  onclick="displayCoHostGuide()">Co-host Guide</a>
+                        </div>
+                        <div class="col-sm" style="text-align: center;">
+                            <a target="_blank" href="/archive.html" style="font-family:'Roboto', sans-serif;font-size:20px;">Event Inspiration</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="modal-confirm-submit" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem;">
+                <h2 style="text-align: center;"><b>Confirm</b></h2><br>
+                <p>Are you ready to submit your event? You will no longer be able to edit it.</p>
+                <div style="margin-left:auto;margin-right:auto;text-align: center;">
+                    <a onclick="submitResult(0)" data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">Continue</a><br>
+                    <a data-dismiss="modal" type="button" class="btn btn-outline-dark reserve" style="margin-bottom:1rem;">No</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/firebase.js"></script>
+    <script src="scripts/photoLibrary.js"></script>
+    <script src="scripts/eventBuilder.js"></script>
+    <script src="scripts/helpModal.js"></script>
+    <script src="scripts/userDisplay.js"></script>
+    <script src="scripts/signup.js"></script>
+    <script src="scripts/auth.js"></script>
+
+</body>
+</html>
