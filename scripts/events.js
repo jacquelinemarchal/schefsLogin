@@ -89,6 +89,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
     let adminStyle = 'display: none;';
     let remainingTickets = 7;
 
+    // format time
     const pretty_time = eventData.start_time_pretty.substring(10, eventData.start_time_pretty.length-6)
     var hour = eventData.start_time_pretty.substring(0, 8)
     if (hour.substring(0, 1) === "0"){
@@ -96,11 +97,15 @@ const generateEventPage = async (eventData, eventId, time, size) => {
     }
     const formatTime = pretty_time.concat(" @ ", hour, "EST")
 
-
     // escape apostrophes & quotes
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
+    // set requirements text if none
+    if (!eventData.req)
+        eventData.req = 'There are no requirements for this event.';
+
+    // tickets remaining display
     if (size > 14) {
         remainingTickets = 0;
         reserveStyle = 'display: none;';

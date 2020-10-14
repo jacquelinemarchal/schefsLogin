@@ -142,7 +142,7 @@ exports.sendEventSubmittedEmail = async (email, name, event_name) => {
     return null;
 };
 
-exports.sendEventApprovedEmail = async (email, name, event_name, event_date, event_time) => {
+exports.sendEventApprovedEmail = async (email, name, event_name, event_date, event_time, event_url) => {
     const mailOptions = {
         to: email,
         subject: 'Your Schefs Event Is Approved!',
@@ -158,16 +158,17 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
             </p>
             <p>
                 Wohoooo! Your event, ${event_name}, has been approved and 
-                will be up on our website on Tuesday, October 13. Share your 
-                link and invite whoever you want. Anyone with a Schefs account
-                will be able to sign up to attend!
+                is NOW LIVE on our website. Share your link and invite whoever
+                you want. Anyone with a Schefs account will be able to sign up
+                to attend!
             </p>
             <p>
                 Event Information:<br><br>
                 <b>
                     ${event_name}<br>
                     ${event_date}<br>
-                    ${event_time}
+                    ${event_time}<br>
+                    ${event_url}<br>
                 </b>
             </p>
             <p>
@@ -175,7 +176,8 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
                 help promote it, reply to this email... we’ve got some cool
                 designs up our sleeve :)<br><br>
 
-                And if you have any questions about anything at all, don’t hesitate to reach out!
+                And if you have any questions about anything at all, don’t hesitate
+                to reach out!
             </p>
             <p>
                 Here’s to many conversations,<br>
@@ -210,19 +212,37 @@ exports.sendEventDeniedEmail = async (email, name, event_name, event_description
             <p>
                 Thank you for submitting a Schefs event!<br><br>
 
-                Your event, <b>${event_name}</b>, has been reviewed but unfortunately wasn’t approved. However, we encourage you to resubmit with edits.
+                Your event, <b>${event_name}</b>, has been reviewed but unfortunately wasn’t
+                approved. However, we encourage you to resubmit with edits.
             </p>
             <p>
                 Here are some tips for submitting a successful event proposal:
                 <ul>
-                    <li>Schefs believes that everybody should have a stake in each conversation. Make sure that your event isn’t structured as a lecture, but that your event encourages active participation from those who are experts, from those who are enthusiasts, and from those who are totally new to your event’s topic.</li>
-                    <li>The most successful Schefs events tackle a very specific topic as a catalyst for conversation. Make sure that your event topic isn’t too broad.</li>
-                    <li>Make sure that your event’s description gives potential guests an idea of what will be discussed at your event, and that it’s at least 5 sentences long</li>
-                    <li>Most Schefs participants are unable to prepare extensively for each event. We encourage you to share resources for guests to browse before each event, but don’t ask guests to read a whole book!</li>
+                    <li>
+                        Schefs believes that everybody should have a stake in each conversation. 
+                        Make sure that your event isn’t structured as a lecture, but that your event
+                        encourages active participation from those who are experts, from those who
+                        are enthusiasts, and from those who are totally new to your event’s topic.
+                    </li>
+                    <li>
+                        The most successful Schefs events tackle a very specific topic as a catalyst
+                        for conversation. Make sure that your event topic isn’t too broad.
+                    </li>
+                    <li>
+                        Make sure that your event’s description gives potential guests an idea of 
+                        what will be discussed at your event, and that it’s at least 5 sentences
+                        long.
+                    </li>
+                    <li>
+                        Most Schefs participants are unable to prepare extensively for each event.
+                        We encourage you to share resources for guests to browse before each event,
+                        but don’t ask guests to read a whole book!
+                    </li>
                 </ul>
             </p>
             <p>
-                A copy of the information you submitted is below. Feel free to edit and resubmit if you’d like!<br><br>
+                A copy of the information you submitted is below. Feel free to edit and resubmit if
+                you’d like!<br><br>
 
                 If you have any questions, don’t hesitate to reach out!
             </p>
