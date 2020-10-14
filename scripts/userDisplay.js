@@ -13,7 +13,7 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
     }
     else{
         acctInfo.innerHTML = 
-        `<a class="nav-item nav-link" style="color: black;" href="open-mind-archive.html">Open Mind Archive</a>
+        `<a class="id="omaNavBar" nav-item nav-link" style="color: black;" href="open-mind-archive.html">Open Mind Archive</a>
          <a style="color:black;"class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-build-prompt">Host</a>
          <a class="nav-item nav-link" style="color: black;" href="about.html">About</a>
          <a style="color:black;"class="nav-item nav-link" data-toggle="modal" data-target="#modal-signup">Sign In</a>`;
@@ -21,7 +21,7 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
 });
 // NAV BAR UPDATES
 const loggedInNav = (name, uid) => {
-    var oma = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="open-mind-archive.html">Open Mind Archive</a>`
+    var oma = `<a id="omaNavBar" class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="open-mind-archive.html">Open Mind Archive</a>`
     var eventBuilder = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Host</a>`
     var about = `<a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>`
     var account = `<a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">

@@ -20,7 +20,7 @@ var indexHtml = `
     <div class="container" id="heading">
         <div class="container-wrapper" style="margin-top: 3rem;">
             <div class="row">
-                <div style="text-align: left;">
+                <div style="text-align: left; margin-left:1rem;">
                     <p style="margin: 0">Host & attend small group themed</p>
                     <p style="margin: 0">conversations via Zoom on any topic.</p>
                     <p style="margin: 0">By & for college students.</p>
@@ -182,8 +182,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                             <div id="add-thought-div" class="col-sm-2">
                                 <a id="add-thought" style="margin-left:1rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">SUBMIT</a>
                             </div>
-                        </div>
-                        <div id="comments-section">
+                            <div id="comments-section"></div>
                         </div>
                     </div>
     
@@ -258,7 +257,6 @@ const addComment = (id, name) => {
 }
 
 const displayComments = (id) => {
-    window.onload = () => {   
         var commentSection = document.getElementById("comments-section")
         db.collection("weekendevents").doc(id).collection("comments").get()
         .then((snap) => {
@@ -272,12 +270,11 @@ const displayComments = (id) => {
                 pName.innerHTML = `${data.name}`;
                 pComment.innerHTML = `${data.content}`;
 
-                commentSection.appendChild(pName)      
+                commentSection.appendChild(pName)
                 commentSection.appendChild(pComment)
             })
         })
         .catch((err) => {console.log(err)})
-    }
     /*
     <p style="margin-bottom: .5rem;font-size: 24px;">Jackie Marchal</p>
     <p style="margin-bottom: 2rem;">Hope to see everyone there</p>*/
