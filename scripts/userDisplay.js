@@ -69,6 +69,8 @@ const logOut = (user) => {
         console.log("Error signing user out: ", error);
     });
 }
+var date = new Date();
+var timestamp = date.getTime();
 
 const displayUserHostedEvents = (uid, eventDiv) => {
     $('#modal-hosted-events').modal("show");
@@ -103,38 +105,94 @@ const displayUserEvents = (uid) => {
     $('#modal-personal-events').modal("show");
     var unconfirmed = document.getElementById("unconfirmed-events-section")
     var confirmed = document.getElementById("personal-events-section")
-    db.collection("users").doc(uid).collection("events").get()
-    .then(snap => {
-        snap.forEach(doc => {
-            var eventData = doc.data();
-            
-            if (eventData.attended){
-                var titleBtn = document.createElement("a")
-                titleBtn.setAttribute("id", `${eventData.eventTitle}`)
-                titleBtn.setAttribute("class", "btn btn-outline-dark reserve")
-                titleBtn.setAttribute("role", "button")
-                titleBtn.innerHTML = `${eventData.eventTitle}`
-                confirmed.appendChild(titleBtn)
-                $(titleBtn).on('click', function () {
-                    findGuests(doc.id);
-                });
-            }
-            if (!eventData.attended){
-                appendTo = unconfirmed;
-            }
+    if (($(confirmed).html().length == 0 ) && ($(unconfirmed).html().length == 0))  {
+        db.collection("users").doc(uid).collection("events").get()
+        .then(snap => {
+            snap.forEach(doc => {
+                var eventData = doc.data();
+                if (eventData.attended){
+                    var titleBtn = document.createElement("a")
+                    var guestDiv = document.createElement("div")
+                    guestDiv.setAttribute("id", `${eventData.eventTitle}`)
+                    titleBtn.setAttribute("id", `${eventData.eventTitle}`)
+                    titleBtn.setAttribute("class", "btn btn-outline-dark reserve")
+                    titleBtn.setAttribute("style", "margin-bottom: 1rem;")
+                    titleBtn.setAttribute("role", "button")
+                    titleBtn.innerHTML = `${eventData.eventTitle}`
+                    confirmed.appendChild(titleBtn)
+                    confirmed.appendChild(guestDiv)
+                    $(titleBtn).on('click', function () {
+                        var isEmpty = guestDiv.innerHTML === "";
+                        if(isEmpty){
+                            findGuests(doc.id, guestDiv);
+                        }
+                        if (!isEmpty){
+                            guestDiv.innerHTML = ''
+                        }
+                    });
+                }
+                if (!eventData.attended){
+                    var eventDiv = document.createElement("div")
+                    var undecidedEvent = document.createElement("p")
+                    undecidedEvent.innerHTML = `You reserved a ticket for <b>${eventData.eventTitle}</b>. Did you attend this event?<br>`
+                    var yes = document.createElement("a")
+                    var no = document.createElement("a")
+                    yes.innerHTML = "YES"
+                    no.innerHTML = "NO"
+                    yes.setAttribute("style", "font-size: 14px; margin-left: .2rem; margin-right: .2rem;")
+                    no.setAttribute("style", "font-size: 14px;")
+                    yes.setAttribute("class", "btn btn-outline-dark reserve")
+                    yes.setAttribute("role", "button")
+                    no.setAttribute("role", "button")
+                    no.setAttribute("class", "btn btn-outline-dark reserve")
+                    undecidedEvent.appendChild(yes)
+                    undecidedEvent.appendChild(no)
+                    eventDiv.appendChild(undecidedEvent)
+                    unconfirmed.appendChild(eventDiv)
+
+                    $(no).on('click', function () {
+                        db.collection('users').doc(uid).collection('events').doc(doc.id).delete()
+                        .then(() => {
+                            confirmed.innerHTML = '';
+                            unconfirmed.innerHTML = '';
+                            displayUserEvents(uid)
+                        })
+                        .catch(err => {
+                            console.log('Error deleting event from user events: ', err);
+                        });
+                    });
+                    $(yes).on('click', function () {
+                        db.collection('users').doc(uid).collection('events').doc(doc.id)
+                        .set({
+                            attended: true
+                        }, {merge: true})
+                        .then(() => {
+                            confirmed.innerHTML = '';
+                            unconfirmed.innerHTML = '';
+                            displayUserEvents(uid)
+                        })
+                        .catch(err => {
+                            console.log('Error adding event to user attended events: ', err);
+                        });
+                    });
+                }
+            })
         })
-    })
-    .catch(err => {
-        console.log('Error finding events: ', err);
-    });
+        .catch(err => {
+            console.log('Error finding events: ', err);
+        });
+    }
 }
-const findGuests = (doc) => {
-    db.collection("aug20events").doc(doc).collection("tickets").get()
+const findGuests = (docId, div) => {
+    db.collection("aug20events").doc(docId).collection("tickets").get()
     .then(snap => {
         snap.forEach(doc => {
-          //  var guestList = document.createElement("p")
-           // guestList.innerHTML = `${doc.data().email}<br>`
-            console.log(doc.data())
+            var guestList = document.createElement("ul")
+            var guest = document.createElement("li")
+            guest.setAttribute("style", "list-style-type: none;")
+            guest.innerHTML=`${doc.data().name} • ${doc.data().email}`
+            guestList.appendChild(guest)
+            div.appendChild(guestList)
         })
     })
 } 

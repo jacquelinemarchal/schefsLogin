@@ -72,7 +72,7 @@ const townHallReserve = () => {
                 time: timestamp
              })
             .then(() => {
-                addToUsersEvents(uid, eventDocId, eventTitle, email, user.firstName, user.lastName)
+                addToUsersEvents(uid, eventDocId, eventTitle, email, user.firstName, user.lastName) //eventTime
             })
             .catch(err => {
                 console.log('Error adding ticket: ', err);
@@ -89,7 +89,7 @@ const townHallReserve = () => {
         `;
     }
 }
-const addToUsersEvents = (uid, docId, title, email, fname, lname) => {
+const addToUsersEvents = (uid, docId, title, email, fname, lname) => { //time
     console.log("adding to user event collection")
     db.collection("users").doc(uid).collection("events").doc(docId)
     .set({
@@ -98,5 +98,6 @@ const addToUsersEvents = (uid, docId, title, email, fname, lname) => {
         firstName: fname,
         lastName: lname,
         attended: false
+      //  eventTime: time
     })
 }
