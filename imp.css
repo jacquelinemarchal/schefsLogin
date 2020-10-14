@@ -288,6 +288,10 @@ a.reserve{
     #omaNavBar{
         display:none;
     }
+    #add-thought-div{
+        text-align: center;
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (min-width: 425px) {

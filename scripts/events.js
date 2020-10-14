@@ -137,8 +137,9 @@ const generateEventPage = async (eventData, eventId, time, size) => {
     const name = eventData.firstName + " " + eventData.lastName;
 
     // set requirements text if none
-    if (!eventData.req)
+    if ((eventData.req === "") || (!eventData.req)|| (/^\s*$/.test(eventData.req)) || 0 === eventData.req.length){
         eventData.req = 'There are no requirements for this event.';
+    }
 
     // tickets remaining display
     if (size > 9) {
@@ -177,7 +178,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                             </div>                            <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
-                        <br><br>
+                        <br>
                         <hr />
                         <h2 style="margin-top:2rem;margin-bottom:2rem;" id="webThoughts">Thoughts:</h2>
                         <div class="row" style="margin-bottom: 2rem;">
