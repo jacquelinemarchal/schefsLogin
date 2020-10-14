@@ -8,7 +8,7 @@ const renderHomeEvents = async () => {
     db.collection('weekendevents').get()
         .then(async snap => {
             let allEvents = [];
-            snap.forEach( (doc) => {
+            snap.forEach((doc) => {
                 var data = doc.data();
                 if ((data.week === 1 || data.week === 2 || data.week === 3) && (data.status === "approved" || data.status === "")){
                     var reference = storage.refFromURL(data.thumb)

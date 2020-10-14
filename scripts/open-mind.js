@@ -38,9 +38,9 @@ db.collection("openmind").get()
     })
 
 $("#add-topic").on('click', function () {
-    document.getElementById("add-topic-div").innerHTML = `<div class="spinner-border" role="status"><span class="sr-only">Loading</span></div>`
-    var newTopic = document.getElementById("open-mind-form").value;
     if (isLoggedIn) {
+        document.getElementById("add-topic-div").innerHTML = `<div class="spinner-border" role="status"><span class="sr-only">Loading</span></div>`
+        var newTopic = document.getElementById("open-mind-form").value;
         db.collection("openmind").doc()
         .set({
             topic: newTopic,
@@ -56,6 +56,6 @@ $("#add-topic").on('click', function () {
         });
     }
     if (!isLoggedIn){
-        ("#modal-signup").modal()
+        $("#modal-signup").modal("show")
     }
 });
