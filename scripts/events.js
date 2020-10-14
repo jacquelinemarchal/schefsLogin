@@ -36,15 +36,13 @@ var indexHtml = `
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <!-- EVENT LIST -->
-            <div class="events" id="main-events-div">
+            <div class="events" id="main-events-div"></div>
+            <div class="d-flex justify-content-center" style="padding-top: 2rem;">
+                <a class="btn btn-outline-dark reserve" href="/archive-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
             </div>
         </div>
     </div>
 `;
-/* EVENT ARCHIVE
-<div class="d-flex justify-content-center" style="padding-top: 2rem;">
-<a class="btn btn-outline-dark reserve" href="/archive-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
-</div>*/
 
 // handle click some event
 const displayPage = eventId => {
