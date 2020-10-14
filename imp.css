@@ -253,9 +253,6 @@ a.reserve{
     right: 0;
 }
 @media screen and (max-width: 935px) {
-    img#hostPic{
-        padding-right: 3rem;
-    }
     #spread-word{
         display:none;
     }
@@ -278,6 +275,27 @@ a.reserve{
     #ambass-link{
         margin-right: 64px; 
         float:right;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    #AccountNav{
+        display:none;
+    }
+    #mobileAccountNav{
+        display:inline;
+    }
+    #omaNavBar{
+        display:none;
+    }
+}
+
+@media screen and (min-width: 425px) {
+    #AccountNav{
+        display:inline;
+    }
+    #mobileAccountNav{
+        display:none;
     }
 }
 

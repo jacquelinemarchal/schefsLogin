@@ -7,7 +7,7 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
             if (snap.exists){
                 let userDB = snap.data();
                 let fullName = `${userDB.firstName} ${userDB.lastName}`
-                loggedInNav(fullName, user.uid)
+                loggedInNav(fullName, user.uid, userDB.firstName)
             }
         })
     }
@@ -20,33 +20,17 @@ auth.onAuthStateChanged(user => { // returns null if user logs out
     }
 });
 // NAV BAR UPDATES
-const loggedInNav = (name, uid) => {
+const loggedInNav = (name, uid, firstName) => {
     var oma = `<a id="omaNavBar" class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="open-mind-archive.html">Open Mind Archive</a>`
     var eventBuilder = `<a class="nav-item nav-link" style="color: black;padding: 0;margin-right:1rem;" href="eventBuilder.html">Host</a>`
     var about = `<a class="nav-item nav-link" style="color: black; padding: 0; margin-right:1rem;" href="about.html">About</a>`
-    var account = `<a data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
+    var account = `<a id="AccountNav" data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
     <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${name}</a>`
-    /*
-    if (window.location.href.indexOf("eventBuilder") > -1) {
-        const info = about.concat(account)
-        acctInfo.innerHTML = info;
-    }
-    if (window.location.href.indexOf("approval-events") > -1) {
-        const info = account;
-        acctInfo.innerHTML = info;    
-    }
-    if (window.location.href.indexOf("about") > -1) {
-        const info = eventBuilder.concat(account);
-        acctInfo.innerHTML = info;    
-    }
-    if ((window.location.href.indexOf("eventBuilder") < -1) || (window.location.href.indexOf("approval-events") < -1) || (window.location.href.indexOf("about") < -1)){
-        const info = eventBuilder.concat(about, account);
-        acctInfo.innerHTML = info;
-    }
-    else{*/
-    const info = oma.concat(eventBuilder, about, account);
+    var mobileAccount = `<a id="mobileAccountNav" data-toggle="modal" style="margin-right:1rem;" onclick="displayUserInfo('${uid}')" data-target="#modal-account">
+    <img src="assets/person.png" style="max-width: 1.7rem; padding-bottom: 2px;">${firstName}</a>`
+    
+    const info = oma.concat(eventBuilder, about, account, mobileAccount);
     acctInfo.innerHTML = info;
-  //  }
 }
 
 const displayUserInfo = (uid) => {

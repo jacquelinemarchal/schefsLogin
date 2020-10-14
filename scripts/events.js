@@ -63,7 +63,6 @@ const displayPage = eventId => {
                     const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
                     
                     state.pageDivHtml = await generateEventPage(eventData, eventId, time, size);
-                    displayComments(eventId)
                     state.indexDivHtml = '';
                     window.history.pushState(state, null, '');
 
@@ -83,6 +82,7 @@ const displayPage = eventId => {
                         })
                         .catch(err => console.log('Error getting tickets: ', err));
                     }
+                    displayComments(eventId)
                 })
                 .catch(err => {
                     console.log('Error getting event document: ', err)
@@ -166,8 +166,9 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
                             <p>Hosted by: ${name}</p><br>
-                                <img src="${profUrl}" alt="..." id="hostMobilePic">
-                            <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
+                            <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                <img src="${profUrl}"  style="height:auto; width: 100%;"alt="..." id="hostPic">
+                            </div>                            <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
                         <br><br>
@@ -180,7 +181,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                                 </form>
                             </div>
                             <div id="add-thought-div" class="col-sm-2">
-                                <a id="add-thought" style="margin-left:1rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">SUBMIT</a>
+                                <a id="add-thought" style="margin-left:1rem;margin-bottom:2rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">SUBMIT</a>
                             </div>
                             <div id="comments-section"></div>
                         </div>
@@ -262,10 +263,12 @@ const displayComments = (id) => {
         .then((snap) => {
             snap.forEach((doc) => {
                 var data = doc.data();
+                console.log(data)
+
                 var pName = document.createElement("p")
                 var pComment = document.createElement("p")
-                pName.setAttribute("style", "margin-bottom: .5rem;font-size: 24px;")
-                pComment.setAttribute("style", "margin-bottom: 2rem;")
+                pName.setAttribute("style", "padding-left: 1rem; margin-bottom: .5rem;font-size: 24px;")
+                pComment.setAttribute("style", "padding-left: 1rem; margin-bottom: 2rem;")
 
                 pName.innerHTML = `${data.name}`;
                 pComment.innerHTML = `${data.content}`;
