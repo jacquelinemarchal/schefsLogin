@@ -102,9 +102,10 @@ exports.handleUpdateEvent = functions.firestore
     if ((!before.status || before.status !== 'approved') && after.status === 'approved') {
         const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
         const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+        const event_url = 'https://schefs.us/index.html?event=' + event_id;
 
         gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
-        emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time);
+        emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time, event_url);
     
     // on event denial
     } else if ((!before.status || before.status !== 'denied') && after.status === 'denied') {
