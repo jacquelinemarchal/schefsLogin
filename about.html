@@ -171,14 +171,14 @@
                 <div class="forms">
                     <form id="signup-form" style="display:none; align-items: center;">
                         <div class="form-group">
-                            <label for="signup-email">Email address</label>
+                            <label for="signup-email">School email</label>
                             <input type="email" class="form-control" id="signup-email" required
-                                pattern="[a-z0-9._%+-]+@[a-z0-9]+.edu" required aria-describedby="emailHelp">
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
                                 <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
                         </div>
                         <div class="form-group">
                             <label for="signup-password">Password</label>
-                            <input type="password" class="form-control" id="signup-password" aria-describedby="passwordHelp">
+                            <input type="password" class="form-control" id="signup-password" required aria-describedby="passwordHelp">
                             <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
                         </div>
                         <div class="form-group">
@@ -202,11 +202,13 @@
                             <input type="major" class="form-control" id="major" required>
                         </div>  
                         <div class="form-group">
-                            <label for="signup-password">(Optional) Phone number</label>
-                            <input type="phone" class="form-control" aria-describedby="phoneHelp">
+                            <label for="phone">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
                             <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
                         </div>
-                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
                     </form>
                     <form id="login-form" style="display:none; align-items: center;">
                         <div class="form-group">
@@ -232,6 +234,13 @@
             </div>
         </div>
     </div>
+    <div id="modal-build-prompt" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding-top: 2rem;padding-left: 2rem;padding-right: 2rem; align-items: center;">
+                <p>Any undergrad can host an event on a topic of their choice. Log in or make an account to submit your own! </p>
+            </div>
+        </div>
+    </div>
 
     <div id="modal-account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
@@ -239,12 +248,25 @@
             </div>
         </div>
     </div>
+
+    <div id="modal-personal-events" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="overflow-y: initial;">
+            <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p style="text-align: center; background-color: #F6FFBE;">Confirm or remove my unattended events</p>
+                <div id="unconfirmed-events-section" class="text-center"></div>
+                <p style="text-align: center;background-color: #F6FFBE;">Find guests from my attended events</p>
+                <div id="personal-events-section" class="text-center"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
             </div>
         </div>
     </div>
+    
     <div id="modal-welcome" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;">
@@ -252,34 +274,34 @@
             </div>
         </div>
     </div>
+
+    <div id="modal-admin" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content admin-modal" style="padding: 3rem; align-items: center;" id="modal-admin-content">
+                <div style="align-items: center;" id="site-admin-content"></div>
+                <div style="padding: 2rem; align-items: center;" id="event-admin-content"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-reserve" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
             </div>
         </div>
     </div>
-</div>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDlAARr1JyTYSYuXgCN7NgMFv47INWmsvY",
-            authDomain: "schefs.firebaseapp.com",
-            databaseURL: "https://schefs.firebaseio.com",
-            projectId: "schefs",
-            messagingSenderId: "1078198186854",
-            appId: "1:1078198186854:web:4928cdbed5f459a68fcea7",
-            measurementId: "G-SFQEPY2PRN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-    </script>
+
+    <div id="modal-thank-you" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
     <script src="scripts/auth.js"></script>
+    <script src="scripts/firebase.js"></script>
     <script src="scripts/userDisplay.js"></script>
     <script src="scripts/index.js"></script>
     <script src="scripts/signup.js"></script>

@@ -168,26 +168,51 @@
         </div>
     </div>
 
-    <div id="modal-personal-events" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-personal-events-content">
-                <p>My unattended events</p>
-                <div id="unconfirmed-events-section"></div>
-                <p>My attended events</p>
-                <div id="personal-events-section"></div>
+    <div id="modal-personal-events" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="overflow-y: initial;">
+            <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p style="text-align: center; background-color: #F6FFBE;">Confirm or remove my unattended events</p>
+                <div id="unconfirmed-events-section" class="text-center"></div>
+                <p style="text-align: center;background-color: #F6FFBE;">Find guests from my attended events</p>
+                <div id="personal-events-section" class="text-center"></div>
             </div>
         </div>
     </div>
+
     <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
             </div>
         </div>
     </div>
+    
     <div id="modal-welcome" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="padding: 2rem; align-items: center;">
                 <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-admin" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content admin-modal" style="padding: 3rem; align-items: center;" id="modal-admin-content">
+                <div style="align-items: center;" id="site-admin-content"></div>
+                <div style="padding: 2rem; align-items: center;" id="event-admin-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-reserve" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-thank-you" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
             </div>
         </div>
     </div>

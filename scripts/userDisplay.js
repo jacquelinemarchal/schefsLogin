@@ -43,6 +43,7 @@ const displayUserInfo = (uid) => {
                 <p>Class of ${userInfo.gradYear}</p>
                 <p>${userInfo.major}</p>
                 <p>${userInfo.email}</p><br>
+                <a class="btn btn-outline-dark reserve" id="connectBtn" style="margin-bottom:1rem;"role="button">    Connect    </a>
                 <a class="btn btn-outline-dark reserve" id="myEventsBtn" style="margin-bottom:1rem;" role="button">    My Events    </a>
                 <a class="btn btn-outline-dark reserve" onclick="logOut()" role="button">    Log out    </a>`
                 $(myEventsBtn).on('click', () => {
@@ -56,6 +57,10 @@ const displayUserInfo = (uid) => {
                         eventDiv.innerHTML = '';
                         displayUserHostedEvents(uid, eventDiv);
                     }
+                });
+                $(connectBtn).on('click', () => {
+                    $('#modal-account').modal("hide");
+                    displayUserEvents(uid);
                 });
         })
 }
@@ -99,6 +104,9 @@ const displayUserHostedEvents = (uid, eventDiv) => {
     })
 }
 $('#modal-hosted-events').on('hidden.bs.modal', function (e) {
+    $('.modal-backdrop').remove();
+})
+$('#modal-personal-events').on('hidden.bs.modal', function (e) {
     $('.modal-backdrop').remove();
 })
 const displayUserEvents = (uid) => {
