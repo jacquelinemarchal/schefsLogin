@@ -1,8 +1,38 @@
 const indexDiv = document.getElementById("indexView");
 const pageDiv = document.getElementById("pageView");
+isLoggedIn = false;
+username = ""
+
+auth.onAuthStateChanged(user => {
+    if (user){
+        uid = user.uid;
+        isLoggedIn = true;
+        db.collection("users").doc(uid).get()
+        .then((userSnap) => {
+            var data = userSnap.data()
+            username = data.firstName.concat(" ", data.lastName)
+        })
+    }
+})
 
 
 var indexHtml = `
+    <div class="container" id="heading">
+        <div class="container-wrapper" style="margin-top: 3rem;">
+            <div class="row">
+                <div style="text-align: left; margin-left:1rem;">
+                    <p style="margin: 0">Host & attend small group themed</p>
+                    <p style="margin: 0">conversations via Zoom on any topic.</p>
+                    <p style="margin: 0">By & for college students.</p>
+                </div>
+                <div style="text-align: right; position: absolute;right:4rem">
+                    <p style="margin: 0">Take what you know.</p>
+                    <p style="margin: 0">Share it with others.</p>
+                    <p style="margin: 0">Learn from each other.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <!-- EVENT LIST -->
@@ -11,6 +41,10 @@ var indexHtml = `
         </div>
     </div>
 `;
+/* EVENT ARCHIVE
+<div class="d-flex justify-content-center" style="padding-top: 2rem;">
+<a class="btn btn-outline-dark reserve" href="/archive-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
+</div>*/
 
 // handle click some event
 const displayPage = eventId => {
@@ -29,8 +63,8 @@ const displayPage = eventId => {
                     const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
                     
                     state.pageDivHtml = await generateEventPage(eventData, eventId, time, size);
+                    displayComments(eventId)
                     state.indexDivHtml = '';
-                    console.log(state)
                     window.history.pushState(state, null, '');
 
                     render();
@@ -38,7 +72,8 @@ const displayPage = eventId => {
                     if (auth.currentUser) {
                         const uid = auth.currentUser.uid;
                         db.collection('users').doc(uid).get().then(userSnap => {
-                            if (userSnap.data().isAdmin) {
+                            var snapData = userSnap.data()
+                            if (snapData.isAdmin) {
                                 let allAttendees = [];
                                 attendeeData.forEach(attendee => allAttendees.push({
                                     ...attendee.data()
@@ -106,7 +141,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
         eventData.req = 'There are no requirements for this event.';
 
     // tickets remaining display
-    if (size > 14) {
+    if (size > 9) {
         remainingTickets = 0;
         reserveStyle = 'display: none;';
         loginStyle = 'display: none;';
@@ -122,11 +157,10 @@ const generateEventPage = async (eventData, eventId, time, size) => {
         else
             reserveStyle = 'display: none;';
     }
-
     return `
         <div class="container">
             <div class="container-wrapper">
-                <div class="row">
+                <div class="row" style="margin-bottom:2rem;">
                     <div class="col-md-7">
                         <h1 id="title">${eventData.title}</h1>
                         <p>${formatTime}</p>
@@ -143,6 +177,19 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
                         <br><br>
+                        <hr />
+                        <h2 style="margin-top:2rem;margin-bottom:2rem;" id="webThoughts">Thoughts:</h2>
+                        <div class="row" style="margin-bottom: 2rem;">
+                            <div class="col-sm-8">
+                                <form id="add-comment-form">
+                                    <textarea id="add-comment-input" placeholder="Add your thought here..." rows="1" style="border-bottom-style:solid; border-bottom-width:2.5px; width:100%; margin-left:0; margin-right: 10px; font-size:20px;" required></textarea>
+                                </form>
+                            </div>
+                            <div id="add-thought-div" class="col-sm-2">
+                                <a id="add-thought" style="margin-left:1rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">SUBMIT</a>
+                            </div>
+                            <div id="comments-section"></div>
+                        </div>
                     </div>
     
                     <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
@@ -173,7 +220,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                         <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                         <br><div class="hostBio"> ${eventData.bio}</div>
                     </div>
-                </div>         
+                </div>
             </div>
             <div class="footer">
                 <div class="row" id="fixed-footer">
@@ -192,6 +239,53 @@ const generateEventPage = async (eventData, eventId, time, size) => {
         </div>
     `
 }
+const addComment = (id, name) => {
+    if (isLoggedIn) {
+        document.getElementById("add-thought-div").innerHTML = `<div class="spinner-border" role="status"><span class="sr-only">Loading</span></div>`
+        var newComment = document.getElementById("add-comment-input").value;
+        db.collection("weekendevents").doc(id).collection("comments").doc()
+        .set({
+            content: newComment,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            name: name,
+            uid: uid
+        })
+        .then(() => {
+            location.reload();
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+    }
+    if (!isLoggedIn){
+        $("#modal-signup").modal("show")
+    }
+}
+
+const displayComments = (id) => {
+        var commentSection = document.getElementById("comments-section")
+        db.collection("weekendevents").doc(id).collection("comments").get()
+        .then((snap) => {
+            snap.forEach((doc) => {
+                var data = doc.data();
+                var pName = document.createElement("p")
+                var pComment = document.createElement("p")
+                pName.setAttribute("style", "margin-bottom: .5rem;font-size: 24px;")
+                pComment.setAttribute("style", "margin-bottom: 2rem;")
+
+                pName.innerHTML = `${data.name}`;
+                pComment.innerHTML = `${data.content}`;
+
+                commentSection.appendChild(pName)
+                commentSection.appendChild(pComment)
+            })
+        })
+        .catch((err) => {console.log(err)})
+    /*
+    <p style="margin-bottom: .5rem;font-size: 24px;">Jackie Marchal</p>
+    <p style="margin-bottom: 2rem;">Hope to see everyone there</p>*/
+}
+
 const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
     if (auth.currentUser){
