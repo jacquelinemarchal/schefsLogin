@@ -31,7 +31,6 @@ const displayEvents = () => {
 
         // sort by time
         allEvents.sort((e1, e2) => e1.submit_time - e2.submit_time);
-        console.log(allEvents.length)
 
         for (let i = 0; i<allEvents.length; i++){
             var row = document.createElement("div");
@@ -131,3 +130,10 @@ const displayEvents = () => {
     })
     .catch(err => console.log('Error getting events: ', err));
 }
+
+
+db.collection('totaltickets').get()
+.then(snap => {
+    document.getElementById("tickets").innerHTML = `Total tickets reserved: ${snap.size}`
+})
+.catch(err => console.log('Error getting events: ', err));

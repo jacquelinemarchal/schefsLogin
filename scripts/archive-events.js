@@ -75,52 +75,14 @@ const displayPage = (eventId, time) => {
 const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
     let soldOutStyle = '';
-    let reserveStyle = '';
-    let loginStyle = '';
+    let reserveStyle = 'display: none;';
+    let loginStyle = 'display: none;';
     let adminStyle = 'display: none;';
     let remainingTickets = 7;
 
     // escape apostrophes & quotes
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
-
-    // one anthropocene event should be able to book 15 people
-    if (eventId === "SRWp7iAWdWOtiVzNMCWY"){ 
-        capacity = 15;
-        remainingTickets = 15;
-        
-        if (size > 15){
-            remainingTickets = 0;
-            reserveStyle = 'display: none;';
-            loginStyle = 'display: none;';
-        }
-        else {
-            remainingTickets = 15 - size;
-            soldOutStyle = 'display: none;';
-            if (auth.currentUser)
-                loginStyle = 'display: none;';
-            else
-                reserveStyle = 'display: none;';
-        }
-    }
-    else{
-        if (size > 14) {
-            remainingTickets = 0;
-            reserveStyle = 'display: none;';
-            loginStyle = 'display: none;';
-        } else {
-            if (size >= 6)
-                remainingTickets = 2;
-            else
-                remainingTickets = 7 - size;
-    
-            soldOutStyle = 'display: none;';
-            if (auth.currentUser)
-                loginStyle = 'display: none;';
-            else
-                reserveStyle = 'display: none;';
-        }
-    }
 
     return `
         <div class="container">
@@ -157,7 +119,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <div id="admin-item" style="${adminStyle}">
                         <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                         </div>
-                        <p class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
+                        <p class="ticket-count">0 / 7 spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3">
@@ -174,7 +136,7 @@ const generateEventPage = (eventData, eventId, time, size) => {
             </div>
             <div class="footer">
                 <div class="row" id="fixed-footer">
-                    <p id="mobileReserve" class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
+                    <p id="mobileReserve" class="ticket-count">0 / 7spots available</p>
                     <div id="soldOut-item-mobile" style="${soldOutStyle}">
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
                     </div>
