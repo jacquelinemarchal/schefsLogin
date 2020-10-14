@@ -61,7 +61,9 @@ exports.addAttendeeToGcalEvent = async (event_id, attendee_email) => {
         eventId: encoded_id 
     });
 
-    const attendees = gcal_event.data.attendees;
+    let attendees = gcal_event.data.attendees;
+    if (!attendees) attendees = [];
+
     attendees.push({email: attendee_email});
 
     const gcal_event_patch = {attendees: attendees};
