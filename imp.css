@@ -497,6 +497,14 @@ a.reserve{
     background: #555; 
 }
 
+#modal-personal-events::-webkit-scrollbar {
+    display: none;
+}
+  
+#modal-personal-events {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
 #event-img:hover {
     cursor: pointer;
