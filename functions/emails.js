@@ -59,7 +59,7 @@ exports.sendWelcomeEmail = async (email, name) => {
     return null;
 };
 
-exports.sendReserveEmail = async (email, name,  event_name, event_date, event_time) => {
+exports.sendReserveEmail = async (email, name,  event_name, event_date, event_time, event_url) => {
     const mailOptions = {
         to: email,
         subject: 'Your Schefs Reservation',
@@ -78,7 +78,8 @@ exports.sendReserveEmail = async (email, name,  event_name, event_date, event_ti
                 <b>
                 ${event_name}<br>
                 ${event_date}<br>
-                ${event_time}<br><br>
+                ${event_time}<br>
+                ${event_url}<br><br>
                 </b>
                 You will receive details for the scheduled Zoom the night before
                 the event.
@@ -192,7 +193,7 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
         console.log(info);
     });
 
-    return null
+    return null;
 };
 
 exports.sendEventDeniedEmail = async (email, name, event_name, event_description, event_requirements, event_hostbio) => {
@@ -200,7 +201,7 @@ exports.sendEventDeniedEmail = async (email, name, event_name, event_description
         to: email,
         subject: `Schefs Event Update: ${event_name}`,
         dsn: {
-            id: 'Approval - ' + email,
+            id: 'Denial - ' + email,
             return: 'headers',
             notify: ['failure', 'delay'],
             recipient: 'schefs.us@gmail.com'
@@ -266,5 +267,67 @@ exports.sendEventDeniedEmail = async (email, name, event_name, event_description
         console.log(info);
     });
 
-    return null
+    return null;
 };
+
+exports.send24HourReminderEmail = async (email, name, event_name, event_date, event_time) => {
+    const mailOptions = {
+        to: email,
+        subject: `Schefs Event Reminder: ${event_name}`,
+        dsn: {
+            id: '24 Hour Reminder - ' + email,
+            return: 'headers',
+            notify: ['failure', 'delay'],
+            recipient: 'schefs.us@gmail.com'
+        },
+        html: `
+            <p>
+                Hi ${name},
+            </p>
+            <p>
+                24 hour test reminder email.<br>
+                ${event_name}<br>
+                ${event_time}<br>
+                ${event_date}
+            </p>
+        `
+    };
+
+    await transporter.sendMail(mailOptions, (err, info) => {
+        if (err) console.log(err);
+        console.log(info);
+    });
+
+    return null;
+}
+
+exports.send30MinuteReminderEmail = async (email, name, event_name, event_date, event_time) => {
+    const mailOptions = {
+        to: email,
+        subject: `Schefs Event Reminder: ${event_name}`,
+        dsn: {
+            id: '30 Min Reminder - ' + email,
+            return: 'headers',
+            notify: ['failure', 'delay'],
+            recipient: 'schefs.us@gmail.com'
+        },
+        html: `
+            <p>
+                Hi ${name},
+            </p>
+            <p>
+                30 min test reminder email.<br>
+                ${event_name}<br>
+                ${event_time}<br>
+                ${event_date}
+            </p>
+        `
+    };
+
+    await transporter.sendMail(mailOptions, (err, info) => {
+        if (err) console.log(err);
+        console.log(info);
+    });
+
+    return null;
+}
