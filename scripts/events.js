@@ -214,7 +214,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                                 </div>
                             </div>
                             <div class="col-sm-1 offset-sm-1">
-                                <h2>${name}</h2>
+                                <h2 id="hostInfoName">${name}</h2>
                             </div>
                         </div>
                         <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>

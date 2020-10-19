@@ -196,6 +196,17 @@ function countChars(obj){
     }
 }
 
+function countCharsMinimum(obj){
+    var minLength = 50;
+    var strLength = obj.value.trim().split(/\s+/).length;;
+    if(strLength < minLength){
+        document.getElementById("charDescNum").innerHTML = '<span style="color: red;">'+strLength+' / '+minLength+' words</span>';
+    }
+    else{
+        document.getElementById("charDescNum").innerHTML = strLength+' / '+minLength+' words';
+    }
+}
+
 const uploadImage = () => {
     $("#modal-image-select").modal()
     photoLibrary()

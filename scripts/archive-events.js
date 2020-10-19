@@ -1,40 +1,52 @@
-// set initial state
-let state = {
-    indexDivStyle: '',  // empty style = being displayed
-    pageDivHtml: ''     // empty page  = event page not rendered
-};
+const indexDiv = document.getElementById("indexView");
+const pageDiv = document.getElementById("pageView");
+isLoggedIn = false;
+username = ""
 
-// initialize history state
-window.history.replaceState(state, null, '');
-
-// update display
-const render = () => {
-    window.scrollTo(0, 0);
-    indexDiv.setAttribute('style', state.indexDivStyle);
-    pageDiv.innerHTML = state.pageDivHtml;
-}
-
-// handle set state from history
-window.onpopstate = event => {
-    if (event.state) {
-        state = event.state;
-        render();
+auth.onAuthStateChanged(user => {
+    if (user){
+        uid = user.uid;
+        isLoggedIn = true;
+        db.collection("users").doc(uid).get()
+        .then((userSnap) => {
+            var data = userSnap.data()
+            username = data.firstName.concat(" ", data.lastName)
+        })
     }
-}
+})
 
-// handle click home button
-const displayHome = () => {
-    state.indexDivStyle = '';
-    state.pageDivHtml = '';
 
-    window.history.pushState(state, null, '');
-
-    render();
-}
+var indexHtml = `
+    <div class="container" id="heading">
+        <div class="container-wrapper" style="margin-top: 3rem;">
+            <div class="row">
+                <div style="text-align: left; margin-left:1rem;">
+                    <p style="margin: 0">Host & attend small group themed</p>
+                    <p style="margin: 0">conversations via Zoom on any topic.</p>
+                    <p style="margin: 0">By & for college students.</p>
+                </div>
+                <div style="text-align: right; position: absolute;right:4rem">
+                    <p style="margin: 0">Take what you know.</p>
+                    <p style="margin: 0">Share it with others.</p>
+                    <p style="margin: 0">Learn from each other.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="container-wrapper" style="padding-top: 4rem;">
+            <!-- EVENT LIST -->
+            <div class="events" id="main-events-div"></div>
+            <div class="d-flex justify-content-center" style="padding-top: 2rem;">
+                <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">Festival Archive</a>
+            </div>
+        </div>
+    </div>
+`;
 
 // handle click some event
-const displayPage = (eventId, time) => {
-    const eventRef = db.collection('aug20events').doc(eventId);
+const displayPage = eventId => {
+    const eventRef = db.collection('weekendevents').doc(eventId);
     const ticketsRef = eventRef.collection('tickets');
 
     ticketsRef.get()
@@ -42,11 +54,14 @@ const displayPage = (eventId, time) => {
             const attendeeData = snap;
             const size = snap.size;
             eventRef.get()
-                .then(snap => {
-                    const eventData = snap.data(); 
-                    state.pageDivHtml = generateEventPage(eventData, eventId, time, size);
-                    state.indexDivStyle = 'display: none';
-
+                .then(async snap => {
+                    const eventData = snap.data();
+                    const event_datetime = eventData.start_time.toDate();
+                    const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
+                    const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
+                    
+                    state.pageDivHtml = await generateEventPage(eventData, eventId, time, size);
+                    state.indexDivHtml = '';
                     window.history.pushState(state, null, '');
 
                     render();
@@ -54,7 +69,8 @@ const displayPage = (eventId, time) => {
                     if (auth.currentUser) {
                         const uid = auth.currentUser.uid;
                         db.collection('users').doc(uid).get().then(userSnap => {
-                            if (userSnap.data().isAdmin) {
+                            var snapData = userSnap.data()
+                            if (snapData.isAdmin) {
                                 let allAttendees = [];
                                 attendeeData.forEach(attendee => allAttendees.push({
                                     ...attendee.data()
@@ -64,34 +80,70 @@ const displayPage = (eventId, time) => {
                         })
                         .catch(err => console.log('Error getting tickets: ', err));
                     }
+                    displayComments(eventId)
                 })
-                .catch(err => console.log('Error getting event document: ', err));
+                .catch(err => {
+                    console.log('Error getting event document: ', err)
+                    return false;
+                });
         })
-        .catch(err => console.log('Error getting tickets: ', err));
+        .catch(err => {
+            console.log('Error getting tickets: ', err);
+            return false;
+        });
+
+    window.history.replaceState(state, '', '/index.html?event=' + eventId); 
+    return true;
+}
+
+const getURL = (ref) => {
+    return ref.getDownloadURL();
+}
+
+const getProfURL = (proref) => {
+    return proref.getDownloadURL()
 }
 
 // generate HTML for event page
+const generateEventPage = async (eventData, eventId, time, size) => { 
 
-const generateEventPage = (eventData, eventId, time, size) => { 
-    let capacity = 7;
-    let soldOutStyle = '';
-    let reserveStyle = 'display: none;';
-    let loginStyle = 'display: none;';
+    var reference = storage.refFromURL(eventData.thumb)
+    var thumbUrl = await getURL(reference);
+
+    var fileName = (eventData.user).concat("+", eventData.title)
+    var path = storage.ref('hostPictures')
+    var proPicRef = path.child(fileName)
+    var profUrl = await getProfURL(proPicRef);
+    
     let adminStyle = 'display: none;';
-    let remainingTickets = 7;
+
+    // format time
+    const pretty_time = eventData.start_time_pretty.substring(10, eventData.start_time_pretty.length-6)
+    var hour = eventData.start_time_pretty.substring(0, 8)
+    if (hour.substring(0, 1) === "0"){
+        hour = hour.substring(1)
+    }
+    const formatTime = pretty_time.concat(" @ ", hour, "EST")
 
     // escape apostrophes & quotes
     const escapedTitle = eventData.title.replace(/'/g, '\\x27').replace(/"/g, '\\x22');
     const name = eventData.firstName + " " + eventData.lastName;
 
+    // set requirements text if none
+    if ((eventData.req === "") || (!eventData.req)|| (/^\s*$/.test(eventData.req)) || 0 === eventData.req.length){
+        eventData.req = 'There are no requirements for this event.';
+    }
+
+    // tickets remaining display
+
     return `
         <div class="container">
             <div class="container-wrapper">
-                <div class="row">
+                <div class="row" style="margin-bottom:2rem;">
                     <div class="col-md-7">
                         <h1 id="title">${eventData.title}</h1>
-                        <p>${eventData.mealType} • ${time}</p>
-                           <img src="${eventData.thumb}" alt="..." id="thumb">
+                        <p>${formatTime}</p>
+                           <img src="${thumbUrl}" alt="..." id="thumb">
                         <p>${eventData.desc}</p>
                         <br>
                         <h2 id="webPrepare">What to prepare:</h2>
@@ -99,97 +151,205 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <p>${eventData.req}</p>
                         <div id="mobileHost">
                             <p>Hosted by: ${name}</p><br>
-                                <img src="${eventData.prof}" alt="..." id="hostMobilePic">
-                            <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
+                            <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                <img src="${profUrl}"  style="height:auto; width: 100%;"alt="..." id="hostPic">
+                            </div>                            <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                             <br><div class="hostBio"> <p>${eventData.bio}</p></div><br>
                         </div>
-                        <br><br>
+                        <br>
+                        <hr />
+                        <h2 style="margin-top:2rem;margin-bottom:2rem;" id="webThoughts">Thoughts:</h2>
+                        <div class="row" style="margin-bottom: 2rem;">
+                            <div class="col-sm-8">
+                                <form id="add-comment-form">
+                                    <textarea id="add-comment-input" placeholder="Add your thought here..." rows="1" style="border-bottom-style:solid; border-bottom-width:2.5px; width:100%; margin-left:0; margin-right: 10px; font-size:20px;" required></textarea>
+                                </form>
+                            </div>
+                            <div id="add-thought-div" class="col-sm-2">
+                                <a id="add-thought" style="margin-left:1rem;margin-bottom:2rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">SUBMIT</a>
+                            </div>
+                            <div id="comments-section"></div>
+                        </div>
                     </div>
     
                     <div class="col-sm-4 offset-sm-7" style="padding-left: 0;" id="hostInfo">
-                        <div id="soldOut-item" style="${soldOutStyle}">
-                            <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
-                        </div>
-                        <div id="reserve-item" style="${reserveStyle}">
-                            <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
-                        </div>
-                        <div id="login-item" style="${loginStyle}">
-                            <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup">RESERVE FOR ZOOM</a>
-                        </div>
                         <div id="admin-item" style="${adminStyle}">
-                        <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
+                            <a class="btn btn-outline-dark reserve" id="adminButton" data-toggle="modal" data-target="#modal-admin">ADMIN</a>
                         </div>
-                        <p class="ticket-count">0 / 7 spots available</p>
                         <p>Hosted by: </p>
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-sm-3">
-                                <img src="${eventData.prof}" alt="..." id="hostPic">
+                                <div style="width:125px;height:125px;border-radius:50%;overflow: hidden;"> 
+                                    <img src="${profUrl}"  style="height:auto; width: 100%;"alt="..." id="hostPic">
+                                </div>
                             </div>
                             <div class="col-sm-1 offset-sm-1">
-                                <h2>${name}</h2>
+                                <h2 id="hostInfoName">${name}</h2>
                             </div>
                         </div>
                         <br><p class="hostSchool">${eventData.university} • ${eventData.gradYear}<br>${eventData.major}</p>
                         <br><div class="hostBio"> ${eventData.bio}</div>
                     </div>
-                </div>         
+                </div>
             </div>
             <div class="footer">
                 <div class="row" id="fixed-footer">
-                    <p id="mobileReserve" class="ticket-count">0 / 7spots available</p>
-                    <div id="soldOut-item-mobile" style="${soldOutStyle}">
-                        <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
-                    </div>
-                    <div id="reserve-item-mobile" style="${reserveStyle}">
-                        <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
-                    </div>
-                    <div id="login-item-mobile" style="${loginStyle}">
-                        <a class="btn btn-outline-dark reserve" data-toggle="modal" data-target="#modal-signup" id="mobileHost">RESERVE</a>
-                    </div>
                 </div>
             </div>
         </div>
     `
 }
-let totalTix = 48;
+const addComment = (id, name) => {
+    if (isLoggedIn) {
+        document.getElementById("add-thought-div").innerHTML = `<div class="spinner-border" role="status"><span class="sr-only">Loading</span></div>`
+        var newComment = document.getElementById("add-comment-input").value;
+        db.collection("weekendevents").doc(id).collection("comments").doc()
+        .set({
+            content: newComment,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            name: name,
+            uid: uid
+        })
+        .then(() => {
+            location.reload();
+        })
+        .catch(function(error) {
+            console.log(error)
+        });
+    }
+    if (!isLoggedIn){
+        $("#modal-signup").modal("show")
+    }
+}
+
+const displayComments = (id) => {
+        var commentSection = document.getElementById("comments-section")
+        db.collection("weekendevents").doc(id).collection("comments").get()
+        .then((snap) => {
+            snap.forEach((doc) => {
+                var data = doc.data();
+                console.log(data)
+
+                var pName = document.createElement("p")
+                var pComment = document.createElement("p")
+                pName.setAttribute("style", "padding-left: 1rem; margin-bottom: .5rem;font-size: 24px;")
+                pComment.setAttribute("style", "padding-left: 1rem; margin-bottom: 2rem;")
+
+                pName.innerHTML = `${data.name}`;
+                pComment.innerHTML = `${data.content}`;
+
+                commentSection.appendChild(pName)
+                commentSection.appendChild(pComment)
+            })
+        })
+        .catch((err) => {console.log(err)})
+    /*
+    <p style="margin-bottom: .5rem;font-size: 24px;">Jackie Marchal</p>
+    <p style="margin-bottom: 2rem;">Hope to see everyone there</p>*/
+}
+
 const triggerReserve = (title, eventId) => {
     const modalContent = document.getElementById('reserve-modal-content');
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const uid = auth.currentUser.uid;
 
-        db.collection("users").doc(uid).get()
-        .then(snap => {
+        db.collection("users").doc(uid).get().then(snap => {
             const user = snap.data();
             const phone = user.phoneNumber
             const name = `${user.firstName} ${user.lastName}`;
-            db.collection('aug20events').doc(eventId).collection('tickets').doc(uid)
-            .set({
-                email: email,
-                name: name,
-                phoneNumber: phone
-             })
-            .then(() => {
-                totalTix ++;
-                console.log('Success');
-                console.log(totalTix)
-
-                modalContent.innerHTML = `
-                    <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
-                `;
-            })
-            .catch(err => {
-                console.log('Error adding ticket: ', err);
-                modalContent.innerHTML = `
-                    <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
-                `;
-            });
+            db.collection('weekendevents').doc(eventId).collection('tickets').doc(uid)
+                .set({
+                    email: email,
+                    name: name,
+                    phoneNumber: phone
+                 })
+                .then(() => {
+                    console.log('Success');
+                    modalContent.innerHTML = `
+                        <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
+                    `;
+                })
+                .catch(err => {
+                    console.log('Error adding ticket: ', err);
+                    modalContent.innerHTML = `
+                        <p>It appears you already have a ticket for this event. If you think this is an error, please contact schefs.us@gmail.com</p>
+                    `;
+                });
+            db.collection('totaltickets').doc()
+                .set({
+                    name: name,
+                    user: uid,
+                    eventId: eventId
+                })
         })
     } else {
         console.log('Error: User not logged in anymore');
         modalContent.innerHTML = `
             <p>You are no longer logged in! Please log in and try again.</p>
         `;
+    }
+}
+
+// update display
+const render = () => {
+    window.scrollTo(0, 0);
+    indexDiv.innerHTML = state.indexDivHtml;
+    pageDiv.innerHTML = state.pageDivHtml;
+}
+
+// handle set state from history
+window.onpopstate = event => {
+    if (event.state) {
+        state = event.state;
+        render();
+
+        if (state.indexDivHtml)
+            window.history.replaceState(state, null, '/index.html');
+    }
+}
+
+// set initial state
+let state = {
+    eventsRendered: false,
+    indexDivHtml: '',   // empty page = home page not rendered
+    pageDivHtml: ''     // empty page = event page not rendered
+};
+
+// check fake URL before rendering
+if (window.location.search.startsWith('?event=')) {
+    const eventId = window.location.search.slice('?event='.length);
+    if (!displayPage(eventId))
+        state.indexDivHtml = indexHtml;
+} else {
+    state.indexDivHtml = indexHtml;
+    render();
+    renderHomeEvents();
+    setTimeout(() => {
+        indexHtml = indexDiv.innerHTML;
+        state.indexDivHtml = indexHtml;
+        state.eventsRendered = true;
+    }, 2000);
+}
+
+//initialize history state
+window.history.replaceState(state, null, '');
+
+// handle click home button
+const displayHome = () => {
+    state.indexDivHtml = indexHtml; 
+    state.pageDivHtml = '';
+
+    window.history.pushState(state, null, '/index.html');
+
+    render();
+    if (!state.eventsRendered) {
+        renderHomeEvents();
+        setTimeout(() => {
+            indexHtml = indexDiv.innerHTML;
+            state.indexDivHtml = indexHtml;
+            state.eventsRendered = true;
+        }, 2000);
     }
 }
 
@@ -230,5 +390,4 @@ const showEventAttendees = (array) =>{
 
 const showSiteData = () => {
     const modalAdminSite = document.getElementById('site-admin-content');
-    modalAdminSite.innerHTML = `<p>Total Festival Tickets Reserved: ${totalTix}</p>`
 }

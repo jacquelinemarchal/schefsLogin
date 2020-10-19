@@ -88,7 +88,7 @@
                 <div class="col-md-7">
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title..." required>
                     <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 65 characters</p>
-                    <div>                     
+                    <div>
                       <label for="event-img-upload">
                         <div style="display: relative; width: 100%; overflow: hidden;">
                           <img id="event-img" src="assets/placeholder.png" style="max-width: 100%; border-radius: 4rem; width: 500px; height: auto;">
@@ -96,8 +96,9 @@
                       </label>
                       <input name="event-img" style="display:none;" id="event-img-upload" onclick="uploadImage()">
                     </div>
+                    <br><textarea type="text" onkeyup="countCharsMinimum(this);" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="My Event Description..."></textarea>                    
+                    <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charDescNum">0 / 50 words</p>
 
-                    <br><textarea type="text" id="descInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="My Event Description..."></textarea>
                     <textarea type="text" id="reqInput" style=" font-size: 20px; width: 500px;padding-top:1rem" rows="2" placeholder="Event Requirements (Optional)..."></textarea>
                 </div>
                

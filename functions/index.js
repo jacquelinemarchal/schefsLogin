@@ -281,3 +281,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
         console.log(err)
     })
 });
+
+exports.reminders = functions.https.onRequest((request, response) => {
+});

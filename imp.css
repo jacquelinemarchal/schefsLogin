@@ -362,6 +362,18 @@ a.reserve{
     #mobile-amb-host{
         display:none;
     }
+    textarea#open-mind-form{
+        width: 20vw;
+    }
+    div#mobile-oma-info{
+        display:none;
+    }
+    div#oma-info{
+        display:inline;
+    }
+    #shrink-for-oma{
+        display:none
+    }
 }
   /* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
@@ -453,18 +465,60 @@ a.reserve{
         margin-right: 1rem;
     }
 }
+
+@media screen and (max-width: 767px) {
+    #shrink-for-oma{
+        display:inline;
+    }
+    div#mobile-oma-info{
+        display:none;
+    }
+    div#oma-info{
+        display:none;
+    }
+    #list-oma{
+        display: none;
+    }
+    #submit-idea-oma{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    #shrink-for-oma{
+        display:none;
+    }
+    textarea#open-mind-form{
+        width: 90vw;
+    }
+    div#add-topic-div{
+        text-align: center;
+    }
+    div#mobile-oma-info{
+        display:inline;
+    }
+    div#oma-info{
+        display:none;
+    }
+    #list-oma{
+        display: inline;
+    }
+    #submit-idea-oma{
+        display: inline;
+    }
+}
+@media screen and (max-width: 1140px) {
+    #hostInfoName{
+        padding-left: 3rem;
+    }
+}
+
 @media screen and (max-width: 1082px) {
     div#builder-content{
         display:none;
     }
     div#mobile-content{
         display:inline;
-    }
-    div#mobile-oma{
-        display:inline;
-    }
-    div#oma{
-        display:none;
     }
 }
 @media screen and (min-width: 1082px) {
@@ -474,14 +528,7 @@ a.reserve{
     div#mobile-builder{
         display:none;
     }
-    div#mobile-oma{
-        display:none;
-    }
-    div#oma{
-        display:inline;
-    }
 }
-
 
 ::-webkit-scrollbar {
     width: 5px;
