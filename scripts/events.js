@@ -186,7 +186,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                                 </form>
                             </div>
                             <div id="add-thought-div" class="col-sm-2">
-                                <a id="add-thought" style="margin-left:1rem;margin-bottom:2rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">SUBMIT</a>
+                                <a id="add-thought" style="margin-left:1rem;margin-bottom:2rem;" onclick="addComment('${eventId}', '${username}')" type="button" class="btn btn-outline-dark reserve">POST</a>
                             </div>
                             <div id="comments-section"></div>
                         </div>
