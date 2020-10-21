@@ -38,7 +38,7 @@ var indexHtml = `
             <!-- EVENT LIST -->
             <div class="events" id="main-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
-                <a class="btn btn-outline-dark reserve" href="/archive-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
+                <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
             </div>
         </div>
     </div>
@@ -156,6 +156,12 @@ const generateEventPage = async (eventData, eventId, time, size) => {
         else
             reserveStyle = 'display: none;';
     }
+    if(eventData.week === 1){
+        loginStyle = 'display: none;';
+        reserveStyle = 'display: none;';
+        soldOutStyle = 'display:inline';
+    }
+    
     return `
         <div class="container">
             <div class="container-wrapper">

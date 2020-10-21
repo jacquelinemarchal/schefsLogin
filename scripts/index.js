@@ -10,7 +10,7 @@ const renderHomeEvents = async () => {
             let allEvents = [];
             snap.forEach((doc) => {
                 var data = doc.data();
-                if ((data.week === 2 || data.week === 3 || data.week === 4) && (data.status === "approved")){
+                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4) && (data.status === "approved")){
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
@@ -52,7 +52,11 @@ const setupEvents = (data, num) => {
         count++;
         rowCheck++;
         const id = event.id;
-/*
+        var opacity = ""
+        if (event.week == 1){
+            opacity = 'opacity: 0.45;'
+        }
+        /*
         const event_datetime = event.start_time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
         const time = moment.tz(event_datetime, 'America/New_York').format('MM/DD/YY h:mm A z');
@@ -68,7 +72,7 @@ const setupEvents = (data, num) => {
             <div class="col-sm-4" style="margin-bottom: 2rem;>
             <div class="card border-0" style="max-width: 20rem; max-height: 25rem;">
             <a onclick="displayPage('${id}')">
-            <img src="${event.thumbURL}" href="" alt="..." style="inline-size: 100%; border-radius: 10%;">
+            <img src="${event.thumbURL}" href="" alt="..." style="${opacity} inline-size: 100%; border-radius: 10%;">
             <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
             <p style="font-size:16px;">Hosted by ${event.firstName} • ${event.university}<br>${time}</p></a>
             </div>
@@ -86,7 +90,7 @@ const setupEvents = (data, num) => {
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
                     <a href="" onclick="displayPage('${id}')">
-                    <img src="${event.thumbURL}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
+                    <img src="${event.thumbURL}" alt="..." href="" style="${opacity} inline-size: 100%; border-radius: 10%;">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
                     <p style="font-size:16px;">Hosted by ${event.firstName} • ${event.university}<br>${time}</p></a>
                     </div>
@@ -100,7 +104,7 @@ const setupEvents = (data, num) => {
                     <div class="col-sm-4" style="margin-bottom: 2rem;>
                     <div class="card border-0" style="max-width: 20rem;">
                     <a href="" onclick="displayPage('${id}', '${time}')">
-                    <img src="${event.thumbURL}" alt="..." href="" style="inline-size: 100%; border-radius: 10%;">
+                    <img src="${event.thumbURL}" alt="..." href="" style="${opacity} inline-size: 100%; border-radius: 10%;">
                     <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${event.title}</p> 
                     <p style="font-size:16px;">Hosted by ${event.firstName} • ${event.university}<br>${time}</p></a>
                     </div>
