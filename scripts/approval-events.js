@@ -48,6 +48,12 @@ const displayEvents = () => {
                     var reference = storage.refFromURL(allEvents[i].thumb)
                     reference.getDownloadURL()
                     .then((url) => {
+                        var checkEmail = ''
+                        var error = ''
+                        if (allEvents[i].email === ""){
+                            checkEmail = "color: red;";
+                            error = '<h3 style="color:red;">Error: Missing Email</h3>';
+                        }
                         const last = `
                         <div class="col-sm-4" style="margin-bottom: 2rem;>
                         <div class="card border-0" style="max-width: 20rem;">
@@ -55,6 +61,7 @@ const displayEvents = () => {
                         <p style="margin-top: 1.2rem; margin-bottom: 0.8rem;">${allEvents[i].title}</p> 
                         <p style="font-size:16px;">${allEvents[i].university}<br>${allEvents[i].start_time_pretty}</p></a>
                         </div>
+                        ${error}
                         <h3>Event Info</h3>
                         <b>Description</b>${allEvents[i].desc}<br>
                         <br><b>Bio</b>${allEvents[i].bio}<br>
@@ -67,6 +74,7 @@ const displayEvents = () => {
                         <br><b>University</b>${allEvents[i].university}<br>
                         <br><b>Major</b>${allEvents[i].major}<br>
                         <br><b>Grad Year</b>${allEvents[i].gradYear}<br>
+                        <br><b style="${checkEmail}">Email</b>${allEvents[i].email}<br>
                         <br><b>Zoom</b>${allEvents[i].zoomLink}<br>
                         </div><br>
                         <div id="buttons" style="margin-left:auto;margin-right:auto;text-align: center;">

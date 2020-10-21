@@ -18,7 +18,6 @@ $(window).scroll(function() {
 auth.onAuthStateChanged(user => {
     if (user){
         var uid = user.uid;
-        $("#modal-welcome-build").modal()
         db.collection("users").doc(uid).get()
         .then((querySnapshot) => {
             document.getElementById("mobile-builder").classList.remove("d-none")
@@ -34,8 +33,8 @@ auth.onAuthStateChanged(user => {
             document.getElementById("fnInput").value =`${userFName}`; 
             document.getElementById("lnInput").value =`${userLName}`; 
             document.getElementById("majorInput").value =`${userInfo.major}`; 
-
         })
+        $("#modal-welcome-build").modal()
     }
     else{
         document.getElementById("mobile-builder").classList.add("d-none")

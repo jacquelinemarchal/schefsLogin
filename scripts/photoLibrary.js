@@ -40,7 +40,6 @@ const photoLibrary = () => {
     })
 }
 const fromRefToImg = (ref, dest) => {
-    console.log(ref.fullPath)
     var imageName= ref.fullPath.substring(17, ref.fullPath.length);
     var loc = "chosenImages/"
     var sendURL = loc.concat(imageName)
@@ -74,7 +73,6 @@ const addUrl = (reference, count, lastRow) => {
 }
 
 const deleteSelectableImage = (oldURL) => {
-    console.log("delete image here")
     var oldReference = storage.refFromURL(oldURL)
     oldReference.delete()
     .then(function() {
