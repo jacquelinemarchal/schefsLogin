@@ -53,7 +53,7 @@ const townHallReserve = () => {
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const uid = auth.currentUser.uid;
-        const eventDocId = "rGDKYaijppWVWkfuyrZE";
+        const eventDocId = "bknqr8A5OwRKIrebe5Hu";
         const eventTitle = "Ambassador Town Hall"
         var date = new Date();
         var timestamp = date.getTime();
@@ -64,7 +64,7 @@ const townHallReserve = () => {
             const phone = user.phoneNumber;
             const name = `${user.firstName} ${user.lastName}`;
             // add ticket 
-            db.collection('aug20events').doc(eventDocId).collection('tickets').doc(uid)
+            db.collection('weekendevents').doc(eventDocId).collection('tickets').doc(uid)
             .set({
                 email: email,
                 name: name,

@@ -192,7 +192,7 @@ const displayUserEvents = (uid) => {
     }
 }
 const findGuests = (docId, div) => {
-    db.collection("aug20events").doc(docId).collection("tickets").get()
+    db.collection("weekendevents").doc(docId).collection("tickets").get()
     .then(snap => {
         snap.forEach(doc => {
             var guestList = document.createElement("ul")
