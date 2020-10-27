@@ -49,6 +49,11 @@ const displayPage = eventId => {
     const eventRef = db.collection('weekendevents').doc(eventId);
     const ticketsRef = eventRef.collection('tickets');
 
+    if (eventId === "bknqr8A5OwRKIrebe5Hu"){
+        window.location = '/ambassador.html';
+        return;
+    }
+
     ticketsRef.get()
         .then(snap => {
             const attendeeData = snap;
