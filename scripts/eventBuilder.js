@@ -155,7 +155,7 @@ createDocument = async (inputs) => {
         prof: `${proPicPath}`
     })
     .then((docRef) => {
-        db.collection('users').doc(`${uid}`).collection('hostedEvents').doc(`${docRef.id}`)
+        db.collection('users').doc(uid).collection('hostedEvents').doc(docRef.id)
         .set({
             title: `${inputs[0]}`
         })

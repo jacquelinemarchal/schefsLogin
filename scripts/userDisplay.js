@@ -89,12 +89,13 @@ const displayUserHostedEvents = (uid, eventDiv) => {
                 var eventList = document.createElement("ul")
                 var event = document.createElement("li")
                 event.setAttribute("style", "list-style-type: none;")
-                status = "";
-                if (event.isLive){
+                status = "pending approval";
+                var eventData = doc.data()
+                if (eventData.status == "approved"){
                     status = "approved"
                 }
-                if (!event.isLive){
-                    status = "pending approval"
+                if (eventData.status === "denied"){
+                    status = "denied"
                 }
                 event.innerHTML=`${doc.data().title} • this event is ${status}`
                 eventList.appendChild(event)

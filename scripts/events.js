@@ -294,9 +294,6 @@ const displayComments = (id) => {
             })
         })
         .catch((err) => {console.log(err)})
-    /*
-    <p style="margin-bottom: .5rem;font-size: 24px;">Jackie Marchal</p>
-    <p style="margin-bottom: 2rem;">Hope to see everyone there</p>*/
 }
 
 const triggerReserve = (title, eventId) => {
@@ -316,10 +313,19 @@ const triggerReserve = (title, eventId) => {
                     phoneNumber: phone
                  })
                 .then(() => {
-                    console.log('Success');
-                    modalContent.innerHTML = `
-                        <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
-                    `;
+                    db.collection("users").doc(uid).collection("events").doc(eventId)
+                    .set({
+                        attended: false,
+                        email: email,
+                        eventTitle: title
+                    }, { merge: true })
+                    .then(()=>{
+                        console.log('Success');
+                        modalContent.innerHTML = `
+                            <h2>Success!</h2><p>You have reserved a spot at ${title}. Check ${email} for ticket information.</p>
+                        `;
+                    })
+                    .catch(err => {console.log(err)})
                 })
                 .catch(err => {
                     console.log('Error adding ticket: ', err);

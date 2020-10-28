@@ -105,6 +105,10 @@ const displayEvents = () => {
                             .catch(function(error) {
                                 console.log(error)
                             });
+                            db.collection("users").doc(allEvents[i].user).collection('hostedEvents').doc(allEvents[i].id)
+                            .set({
+                                status: "approved"
+                            }, { merge: true })
                         });
                         var deny = document.getElementById("denyButton")
                         $(deny).on('click', function () {
@@ -121,6 +125,10 @@ const displayEvents = () => {
                             .catch(function(error) {
                                 console.log(error)
                             });
+                            db.collection('users').doc(allEvents[i].user).collection('hostedEvents').doc(allEvents[i].id)
+                            .set({
+                                status: "denied"
+                            }, { merge: true })
                         });
                     })
                     .catch(function(error) {
