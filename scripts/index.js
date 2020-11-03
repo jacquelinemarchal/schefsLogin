@@ -8,9 +8,10 @@ const renderHomeEvents = async () => {
     db.collection('weekendevents').get()
         .then(async snap => {
             let allEvents = [];
+            let archiveEvents = [];
             snap.forEach((doc) => {
                 var data = doc.data();
-                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4 || data.week === 5 || data.week === 6) && (data.status === "approved")){
+                if ((data.week === 4 || data.week === 5 || data.week === 6) && (data.status === "approved")){
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
@@ -21,17 +22,38 @@ const renderHomeEvents = async () => {
                         });
                     }))
                 }
+                if ((data.week === 1 || data.week === 2 || data.week === 3) && (data.status === "approved")){
+                    var archiveReference = storage.refFromURL(data.thumb)
+                    archiveEvents.push(new Promise(async res => {
+                        var url = await archiveReference.getDownloadURL();
+                        res({
+                            ...data,
+                            id: doc.id,
+                            thumbURL: url
+                        });
+                    }))
+                }
             });
             allEvents = await Promise.all(allEvents);
+            archiveEvents = await Promise.all(archiveEvents)
             // sort by time
             allEvents.sort((e1, e2) => e1.start_time - e2.start_time);
+            archiveEvents.sort((e1, e2) => e1.start_time - e2.start_time);
           //  console.log(allEvents)
-            setupEvents(allEvents, allEvents.length);
+            setupEvents(allEvents, allEvents.length, true);
+            setupEvents(archiveEvents, archiveEvents.length, false);
         })
         .catch(err => console.log('Error getting events: ', err));
 }
 
-const setupEvents = (data, num) => {
+const setupEvents = (data, num, isLive) => {
+    eventDiv = "";
+    if (isLive){
+        eventDiv = "#main-events-div"
+    }
+    if (!isLive){
+        eventDiv = "#archive-events-div"
+    }
     // where num is total number of elements
     var numRows=(Math.floor(num/3))+1; 
     for (var i = 0; i < numRows; i++){
@@ -39,7 +61,7 @@ const setupEvents = (data, num) => {
         row.setAttribute("class", "row");
         var curRow = "row-"+i.toString();
         row.setAttribute("id", `event-row-${curRow}`);
-        document.querySelector(`#main-events-div`).appendChild(row);
+        document.querySelector(`${eventDiv}`).appendChild(row);
     }
 
     let html = '';

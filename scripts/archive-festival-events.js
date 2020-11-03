@@ -74,10 +74,11 @@ const displayPage = (eventId, time) => {
 
 const generateEventPage = (eventData, eventId, time, size) => { 
     let capacity = 7;
-    let soldOutStyle = '';
+    let soldOutStyle = 'display: none;';
     let reserveStyle = 'display: none;';
     let loginStyle = 'display: none;';
     let adminStyle = 'display: none;';
+    let pastEventStyle = '';
     let remainingTickets = 7;
 
     // escape apostrophes & quotes
@@ -110,6 +111,9 @@ const generateEventPage = (eventData, eventId, time, size) => {
                         <div id="soldOut-item" style="${soldOutStyle}">
                             <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
                         </div>
+                        <div id="soldOut-item" style="${pastEventStyle}">
+                            <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">PAST EVENT</a>
+                        </div>
                         <div id="reserve-item" style="${reserveStyle}">
                             <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
                         </div>
@@ -139,6 +143,9 @@ const generateEventPage = (eventData, eventId, time, size) => {
                     <p id="mobileReserve" class="ticket-count">0 / 7spots available</p>
                     <div id="soldOut-item-mobile" style="${soldOutStyle}">
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
+                    </div>
+                    <div id="soldOut-item" style="${pastEventStyle}">
+                        <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">PAST EVENT</a>
                     </div>
                     <div id="reserve-item-mobile" style="${reserveStyle}">
                         <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>

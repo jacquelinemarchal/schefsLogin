@@ -37,6 +37,8 @@ var indexHtml = `
         <div class="container-wrapper" style="padding-top: 4rem;">
             <!-- EVENT LIST -->
             <div class="events" id="main-events-div"></div>
+            <h2 style="margin-bottom: 2rem;">Past Events</h2>
+            <div class="events" id="archive-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
                 <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
             </div>
@@ -124,6 +126,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
     let soldOutStyle = '';
     let reserveStyle = '';
     let loginStyle = '';
+    let pastEventStyle = 'display: none;';
     let adminStyle = 'display: none;';
     let remainingTickets = 7;
 
@@ -161,10 +164,11 @@ const generateEventPage = async (eventData, eventId, time, size) => {
         else
             reserveStyle = 'display: none;';
     }
-    if(eventData.week === 1){
+    if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3){
         loginStyle = 'display: none;';
         reserveStyle = 'display: none;';
-        soldOutStyle = 'display:inline';
+        soldOutStyle = 'display:none';
+        pastEventStyle = 'display:inline';
     }
     
     return `
@@ -207,6 +211,9 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                         <div id="soldOut-item" style="${soldOutStyle}">
                             <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">SOLD OUT</a>
                         </div>
+                        <div id="soldOut-item" style="${pastEventStyle}">
+                            <a class="btn btn-dark reserve" style="color: white ;background-color: #3e4042">PAST EVENT</a>
+                        </div>
                         <div id="reserve-item" style="${reserveStyle}">
                             <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button">RESERVE ZOOM LINK</a>
                         </div>
@@ -238,6 +245,9 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                     <p id="mobileReserve" class="ticket-count">${remainingTickets} / ${capacity} spots available</p>
                     <div id="soldOut-item-mobile" style="${soldOutStyle}">
                         <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">SOLD OUT</a>
+                    </div>
+                    <div id="soldOut-item-mobile" style="${pastEventStyle}">
+                        <a class="btn btn-dark reserve" style="color: white;background-color: #3e4042">PAST EVENT</a>
                     </div>
                     <div id="reserve-item-mobile" style="${reserveStyle}">
                         <a class="btn btn-outline-dark reserve" onclick="triggerReserve('${escapedTitle}', '${eventId}')" data-toggle="modal" data-target="#modal-reserve" role="button" id="mobileHost">RESERVE</a>
