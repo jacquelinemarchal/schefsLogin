@@ -23,7 +23,7 @@ db.collection("openmind").get()
             })
             //   }
         });
-        allTopics.sort((e1, e2) => e1.timestamp - e2.timestamp);
+        allTopics.sort((e1, e2) => e2.timestamp - e1.timestamp);
         var topicList = document.getElementById("open-mind-ideas");
 
         for (let i = 0; i < allTopics.length; i++){
