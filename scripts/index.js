@@ -11,7 +11,7 @@ const renderHomeEvents = async () => {
             let archiveEvents = [];
             snap.forEach((doc) => {
                 var data = doc.data();
-                if ((data.week === 4 || data.week === 5 || data.week === 6) && (data.status === "approved")){
+                if ((data.week === 4 || data.week === 5 || data.week === 6 || data.week === 7) && (data.status === "approved")){
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
