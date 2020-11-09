@@ -11,7 +11,7 @@ const renderHomeEvents = async () => {
             let archiveEvents = [];
             snap.forEach((doc) => {
                 var data = doc.data();
-                if ((data.week === 4 || data.week === 5 || data.week === 6 || data.week === 7) && (data.status === "approved")){
+                if ((data.week === 5 || data.week === 6 || data.week === 7 || data.week === 8) && (data.status === "approved")){
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
@@ -22,7 +22,7 @@ const renderHomeEvents = async () => {
                         });
                     }))
                 }
-                if ((data.week === 1 || data.week === 2 || data.week === 3) && (data.status === "approved")){
+                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4) && (data.status === "approved")){
                     var archiveReference = storage.refFromURL(data.thumb)
                     archiveEvents.push(new Promise(async res => {
                         var url = await archiveReference.getDownloadURL();
@@ -75,7 +75,7 @@ const setupEvents = (data, num, isLive) => {
         rowCheck++;
         const id = event.id;
         var opacity = ""
-        if (event.week == 1 || event.week == 2 || event.week == 3){
+        if (event.week == 1 || event.week == 2 || event.week == 3 || event.week == 4){
             opacity = 'opacity: 0.45;'
         }
         /*
