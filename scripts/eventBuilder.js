@@ -196,13 +196,13 @@ function countChars(obj){
 }
 
 function countCharsMinimum(obj){
-    var minLength = 50;
+    var minLength = 70;
     var strLength = obj.value.trim().split(/\s+/).length;;
     if(strLength < minLength){
-        document.getElementById("charDescNum").innerHTML = '<span style="color: red;">'+strLength+' / '+minLength+' words</span>';
+        document.getElementById("charDescNum").innerHTML = '<span style="color: red;">'+strLength+' / '+minLength+' words minimum</span>';
     }
     else{
-        document.getElementById("charDescNum").innerHTML = strLength+' / '+minLength+' words';
+        document.getElementById("charDescNum").innerHTML = strLength+' / '+minLength+' words minimum';
     }
 }
 
