@@ -164,7 +164,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
         else
             reserveStyle = 'display: none;';
     }
-    if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4){
+    if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5){
         loginStyle = 'display: none;';
         reserveStyle = 'display: none;';
         soldOutStyle = 'display:none';
