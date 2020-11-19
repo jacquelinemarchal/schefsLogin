@@ -145,32 +145,52 @@ const generateEventPage = async (eventData, eventId, time, size) => {
     // set requirements text if none
     if ((eventData.req === "") || (!eventData.req)|| (/^\s*$/.test(eventData.req)) || 0 === eventData.req.length){
         eventData.req = 'There are no requirements for this event.';
-    }
+    }    
 
-    // tickets remaining display
-    if (size > 9) {
-        remainingTickets = 0;
-        reserveStyle = 'display: none;';
-        loginStyle = 'display: none;';
-    } else {
-        if (size >= 6)
-            remainingTickets = 2;
-        else
-            remainingTickets = 7 - size;
-
-        soldOutStyle = 'display: none;';
-        if (auth.currentUser)
-            loginStyle = 'display: none;';
-        else
+    // Sam Smith's event should be able to book 15 people
+    if (eventId === "GdyQq9KCK5WAJTWRZfgV"){ 
+        capacity = 15;
+        remainingTickets = 15;
+        
+        if (size > 15){
+            remainingTickets = 0;
             reserveStyle = 'display: none;';
+            loginStyle = 'display: none;';
+        }
+        else {
+            remainingTickets = 15 - size;
+            soldOutStyle = 'display: none;';
+            if (auth.currentUser)
+                loginStyle = 'display: none;';
+            else
+                reserveStyle = 'display: none;';
+        }
     }
-    if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5){
-        loginStyle = 'display: none;';
-        reserveStyle = 'display: none;';
-        soldOutStyle = 'display:none';
-        pastEventStyle = 'display:inline';
+    else{
+        // tickets remaining display
+        if (size > 9) {
+            remainingTickets = 0;
+            reserveStyle = 'display: none;';
+            loginStyle = 'display: none;';
+        } else {
+            if (size >= 6)
+                remainingTickets = 2;
+            else
+                remainingTickets = 7 - size;
+
+            soldOutStyle = 'display: none;';
+            if (auth.currentUser)
+                loginStyle = 'display: none;';
+            else
+                reserveStyle = 'display: none;';
+        }
+        if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5){
+            loginStyle = 'display: none;';
+            reserveStyle = 'display: none;';
+            soldOutStyle = 'display:none';
+            pastEventStyle = 'display:inline';
+        }
     }
-    
     return `
         <div class="container">
             <div class="container-wrapper">
