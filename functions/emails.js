@@ -81,16 +81,14 @@ exports.sendReserveEmail = async (email, name,  event_name, event_date, event_ti
                 ${event_time}<br>
                 ${event_url}<br><br>
                 </b>
-                You will receive details for the scheduled Zoom the night before
-                the event.
+                You should have received a Google Calendar invitation that includes
+                the Zoom link for the event.
             </p>
             <p>
-                Let's make this an insane week of powerful themed conversations and
-                start the fall with our minds running, hungry excited ravenous for
-                knowledge.
+                Have a beautiful time!
             </p>
             <p>
-                Yours truly,<br>
+                Here's to many conversations,<br>
                 The Schefs Team<br>
                 <a href="www.schefs.us">www.schefs.us</a>
             </p>
@@ -143,7 +141,7 @@ exports.sendEventSubmittedEmail = async (email, name, event_name) => {
     return null;
 };
 
-exports.sendEventApprovedEmail = async (email, name, event_name, event_date, event_time, event_url) => {
+exports.sendEventApprovedEmail = async (email, name, event_name, event_date, event_time, event_url, event_zoom_link) => {
     const mailOptions = {
         to: email,
         subject: 'Your Schefs Event Is Approved!',
@@ -170,6 +168,7 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
                     ${event_date}<br>
                     ${event_time}<br>
                     ${event_url}<br>
+                    Zoom: <a href=${event_zoom_link}>${event_zoom_link}</a><br>
                 </b>
             </p>
             <p>
@@ -270,7 +269,7 @@ exports.sendEventDeniedEmail = async (email, name, event_name, event_description
     return null;
 };
 
-exports.send24HourReminderEmail = async (email, name, event_name, event_date, event_time) => {
+exports.send24HourReminderEmail = async (email, name, event_name) => {
     const mailOptions = {
         to: email,
         subject: `Schefs Event Reminder: ${event_name}`,
@@ -285,10 +284,17 @@ exports.send24HourReminderEmail = async (email, name, event_name, event_date, ev
                 Hi ${name},
             </p>
             <p>
-                24 hour test reminder email.<br>
-                ${event_name}<br>
-                ${event_time}<br>
-                ${event_date}
+                Just a reminder that your Schefs event, <b>${event_name}</b>, is tomorrow.
+            </p>
+            <p>
+                Make sure you join the Zoom on time so the conversation can get started 
+                with all participants present as soon as possible, and turn on your video!
+                Be brave, share your thoughts, and have a blast.
+            </p>
+            <p>
+                Yours truly,<br>
+                The Schefs Team<br>
+                <a href="www.schefs.us">www.schefs.us</a>
             </p>
         `
     };
@@ -301,7 +307,7 @@ exports.send24HourReminderEmail = async (email, name, event_name, event_date, ev
     return null;
 }
 
-exports.send30MinuteReminderEmail = async (email, name, event_name, event_date, event_time) => {
+exports.send30MinuteReminderEmail = async (email, name, event_name, event_zoom_link) => {
     const mailOptions = {
         to: email,
         subject: `Schefs Event Reminder: ${event_name}`,
@@ -316,10 +322,16 @@ exports.send30MinuteReminderEmail = async (email, name, event_name, event_date, 
                 Hi ${name},
             </p>
             <p>
-                30 min test reminder email.<br>
-                ${event_name}<br>
-                ${event_time}<br>
-                ${event_date}
+                Your Schefs event, <b>${event_name}</b>, is in 30 minutes!
+            </p>
+            <p>
+                Here's the Zoom link (also in the GCal for the event):<br>
+                ${event_zoom_link}<br>
+            </p>
+            <p>
+                Enjoy,<br>
+                The Schefs Team<br>
+                <a href="www.schefs.us">www.schefs.us</a>
             </p>
         `
     };

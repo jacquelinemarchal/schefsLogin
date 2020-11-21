@@ -19,6 +19,7 @@ admin.initializeApp();
 const db = admin.firestore()
 const emailFunctions = require('./emails');
 const gcalFunctions = require('./gcalendar');
+const reminderFunctions = require('./reminders');
 
 // send email on user registration
 exports.sendWelcomeEmail = functions.firestore
@@ -54,16 +55,18 @@ exports.handleReserveEvent = functions.firestore
     const event_snap = await event_ref.get();
     const event = event_snap.data();
     const event_name = event.title;
-    const event_gcal_id = event.gcalId;
 
     const event_datetime = event.start_time.toDate();
     const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
     const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
     
     const event_url = 'https://schefs.us/index.html?event=' + event_id;
+    const event_zoom_link = event.zoomLink;
 
     gcalFunctions.addAttendeeToGcalEvent(event_id, email);
     emailFunctions.sendReserveEmail(email, name, event_name, event_date, event_time, event_url);
+    reminderFunctions.schedule30MinuteReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+    reminderFunctions.schedule24HourReminderTask(email, name, event_name, event_datetime, event_zoom_link);
 
     return null;
 });
@@ -105,9 +108,12 @@ exports.handleUpdateEvent = functions.firestore
         const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
         const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
         const event_url = 'https://schefs.us/index.html?event=' + event_id;
+        const event_zoom_link = after.zoomLink;
 
         gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
-        emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time, event_url);
+        emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time, event_url, event_zoom_link);
+        reminderFunctions.schedule30MinuteReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+        reminderFunctions.schedule24HourReminderTask(email, name, event_name, event_datetime, event_zoom_link);
     
     // on event denial
     } else if ((!before.status || before.status !== 'denied') && after.status === 'denied') {
@@ -233,19 +239,17 @@ exports.calendly = functions.https.onRequest((request, response) => {
 });
 
 exports.reminders = functions.https.onRequest(async (request, response) => {
-    console.log(request.rawBody.toString());
     const email = request.body.email;
     const name = request.body.name;
     const event_name = request.body.event_name;
-    const event_date = request.body.event_date;
-    const event_time = request.body.event_time;
+    const event_zoom_link = request.body.event_zoom_link;
     const type = request.body.type;
 
     if (type === '30m') {
-        await emailFunctions.send30MinuteReminderEmail(email, name, event_name, event_date, event_time);
+        await emailFunctions.send30MinuteReminderEmail(email, name, event_name, event_zoom_link);
         response.send(200);
     } else if (type === '24h') {
-        await emailFunctions.send24HourReminderEmail(email, name, event_name, event_date, event_time);
+        await emailFunctions.send24HourReminderEmail(email, name, event_name);
         response.send(200);
     } else
         response.status(400).send();

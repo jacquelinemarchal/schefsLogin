@@ -9,13 +9,12 @@ const url = 'https://us-central1-schefs.cloudfunctions.net/reminders';
 const client = new CloudTasksClient();
 const parent = client.queuePath(project, location, queue);
 
-const schedule30MinuteReminderTask = async (email, name, event_name, event_date, event_time, event_time_js) => {
+exports.schedule30MinuteReminderTask = async (email, name, event_name, event_time_js, event_zoom_link) => {
     const payload = {
         email,
         name,
         event_name,
-        event_date,
-        event_time,
+        event_zoom_link,
         type: '30m'
     };
 
@@ -27,7 +26,7 @@ const schedule30MinuteReminderTask = async (email, name, event_name, event_date,
             httpMethod: 'POST',
             url,
             body: Buffer.from(JSON.stringify(payload)).toString('base64'),
-            headers: { 'Content-Type': 'application/octet-stream' }
+            headers: { 'Content-Type': 'application/json' }
         },
         scheduleTime: { seconds: reminder_time.getTime() / 1000 }
     };
@@ -38,16 +37,14 @@ const schedule30MinuteReminderTask = async (email, name, event_name, event_date,
     return null;
 };
 
-const schedule24HourReminderTask = async (email, name, event_name, event_date, event_time, event_time_js) => {
+exports.schedule24HourReminderTask = async (email, name, event_name, event_time_js, event_zoom_link) => {
     const payload = {
         email,
         name,
         event_name,
-        event_date,
-        event_time,
+        event_zoom_link,
         type: '24h'
     };
-    console.log(JSON.stringify(payload));
 
     const reminder_time = new Date(event_time_js.getTime());
     reminder_time.setDate(event_time_js.getDate() - 1);
@@ -57,7 +54,7 @@ const schedule24HourReminderTask = async (email, name, event_name, event_date, e
             httpMethod: 'POST',
             url,
             body: Buffer.from(JSON.stringify(payload)).toString('base64'),
-            headers: { 'Conent-Type': 'application/octet-stream' }
+            headers: { 'Content-Type': 'application/json' }
         },
         scheduleTime: { seconds: reminder_time.getTime() / 1000 }
     };
@@ -67,10 +64,3 @@ const schedule24HourReminderTask = async (email, name, event_name, event_date, e
 
     return null;
 };
-
-let date = new Date();
-date.setDate(date.getDate()+1);
-date.setSeconds(date.getSeconds()+10);
-console.log(date);
-schedule30MinuteReminderTask('cyw2124@columbia.edu', 'Chris', 'Test Event', 'October 20', '4:00 PM EST', date);
-schedule24HourReminderTask('cyw2124@columbia.edu', 'Chris', 'Test Event', 'October 20', '4:00 PM EST', date);
