@@ -40,7 +40,7 @@ var indexHtml = `
             <h2 style="margin-bottom: 2rem;">Past Events</h2>
             <div class="events" id="archive-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
-                <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">Event Archive</a>
+                <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">August 2020 Festival</a>
             </div>
         </div>
     </div>

@@ -11,7 +11,8 @@
     "jquery": "^3.5.1",
     "jquery-cropper": "^1.0.1",
     "moment": "^2.27.0",
-    "moment-timezone": "^0.5.31"
+    "moment-timezone": "^0.5.31",
+    "netlify-plugin-inline-functions-env": "^1.0.9"
   },
   "devDependencies": {
     "eslint-plugin-promise": "^4.2.1"
