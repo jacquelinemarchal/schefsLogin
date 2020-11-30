@@ -64,3 +64,5 @@ yarn-error.log
 
 # credentials
 credentials.json
+tasks-credentials.json
+local-tasks-credentials.json
