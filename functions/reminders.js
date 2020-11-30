@@ -64,3 +64,29 @@ exports.schedule24HourReminderTask = async (email, name, event_name, event_time_
 
     return null;
 };
+
+exports.schedulePostEventEmailTask = async (email, name, event_name, event_time_js) => {
+    const payload = {
+        email,
+        name,
+        event_name
+    };
+
+    const email_time = new Date(event_time_js.getTime());
+    email_time.setHours(event_time_js.getHours() + 2);
+
+    const task = {
+        httpRequest: {
+            httpMethod: 'POST',
+            url,
+            body: Buffer.from(JSON.stringify(payload)).toString('base64'),
+            headers: { 'Content-Type': 'application/json' }
+        },
+        scheduleTime: { seconds: email_time.getTime() / 1000 }
+    };
+
+    const [ response ] = await client.createTask({parent, task});
+    console.log(response);
+
+    return null;
+};

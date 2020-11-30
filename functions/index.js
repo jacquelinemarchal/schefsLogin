@@ -63,10 +63,11 @@ exports.handleReserveEvent = functions.firestore
     const event_url = 'https://schefs.us/index.html?event=' + event_id;
     const event_zoom_link = event.zoomLink;
 
-    gcalFunctions.addAttendeeToGcalEvent(event_id, email);
-    emailFunctions.sendReserveEmail(email, name, event_name, event_date, event_time, event_url);
-    reminderFunctions.schedule30MinuteReminderTask(email, name, event_name, event_datetime, event_zoom_link);
-    reminderFunctions.schedule24HourReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+    await gcalFunctions.addAttendeeToGcalEvent(event_id, email);
+    await emailFunctions.sendReserveEmail(email, name, event_name, event_date, event_time, event_url);
+    await reminderFunctions.schedule30MinuteReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+    await reminderFunctions.schedule24HourReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+    await reminderFunctions.schedulePostEventEmailTask(email, name, event_name, event_datetime);
 
     return null;
 });
@@ -74,7 +75,7 @@ exports.handleReserveEvent = functions.firestore
 // various functions on event update for hosts
 exports.handleUpdateEvent = functions.firestore
     .document('weekendevents/{eventId}')
-    .onUpdate((change, context) => {
+    .onUpdate(async (change, context) => {
 
     const after = change.after.data();
     const before = change.before.data();
@@ -110,10 +111,11 @@ exports.handleUpdateEvent = functions.firestore
         const event_url = 'https://schefs.us/index.html?event=' + event_id;
         const event_zoom_link = after.zoomLink;
 
-        gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
-        emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time, event_url, event_zoom_link);
-        reminderFunctions.schedule30MinuteReminderTask(email, name, event_name, event_datetime, event_zoom_link);
-        reminderFunctions.schedule24HourReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+        await gcalFunctions.addAttendeeToGcalEvent(event_id, after.email);
+        await emailFunctions.sendEventApprovedEmail(email, name, event_name, event_date, event_time, event_url, event_zoom_link);
+        await reminderFunctions.schedule30MinuteReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+        await reminderFunctions.schedule24HourReminderTask(email, name, event_name, event_datetime, event_zoom_link);
+        await reminderFunctions.schedulePostEventEmailTask(email, name, event_name, event_datetime);
     
     // on event denial
     } else if ((!before.status || before.status !== 'denied') && after.status === 'denied') {
@@ -140,7 +142,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
 
     // make week field
     var month = time.substring(5,7)
-    var day = parseInt(time.substring(8,10), 10)
+    var day = time.substring(8,10)
     
     week = 0;
     weekDay = ""
@@ -183,15 +185,16 @@ exports.calendly = functions.https.onRequest((request, response) => {
         }
     }
 
+
     db.collection("weekendevents").doc(eventID)
         .set({
             start_time: moment.parseZone(time),
             zoomId: zoomIDFormat,
             zoomLink: zoomLink,
             start_time_pretty: pretty,
-            week: week,
+            week: Math.floor(time.getDate() / 7) + 8,
             month: month,
-            weekDay: weekDay,
+            weekDay: moment(time).format('dddd'),
             day: day
         }, { merge: true })
         .then(() => response.status(204).send())
