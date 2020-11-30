@@ -56,6 +56,12 @@ const displayPage = eventId => {
         return;
     }
 
+    if (eventId === "gPPBtXgL38N5yUdrPmZp"){
+        window.location = '/ambassador1.html';
+        return;
+    }
+
+
     ticketsRef.get()
         .then(snap => {
             const attendeeData = snap;
