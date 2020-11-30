@@ -20,7 +20,7 @@ loginForm.addEventListener('submit', (e) => {
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    document.getElementById("submit-sign-up").innerHTML = `<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>`
+    document.getElementById("submit-sign-up").innerHTML = `Please do not refresh this page <div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>`
     const email = signupForm['signup-email'].value; // look in signupForm and find input with id signup-email
     const password = signupForm['signup-password'].value; 
     
@@ -48,28 +48,35 @@ signupForm.addEventListener('submit', (e) => {
 });
 
 const storeProfile = (userId, email, fName, lName, gradYear, major, university, phone, password) => {
-    var time = new Date();
-    db.collection("users").doc(userId).set({
-        email: email,
-        firstName: fName,
-        lastName: lName,
-        gradYear: gradYear,
-        major: major,
-        university: university,
-        isAdmin: false,
-        phoneNumber: phone,
-        timestamp: time
-    })
-    .then(() => {
-        $("#modal-signup").modal("hide");
-        if (location.pathname === "/eventBuilder.html"){
-            location.reload();
-        }
-        $("#modal-welcome").modal("show");
-        $('.modal-backdrop').remove();
-    })
-    .catch((error) => {
-        console.log("Error storing user info: ", error);
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            var time = new Date();
+            db.collection("users").doc(userId).set({
+                email: email,
+                firstName: fName,
+                lastName: lName,
+                gradYear: gradYear,
+                major: major,
+                university: university,
+                isAdmin: false,
+                phoneNumber: phone,
+                timestamp: time
+            })
+            .then(() => {
+                $("#modal-signup").modal("hide");
+                if (location.pathname === "/eventBuilder.html"){
+                    location.reload();
+                }
+                $("#modal-welcome").modal("show");
+                $('.modal-backdrop').remove();
+            })
+            .catch((error) => {
+                console.log("Error storing user info: ", error);
+            });
+        })
+        .catch(function(error){
+            alert(`${error}. Contact schefs.us@gmail if you think this is a mistake.`)
+            console.log("Error logging in user: ", error);
     });
 }
 

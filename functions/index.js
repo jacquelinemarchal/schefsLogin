@@ -143,48 +143,6 @@ exports.calendly = functions.https.onRequest((request, response) => {
     // make week field
     var month = time.substring(5,7)
     var day = time.substring(8,10)
-    
-    week = 0;
-    weekDay = ""
-    if (month === "12"){
-        if (day > 3){
-            week = 8;
-            if (day === 4){
-                weekDay = "Friday"
-            }
-            if (day === 5){
-                weekDay = "Saturday"
-            }
-            if (day === 6){
-                weekDay = "Sunday"
-            }
-        }
-        if (day > 10){
-            week = 9;
-            if (day === 11){
-                weekDay = "Friday"
-            }
-            if (day === 12){
-                weekDay = "Saturday"
-            }
-            if (day === 13){
-                weekDay = "Sunday"
-            }
-        }
-        if (day > 17){
-            week = 10;
-            if (day === 18){
-                weekDay = "Friday"
-            }
-            if (day === 19){
-                weekDay = "Saturday"
-            }
-            if (day === 20){
-                weekDay = "Sunday"
-            }
-        }
-    }
-
 
     db.collection("weekendevents").doc(eventID)
         .set({
