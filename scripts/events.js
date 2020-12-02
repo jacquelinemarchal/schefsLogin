@@ -20,16 +20,86 @@ var indexHtml = `
     <div class="container" id="heading">
         <div class="container-wrapper" style="margin-top: 3rem;">
             <div class="row">
-                <div style="text-align: left; margin-left:1rem;">
-                    <p style="margin: 0">Host & attend small group themed</p>
-                    <p style="margin: 0">conversations via Zoom on any topic.</p>
-                    <p style="margin: 0">By & for college students.</p>
+                <div class="col">
+                    <div style="text-align: left;">
+                        <h3 style="font-weight: 400;">THIS JANUARY</h3>
+                        <img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img>
+                        <p style="margin: 0">a weeklong Schefs festival.</p>
+                        <p style="margin: 0">7 days, 7 themes.</p>
+                        <p style="margin: 0">Student-led conversations. </p>
+                    </div>
                 </div>
-                <div style="text-align: right; position: absolute;right:4rem">
-                    <p style="margin: 0">Take what you know.</p>
-                    <p style="margin: 0">Share it with others.</p>
-                    <p style="margin: 0">Learn from each other.</p>
+                <div class="col-3">
+                    <div style="text-align: right;">
+                        <h3 style="font-weight: 400;">SCHEFS PRESENTS</h3>
+
+                        <div class="row">
+                            <div class="col">
+                                <p style="margin: 0">: Distancing</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 04</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p style="margin: 0">: Networks</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 05</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p style="margin: 0">: Justice</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 06</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p style="margin: 0">: Circles</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 07</p>
+                            </div>
+                        </div>    
+
+                        <div class="row">
+                            <div class="col">
+                                <p style="margin: 0">: -isms</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 08</p>
+                            </div>
+                        </div>
+
+                        <div class="row" style="width:auto;">
+                            <div class="col">
+                                <p style="margin: 0">: Constructs</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 09</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p style="margin: 0">: Responsibility</p>
+                            </div>
+                            <div class="col col-4" style="text-align:right;">
+                                <p style="margin:0;">Jan 10</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div style="text-align:center">
+                <a class="btn btn-outline-dark reserve" href="/festival-landing-page">LEAD A CONVERSATION FOR THE FESTIVAL</a>
             </div>
         </div>
     </div>
