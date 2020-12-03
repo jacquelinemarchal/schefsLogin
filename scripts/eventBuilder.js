@@ -6,7 +6,6 @@ proPicPath = "";
 userFName = "";
 userEmail = "";
 userLName = "";
-
 const festivalContent = [
     {
         calendly: "https://calendly.com/schefs/social-distancing?primary_color=4d5055",
