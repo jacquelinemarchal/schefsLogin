@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>About - Schefs</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="imp.css">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/favicon.png">
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div class="container">
+        <div class="container-wrapper">
+            <div class="pagewide text-white d-lg-block fixed-top">
+                <div class="container" id="ambassador-banner-text">
+                    <p id="spread-word" style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">Want to bring passionate people together?</p>
+                    <p id="ambass-link" style="font-size: 16px;margin-top:.2em; ">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador-info.html">here</a></p>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="top:30px; font-size: 16px;">
+                <a href="/" class="navbar-brand mr-auto p-2">
+                    <img src="assets/logo.png" style="height: 34px;">
+                </a>
+                <div id="nav-items-right" style="display: flex;">
+                <a class="nav-item nav-link p-2" style="color: black;" href="about.html">About</a>
+                <a class="nav-item nav-link p-2" data-toggle="modal" data-target="#modal-signup">Sign In</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br>
+    <!--HEADING-->
+    <div class="container">
+        <div class="container-wrapper" style="padding-top: 6rem;">
+            <div class="row" id="mobileSocial">
+                <img style="margin-bottom:3rem; height:5rem; width:auto" src="../assets/social.png"><img>
+                <p style="margin: 0">a weeklong Schefs festival.</p>
+                <p style="margin: 0">7 days, 7 themes.</p>
+                <p style="margin: 0">Student-led conversations. </p>
+                <br>
+                <p style="margin: 0">January 04 - 10, 2021 </p>
+                <br><br>
+
+                <p style="margin:0; font-size:28px;">SOCIAL: Distancing</p>
+                <p>Jan 04 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html/1">HOST AN EVENT</a>
+                </div>
+                <hr>
+
+
+                <p style="margin:0; font-size:28px;">SOCIAL: Networks</p>
+                <p>Jan 05 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html/2">HOST AN EVENT</a>
+                </div>
+                <hr>
+
+
+                <p style="margin:0; font-size:28px;">SOCIAL: Justice</p>
+                <p>Jan 06 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?3">HOST AN EVENT</a>
+                </div>
+                <hr>
+
+
+                <p style="margin:0; font-size:28px;">SOCIAL: Circles</p>
+                <p>Jan 07 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?4">HOST AN EVENT</a>
+                </div>
+                <hr>
+
+
+                <p style="margin:0; font-size:28px;">SOCIAL: -isms</p>
+                <p>Jan 08 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?5">HOST AN EVENT</a>
+                </div>
+                <hr>
+
+
+                <p style="margin:0; font-size:28px;">SOCIAL: Constructs</p>
+                <p>Jan 09 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?6">HOST AN EVENT</a>
+                </div>
+                <hr>
+
+
+                <p style="margin:0; font-size:28px;">SOCIAL: Responsibility</p>
+                <p>Jan 10 2021</p>
+                <p style="padding-top:1rem; font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="text-center">
+                    <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?7">HOST AN EVENT</a>
+                </div>
+                <hr>
+            </div>
+            <div class="row" id="mobileSocial">
+            </div>
+            <div class="row" id="webSocial" style="padding-bottom:2rem">
+                <div class="col">
+                    <div style="text-align: left;">
+                        <img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img>
+                        <p style="margin: 0">a weeklong Schefs festival.</p>
+                        <p style="margin: 0">7 days, 7 themes.</p>
+                        <p style="margin: 0">Student-led conversations. </p>
+                        <br><br>
+                        <p>Pick the day that interests you the most, and come up with a related <br> topic for a conversation that you’ll lead.</p>
+                    </div>
+                </div>
+                <div class="md:col-7 col-3">
+                    <div style="text-align: right;">
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p  style="margin: 0">: Distancing</p>
+                                <p class="" style="margin:0;">Jan 04</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p style="margin: 0">: Networks</p>
+                                <p style="margin:0;">Jan 05</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p style="margin: 0">: Justice</p>
+                                <p style="margin:0;">Jan 06</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p style="margin: 0">: Circles</p>
+                                <p style="margin:0;">Jan 07</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p style="margin: 0">: -isms</p>
+                                <p style="margin:0;">Jan 08</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p style="margin: 0">: Constructs</p>
+                                <p style="margin:0;">Jan 09</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
+                                <p style="margin: 0">: Responsibility</p>
+                                <p style="margin:0;">Jan 10</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="webSocialEvents">
+                <div class="row">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 04</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: Distancing</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?1">HOST AN EVENT</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-top:1rem;">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 05</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: Networks</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?2">HOST AN EVENT</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-top:1rem;">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 06</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: Justice</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?3">HOST AN EVENT</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-top:1rem;">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 07</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: Circles</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?4">HOST AN EVENT</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-top:1rem;">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 08</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: -isms</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?5">HOST AN EVENT</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-top:1rem;">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 09</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: Constructs</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?6">HOST AN EVENT</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row" style="margin-top:1rem;">
+                    <div class="col col-2">
+                        <p style="font-size:28px;">Jan 10</p>
+                    </div>
+                    <div class="col col-6">
+                        <p style="font-size:28px;">SOCIAL: Responsibility</p>
+                        <p style="font-size:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    </div>
+                    <div class="col col-4 text-right">
+                        <a class="btn btn-outline-dark reserve" href="/eventBuilder.html?7">HOST AN EVENT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
+                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
+                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
+                <div class="forms">
+                    <form id="signup-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="signup-email">School email</label>
+                            <input type="email" class="form-control" id="signup-email" required
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
+                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" class="form-control" id="signup-password" required aria-describedby="passwordHelp">
+                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="firstName" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="lastName" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School</label>
+                            <input type="school" class="form-control" id="school" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="gradYear">Expected graduation year</label>
+                            <input type="gradYear" class="form-control" id="gradYear" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="major">Major</label>
+                            <input type="major" class="form-control" id="major" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="phone">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
+                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
+                        </div>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
+                    </form>
+                    <form id="login-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="login-email">Email address</label>
+                            <input type="email" class="form-control" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" class="form-control" id="login-password" required>
+                            <small>Forgot your password? Email schefs.us@gmail.com</small>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-logged-out" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Success! You logged out</h2>
+            </div>
+        </div>
+    </div>
+    <div id="modal-build-prompt" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding-top: 2rem;padding-left: 2rem;padding-right: 2rem; align-items: center;">
+                <p>Any undergrad can host an event on a topic of their choice. Log in or make an account to submit your own! </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-account" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-personal-events" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="overflow-y: initial;">
+            <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p style="text-align: center; background-color: #F6FFBE;">Confirm or remove my unattended events</p>
+                <div id="unconfirmed-events-section" class="text-center"></div>
+                <p style="text-align: center;background-color: #F6FFBE;">Find guests from my attended events</p>
+                <div id="personal-events-section" class="text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-welcome" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-admin" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content admin-modal" style="padding: 3rem; align-items: center;" id="modal-admin-content">
+                <div style="align-items: center;" id="site-admin-content"></div>
+                <div style="padding: 2rem; align-items: center;" id="event-admin-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-reserve" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-thank-you" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/firebase.js"></script>
+    <script src="scripts/userDisplay.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/signup.js"></script>
+
+</body>
+</html>

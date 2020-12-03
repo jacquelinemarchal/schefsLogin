@@ -7,6 +7,44 @@ userFName = "";
 userEmail = "";
 userLName = "";
 
+const festivalContent = [
+    {
+        calendly: "https://calendly.com/schefs/social-distancing?primary_color=4d5055",
+        title: "Distancing (Jan 04)",
+    },
+    {
+        calendly: "https://calendly.com/schefs/social-networks?primary_color=4d5055",
+        title: "Networks (Jan 05)",
+    },
+    {
+        calendly: "https://calendly.com/schefs/social-justice?primary_color=4d5055",
+        title: "Justice (Jan 06)",
+    },
+    {
+        calendly: "",
+        title: "Circles (Jan 07)",
+    },
+    {
+        calendly: "",
+        title: "-isms (Jan 08)",
+    },
+    {
+        calendly: "",
+        title: "Constructs (Jan 09)",
+    },
+    {
+        calendly: "",
+        title: "Responsibility (Jan 10)",
+    },
+]
+var day;
+
+if (window.location.search.startsWith('?')){
+    var festivalDay = window.location.search.slice('?'.length);
+    day = parseInt(festivalDay, 10) - 1
+    console.log(day)
+    document.getElementById("festivalDayTopic").innerHTML = `Building an event for SOCIAL : ${festivalContent[day].title}`
+}
 $(window).scroll(function() {
     if ($(window).scrollTop() > 10) {
         $('#navBar').addClass('floatingNav');
@@ -44,7 +82,8 @@ auth.onAuthStateChanged(user => {
 })
 const initCalendly = (eventID) => {
     Calendly.initInlineWidget({
-        url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
+        url: `${festivalContent[parseInt(window.location.search.slice('?'.length), 10)-1].calendly}`,
+       // url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
         parentElement: document.getElementById('calendly'),
         prefill: {
             firstName: `${userFName}`,
@@ -152,7 +191,8 @@ createDocument = async (inputs) => {
         submit_time: date,
         status: "",
         thumb: `${storeURL}`,
-        prof: `${proPicPath}`
+        festivalDay: parseInt(window.location.search.slice('?'.length), 10),
+        festivalTopic: `${festivalContent[day].title}`
     })
     .then((docRef) => {
         db.collection('users').doc(uid).collection('hostedEvents').doc(docRef.id)
@@ -165,7 +205,7 @@ createDocument = async (inputs) => {
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
             document.getElementById("calendly").classList.remove("d-none")
             document.getElementById("builder-spinner").classList.add("d-none")
-            deleteSelectableImage(eventImage.src)
+         //   deleteSelectableImage(eventImage.src)
         })
         .catch(err => {
             console.log('Error adding event: ', err);

@@ -49,7 +49,7 @@
                     <br><br>
                     <div class="row">
                         <div class="col-sm" style="text-align: center;">
-                            <a href="/eventBuilder.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>&lsaquo; Submit another Event</u></a>
+                            <a href="/festival-landing-page.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>&lsaquo; Submit another Event</u></a>
                         </div>
                         <div class="col-sm" style="text-align: center;">
                             <a target="_blank" href="/index.html" style="font-family:'Roboto', sans-serif;font-size:20px;"><u>Browse Events</u></a>
@@ -78,7 +78,8 @@
         <div class="container-wrapper" style="padding-top: 4rem;">
             <br>
             <h1 style="text-align: center; vertical-align: middle;">Sorry</h1>
-            <p style="text-align: center; vertical-align: middle">You must be logged in to create an event</p>
+            <p style="margin:0;text-align: center; vertical-align: middle;">You must be signed in to make an event</p>
+            <a style="color:black;" data-toggle="modal" data-target="#modal-signup"><p style="color:#007bff; text-align: center; vertical-align: middle;">Make an account or login here</p></a>
         </div>
     </div>
     <div class="container" id="builder-content">
@@ -86,6 +87,7 @@
             <!-- Link Bootstrap CSS -->
             <div class="row">
                 <div class="col-md-7">
+                    <p style="font-size: 28px" id="festivalDayTopic"></p>
                     <input type="text" onkeyup="countChars(this);" id="titleInput" style="font-size: 44px" placeholder="My Event Title..." required>
                     <p style="margin-bottom: .5rem; color: #AFAFAF;"id="charNum">0 / 65 characters</p>
                     <div>

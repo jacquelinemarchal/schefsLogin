@@ -19,87 +19,79 @@ auth.onAuthStateChanged(user => {
 var indexHtml = `
     <div class="container" id="heading">
         <div class="container-wrapper" style="margin-top: 3rem;">
-            <div class="row">
+            <div class="row" id="mobileSocial">
+                <img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img>
+                <p style="margin: 0">a weeklong Schefs festival.</p>
+                <p style="margin: 0">7 days, 7 themes.</p>
+                <p style="margin: 0">Student-led conversations. </p>
+                <br>
+                <p style="margin: 0">January 04 - 10, 2021 </p>
+            </div>
+            <div class="row" id="webSocial">
                 <div class="col">
                     <div style="text-align: left;">
-                        <h3 style="font-weight: 400;">THIS JANUARY</h3>
+                        <h3 style="color: #001AFF; font-weight: 400;">UPCOMING IN JANUARY 2021</h3>
                         <img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img>
                         <p style="margin: 0">a weeklong Schefs festival.</p>
                         <p style="margin: 0">7 days, 7 themes.</p>
                         <p style="margin: 0">Student-led conversations. </p>
                     </div>
-                </div>
-                <div class="col-3">
-                    <div style="text-align: right;">
-                        <h3 style="font-weight: 400;">SCHEFS PRESENTS</h3>
+                    <a style="margin-top: 2rem" class="btn btn-outline-dark reserve" href="/festival-landing-page.html">LEAD A CONVERSATION FOR THE FESTIVAL</a>
 
+                </div>
+                <div class="md:col-7 col-3">
+                    <div style="text-align: right;">
+                        <h3 style="margin-bottom:4rem; font-weight: 400; color: #001AFF;">7 DAYS, 7 THEMES</h3>
                         <div class="row">
-                            <div class="col">
-                                <p style="margin: 0">: Distancing</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
-                                <p style="margin:0;">Jan 04</p>
+                            <div class="container d-flex justify-content-between">
+                                <p  style="margin: 0">: Distancing</p>
+                                <p class="" style="margin:0;">Jan 04</p>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col">
+                            <div class="container d-flex justify-content-between">
                                 <p style="margin: 0">: Networks</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
                                 <p style="margin:0;">Jan 05</p>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col">
+                            <div class="container d-flex justify-content-between">
                                 <p style="margin: 0">: Justice</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
                                 <p style="margin:0;">Jan 06</p>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col">
+                            <div class="container d-flex justify-content-between">
                                 <p style="margin: 0">: Circles</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
                                 <p style="margin:0;">Jan 07</p>
                             </div>
-                        </div>    
-
+                        </div>
+                        
                         <div class="row">
-                            <div class="col">
+                            <div class="container d-flex justify-content-between">
                                 <p style="margin: 0">: -isms</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
                                 <p style="margin:0;">Jan 08</p>
                             </div>
                         </div>
 
-                        <div class="row" style="width:auto;">
-                            <div class="col">
+                        <div class="row">
+                            <div class="container d-flex justify-content-between">
                                 <p style="margin: 0">: Constructs</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
                                 <p style="margin:0;">Jan 09</p>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col">
+                            <div class="container d-flex justify-content-between">
                                 <p style="margin: 0">: Responsibility</p>
-                            </div>
-                            <div class="col col-4" style="text-align:right;">
                                 <p style="margin:0;">Jan 10</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div style="text-align:center">
-                <a class="btn btn-outline-dark reserve" href="/festival-landing-page">LEAD A CONVERSATION FOR THE FESTIVAL</a>
             </div>
         </div>
     </div>
@@ -111,6 +103,14 @@ var indexHtml = `
             <div class="events" id="archive-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
                 <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">August 2020 Festival</a>
+            </div>
+        </div>
+    </div>
+    <div class="mobileSocial">
+        <div class="footer">
+            <div class="row" id="fixed-footer">
+                <a class="btn btn-outline-dark reserve" href="/festival-landing-page.html">HOST YOUR OWN EVENT</a>
+                </div>
             </div>
         </div>
     </div>
