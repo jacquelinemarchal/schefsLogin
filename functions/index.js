@@ -132,34 +132,38 @@ exports.handleUpdateEvent = functions.firestore
 
 // add Zoom info to Firebase using Calendly webhooks
 exports.calendly = functions.https.onRequest((request, response) => {
-    const raw = request.body.payload;
-    const eventID = raw.tracking.utm_campaign;
-    const time = raw.event.start_time;
-    const zoomLink = raw.event.location;
-    const zoomID = zoomLink.substring(26);
-    const pretty = raw.event.start_time_pretty;
-    const zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
+    try {
+        const raw = request.body.payload;
+        const eventID = raw.tracking.utm_campaign;
+        const time = raw.event.start_time;
+        const zoomLink = raw.event.location;
+        const zoomID = zoomLink.substring(26);
+        const pretty = raw.event.start_time_pretty;
+        const zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
 
-    // make week field
-    const month = time.substring(5,7)
-    const day = time.substring(8,10)
+        // make week field
+        const month = time.substring(5,7)
+        const day = time.substring(8,10)
 
-    db.collection("weekendevents").doc(eventID)
-        .set({
-            start_time: moment.parseZone(time),
-            zoomId: zoomIDFormat,
-            zoomLink: zoomLink,
-            start_time_pretty: pretty,
-            week: Math.floor(time.getDate() / 7) + 8,
-            month: month,
-            weekDay: moment(time).format('dddd'),
-            day: day
-        }, { merge: true })
-        .then(() => response.status(204).send())
-        .catch((err) => {
-            response.status(500).send(err);
-            console.log(err)
-        });
+        db.collection("weekendevents").doc(eventID)
+            .set({
+                start_time: moment.parseZone(time),
+                zoomId: zoomIDFormat,
+                zoomLink: zoomLink,
+                start_time_pretty: pretty,
+                week: Math.floor(time.getDate() / 7) + 8,
+                month: month,
+                weekDay: moment(time).format('dddd'),
+                day: day
+            }, { merge: true })
+            .then(() => response.status(204).send())
+            .catch((err) => {
+                response.status(500).send(err);
+                console.log(err)
+            });
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 exports.reminders = functions.https.onRequest(async (request, response) => {
