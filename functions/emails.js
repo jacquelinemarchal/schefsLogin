@@ -347,7 +347,7 @@ exports.send30MinuteReminderEmail = async (email, name, event_name, event_zoom_l
 exports.sendPostEventEmail = async (email, name, event_name) => {
     const mailOptions = {
         to: email,
-        subject: ``,
+        subject: `Schefs Post-Event Feedback`,
         dsn: {
             id: 'Post Event Email - ' + email,
             return: 'headers',

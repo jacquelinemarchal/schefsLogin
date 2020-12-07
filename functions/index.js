@@ -175,10 +175,12 @@ exports.reminders = functions.https.onRequest(async (request, response) => {
 
     if (type === '30m') {
         await emailFunctions.send30MinuteReminderEmail(email, name, event_name, event_zoom_link);
-        response.send(200);
+        response.status(204).send();
     } else if (type === '24h') {
         await emailFunctions.send24HourReminderEmail(email, name, event_name);
-        response.send(200);
-    } else
-        response.status(400).send();
+        response.status(204).send();
+    } else {
+        await emailFunctions.sendPostEventEmail(email, name, event_name);
+        response.status(204).send();
+    }
 });
