@@ -191,7 +191,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                 reserveStyle = 'display: none;';
         }
         /* Weekly Change */ 
-        if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5 || eventData.week === 6){
+        if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5 || eventData.week === 6 || eventData.week === 7 || eventData.week === 8){
             loginStyle = 'display: none;';
             reserveStyle = 'display: none;';
             soldOutStyle = 'display:none';
