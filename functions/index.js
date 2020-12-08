@@ -135,7 +135,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
     try {
         const raw = request.body.payload;
         const eventID = raw.tracking.utm_campaign;
-        const time = raw.event.start_time;
+        const time = new Date(raw.event.start_time);
         const zoomLink = raw.event.location;
         const zoomID = zoomLink.substring(26);
         const pretty = raw.event.start_time_pretty;
@@ -158,8 +158,8 @@ exports.calendly = functions.https.onRequest((request, response) => {
             }, { merge: true })
             .then(() => response.status(204).send())
             .catch((err) => {
+                console.log(err);
                 response.status(500).send(err);
-                console.log(err)
             });
     } catch (err) {
         console.log(err);
