@@ -18,23 +18,24 @@ auth.onAuthStateChanged(user => {
 
 var indexHtml = `
     <div class="container" id="heading">
-        <div class="container-wrapper" style="margin-top: 3rem;">
+        <div class="container-wrapper" style="margin-top: 2rem;">
             <div class="row" id="mobileSocial">
-                <img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img>
-                <p style="margin: 0">a weeklong Schefs festival.</p>
-                <p style="margin: 0">7 days, 7 themes.</p>
-                <p style="margin: 0">Student-led conversations. </p>
+                <p style="color: #001AFF; margin-bottom:1rem; font-weight: 400;">UPCOMING IN JANUARY 2021</p>
+                <a href="/festival-landing-page.html"><img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
+                <p style="margin: 0">The second Schefs festival.</p>
+                <p style="margin: 0">A week of discussions.</p>
+                <p style="margin: 0">By & for college students worldwide.</p>
                 <br>
                 <p style="margin: 0">January 04 - 10, 2021 </p>
             </div>
-            <div class="row" id="webSocial">
+            <div class="row" id="webSocial" style="margin-top:2.5rem;">
                 <div class="col">
                     <div style="text-align: left;">
                         <h3 style="color: #001AFF; font-weight: 400;">UPCOMING IN JANUARY 2021</h3>
-                        <img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img>
-                        <p style="margin: 0">a weeklong Schefs festival.</p>
-                        <p style="margin: 0">7 days, 7 themes.</p>
-                        <p style="margin: 0">Student-led conversations. </p>
+                        <a href="/festival-landing-page.html"><img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
+                        <p style="margin: 0">The second Schefs festival.</p>
+                        <p style="margin: 0">A week of discussions.</p>
+                        <p style="margin: 0">By & for college students worldwide.</p>
                     </div>
                     <a style="margin-top: 2rem" class="btn btn-outline-dark reserve" href="/festival-landing-page.html">LEAD A CONVERSATION FOR THE FESTIVAL</a>
 
@@ -261,7 +262,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                 reserveStyle = 'display: none;';
         }
         /* Weekly Change */ 
-        if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5 || eventData.week === 6){
+        if ((eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5 || eventData.week === 6 || eventData.week === 7 || eventData.week === 8 || eventData.week === 9) && (eventData.month > "09") ){
             loginStyle = 'display: none;';
             reserveStyle = 'display: none;';
             soldOutStyle = 'display:none';

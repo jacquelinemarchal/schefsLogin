@@ -12,7 +12,7 @@ const renderHomeEvents = async () => {
             snap.forEach((doc) => {
                 var data = doc.data();
                 /* Weekly Change */ 
-                if ((data.week === 7 || data.week === 8 || data.week === 9) && (data.status === "approved")){
+                if ((data.type === "socialFestival") && (data.status === "approved")){
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
@@ -24,7 +24,7 @@ const renderHomeEvents = async () => {
                     }))
                 }
                 /* Weekly Change */ 
-                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4 || data.week === 5   ||data.week === 6) && (data.status === "approved")){
+                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4 || data.week === 5 ||data.week === 6 ||data.week === 7 || data.week === 8 || data.week === 9) && (data.status === "approved")){
                     var archiveReference = storage.refFromURL(data.thumb)
                     archiveEvents.push(new Promise(async res => {
                         var url = await archiveReference.getDownloadURL();
@@ -76,12 +76,7 @@ const setupEvents = (data, num, isLive) => {
         count++;
         rowCheck++;
         const id = event.id;
-        var opacity = ""
-        /* Weekly Change */ 
-        if (event.week == 1 || event.week == 2 || event.week == 3 || event.week == 4 || event.week == 5 || event.week == 6){
-            opacity = 'opacity: 0.45;'
-        }
-        
+        var opacity = 'opacity: 0.45;'
         /*
         const event_datetime = event.start_time.toDate();
         const event_page_time = moment.tz(event_datetime, 'America/New_York').format('dddd MMMM D YYYY h:mm A z');
