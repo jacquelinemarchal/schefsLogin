@@ -42,14 +42,13 @@ const renderHomeEvents = async () => {
             allEvents.sort((e1, e2) => e1.start_time - e2.start_time);
             archiveEvents.sort((e1, e2) => e1.start_time - e2.start_time);
 
-           /* for (let i = 1; i <= 7; i++) {
-                const day = String(i);
-                const dayEvents = allEvents.filter(event => event.festivalDay === day);
-                setupEvents(dayEvents, dayEvents.length, true, day);
-            }*/
+            for (let i = 1; i <= 7; i++) {
+                const dayEvents = allEvents.filter(event => event.festivalDay === i);
+                setupEvents(dayEvents, dayEvents.length, true, i);
+            }
             
-            const dayEvents = allEvents.filter(event => event.festivalDay === 3);
-            setupEvents(dayEvents, dayEvents.length, true, 3);
+            /*const dayEvents = allEvents.filter(event => event.festivalDay === 1);
+            setupEvents(dayEvents, dayEvents.length, true, 3);*/
 
            // setupEvents(allEvents, allEvents.length, true);
             setupEvents(archiveEvents, archiveEvents.length, false, null);
@@ -136,16 +135,14 @@ const setupEvents = (data, num, isFest, day) => {
     });
     }
     if (isFest){
-        //console.log(data)
         // where num is total number of elements
         var numRows=(Math.floor(num/3))+1; 
-
         for (var i = 1; i < numRows+1; i++){
             var festRow = document.createElement("div");
             festRow.setAttribute("class", "row");
             var curRow = "row-"+i.toString();
             festRow.setAttribute("id", `festivalDay${day}${curRow}`);
-            document.querySelector(`#festivalDay${i}`).appendChild(festRow);
+            document.querySelector(`#festivalDay${day}`).appendChild(festRow);
         }
         let html = '';
         let count = -1;
@@ -156,7 +153,7 @@ const setupEvents = (data, num, isFest, day) => {
             count++;
             rowCheck++;
             const id = event.id;
-            var opacity = 'opacity: 0.45;'
+            var opacity = '' //'opacity: 0.45;'
             
             const pretty_time = event.start_time_pretty.substring(10, event.start_time_pretty.length-6)
             var hour = event.start_time_pretty.substring(0, 8)
