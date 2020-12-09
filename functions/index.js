@@ -142,8 +142,8 @@ exports.calendly = functions.https.onRequest((request, response) => {
         const zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
 
         // make week field
-        const month = time.substring(5,7)
-        const day = time.substring(8,10)
+        const month = (raw.event.start_time).substring(5,7)
+        const day = (raw.event.start_time).substring(8,10)
 
         db.collection("weekendevents").doc(eventID)
             .set({
