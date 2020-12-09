@@ -21,7 +21,7 @@ var indexHtml = `
         <div class="container-wrapper" style="margin-top: 2rem;">
             <div class="row" id="mobileSocial">
                 <p style="color: #001AFF; margin-bottom:1rem; font-weight: 400;">UPCOMING IN JANUARY 2021</p>
-                <a href="/festival-landing-page.html"><img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
+                <a href="/festival-landing-page.html"><img style="margin-bottom:1rem; margin-top:1rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
                 <p style="margin: 0">The second Schefs festival.</p>
                 <p style="margin: 0">A week of discussions.</p>
                 <p style="margin: 0">By & for college students worldwide.</p>
@@ -32,7 +32,7 @@ var indexHtml = `
                 <div class="col">
                     <div style="text-align: left;">
                         <h3 style="color: #001AFF; font-weight: 400;">UPCOMING IN JANUARY 2021</h3>
-                        <a href="/festival-landing-page.html"><img style="margin-bottom:2rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
+                        <a href="/festival-landing-page.html"><img style="margin-bottom:1.5rem; margin-top:1rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
                         <p style="margin: 0">The second Schefs festival.</p>
                         <p style="margin: 0">A week of discussions.</p>
                         <p style="margin: 0">By & for college students worldwide.</p>
@@ -99,7 +99,33 @@ var indexHtml = `
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <!-- EVENT LIST -->
-            <div class="events" id="main-events-div"></div>
+            <p style="margin-bottom: 0;">Monday, August 17th </p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: Distancing (Jan 04)</h2> 
+            <div id="festivalDay1"></div>
+
+            <p style="margin-bottom: 0;">Tuesday, August 18th </p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: Networks (Jan 05)</h2> 
+            <div id="festivalDay2"></div>
+
+            <p style="margin-bottom: 0;">Wednesday, August 19th </p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: Justice (Jan 06)</h2> 
+            <div id="festivalDay3"></div>
+
+            <p style="margin-bottom: 0;">Thursday, August 20th </p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: Circles (Jan 07)</h2> 
+            <div id="festivalDay4"></div>
+
+            <p style="margin-bottom: 0;">Friday, August 21st </p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: -isms (Jan 08)</h2> 
+            <div id="festivalDay5"></div>
+
+            <p style="margin-bottom: 0;">Saturday, August 22nd</p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: Constructs (Jan 09)</h2> 
+            <div id="festivalDay6"></div>
+            
+            <p style="margin-bottom: 0;">Sunday, August 23rd</p>
+            <h2 style="margin-bottom: 2rem;">SOCIAL: Responsibility (Jan 10)</h2> 
+            <div id="festivalDay7"></div>
             <h2 style="margin-bottom: 2rem;">Past Events</h2>
             <div class="events" id="archive-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">

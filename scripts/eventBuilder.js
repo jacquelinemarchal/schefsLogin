@@ -20,19 +20,19 @@ const festivalContent = [
         title: "Justice (Jan 06)",
     },
     {
-        calendly: "",
+        calendly: "https://calendly.com/schefs/social-circles?primary_color=4d5055",
         title: "Circles (Jan 07)",
     },
     {
-        calendly: "",
+        calendly: "https://calendly.com/schefs/social-isms?primary_color=4d5055",
         title: "-isms (Jan 08)",
     },
     {
-        calendly: "",
+        calendly: "https://calendly.com/schefs/social-constructs?primary_color=4d5055",
         title: "Constructs (Jan 09)",
     },
     {
-        calendly: "",
+        calendly: "https://calendly.com/schefs/social-responsibility?primary_color=4d5055",
         title: "Responsibility (Jan 10)",
     },
 ]
@@ -180,11 +180,13 @@ createDocument = async (inputs) => {
         university: `${inputs[2]}`,
         gradYear: `${inputs[3]}`,
         major: `${inputs[4]}`,
+        festivalDay: `${window.location.search.slice('?'.length)}`,
         bio: `${inputs[5]}`,
         firstName: `${inputs[6]}`,
         isLive: false,
         user: uid,
         email: userEmail,
+        type: "socialFestival",
         lastName: `${inputs[7]}`,
         req: `${inputs[8]}`,
         submit_time: date,
@@ -204,7 +206,7 @@ createDocument = async (inputs) => {
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
             document.getElementById("calendly").classList.remove("d-none")
             document.getElementById("builder-spinner").classList.add("d-none")
-         //   deleteSelectableImage(eventImage.src)
+         //   deleteSelectableImage(eventImage.src) // BEFORE LAUNCH: uncomment this line!
         })
         .catch(err => {
             console.log('Error adding event: ', err);
