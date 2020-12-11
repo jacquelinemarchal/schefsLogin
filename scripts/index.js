@@ -2,7 +2,6 @@ $('.modal').on('shown.bs.modal', function () {
     $('.modal-content').trigger('focus')
 })
 
-
 const renderHomeEvents = async () => {
     document.getElementById("indexView").classList.add("d-none")
     document.getElementById("builder-spinner").classList.remove("d-none")

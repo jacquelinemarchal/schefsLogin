@@ -206,7 +206,7 @@ createDocument = async (inputs) => {
             document.getElementById("mobile-builder").setAttribute("style", "display:none;")
             document.getElementById("calendly").classList.remove("d-none")
             document.getElementById("builder-spinner").classList.add("d-none")
-            deleteSelectableImage(eventImage.src) // BEFORE LAUNCH: uncomment this line!
+            deleteSelectableImage(eventImage.src) // BEFORE LAUNCH
         })
         .catch(err => {
             console.log('Error adding event: ', err);
