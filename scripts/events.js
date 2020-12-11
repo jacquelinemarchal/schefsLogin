@@ -99,33 +99,7 @@ var indexHtml = `
     <div class="container">
         <div class="container-wrapper" style="padding-top: 4rem;">
             <!-- EVENT LIST -->
-            <p style="margin-bottom: 0;">Monday, January 4th </p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: Distancing (Jan 04)</h2> 
-            <div id="festivalDay1"></div>
-
-            <p style="margin-bottom: 0;">Tuesday, January 5th </p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: Networks (Jan 05)</h2> 
-            <div id="festivalDay2"></div>
-
-            <p style="margin-bottom: 0;">Wednesday, January 6th </p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: Justice (Jan 06)</h2> 
-            <div id="festivalDay3"></div>
-
-            <p style="margin-bottom: 0;">Thursday, January 7th </p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: Circles (Jan 07)</h2> 
-            <div id="festivalDay4"></div>
-
-            <p style="margin-bottom: 0;">Friday, January 8th </p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: -isms (Jan 08)</h2> 
-            <div id="festivalDay5"></div>
-
-            <p style="margin-bottom: 0;">Saturday, January 9th</p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: Constructs (Jan 09)</h2> 
-            <div id="festivalDay6"></div>
-            
-            <p style="margin-bottom: 0;">Sunday, January 10th</p>
-            <h2 style="margin-bottom: 2rem;">SOCIAL: Responsibility (Jan 10)</h2> 
-            <div id="festivalDay7"></div>
+            <div class="events" id="main-events-div"></div>
             <h2 style="margin-bottom: 2rem;">Past Events</h2>
             <div class="events" id="archive-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
