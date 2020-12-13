@@ -62,9 +62,9 @@ exports.sendWelcomeEmail = async (email, name) => {
 exports.sendReserveEmail = async (email, name,  event_name, event_date, event_time, event_url) => {
     const mailOptions = {
         to: email,
-        subject: 'Your Schefs Reservation',
+        subject: 'Confirmation of registration for a SOCIAL : Schefs conversation',
         dsn: {
-            id: 'Reserve - ' + email,
+            id: 'Reserve SOCIAL - ' + email,
             return: 'headers',
             notify: ['failure', 'delay'],
             recipient: 'schefs.us@gmail.com'
@@ -74,12 +74,14 @@ exports.sendReserveEmail = async (email, name,  event_name, event_date, event_ti
                 Hi ${name},
             </p>
             <p>
-                Thanks for signing up for a Schefs event:<br><br>
+                Thanks for signing up for a Schefs event for SOCIAL, our
+                upcoming festival.
+                <br><br>
                 <b>
-                ${event_name}<br>
-                ${event_date}<br>
-                ${event_time}<br>
-                ${event_url}<br><br>
+                    ${event_name}<br>
+                    ${event_date}<br>
+                    ${event_time}<br>
+                    ${event_url}<br><br>
                 </b>
                 You should have received a Google Calendar invitation that includes
                 the Zoom link for the event.
@@ -88,7 +90,7 @@ exports.sendReserveEmail = async (email, name,  event_name, event_date, event_ti
                 Have a beautiful time!
             </p>
             <p>
-                Here's to many conversations,<br>
+                Here’s to many conversations,<br>
                 The Schefs Team<br>
                 <a href="www.schefs.us">www.schefs.us</a>
             </p>
@@ -103,12 +105,12 @@ exports.sendReserveEmail = async (email, name,  event_name, event_date, event_ti
     return null;
 };
 
-exports.sendEventSubmittedEmail = async (email, name, event_name) => {
+exports.sendEventSubmittedEmail = async (email, name, event_name, event_time, event_date, event_description, event_requirements) => {
     const mailOptions = {
         to: email,
-        subject: 'Schefs Event Submission Confirmation',
+        subject: 'Event Submission Confirmation – Schefs SOCIAL : Festival',
         dsn: {
-            id: 'Submit - ' + email,
+            id: 'Submit SOCIAL - ' + email,
             return: 'headers',
             notify: ['failure', 'delay'],
             recipient: 'schefs.us@gmail.com'
@@ -118,17 +120,56 @@ exports.sendEventSubmittedEmail = async (email, name, event_name) => {
                 Hi ${name},
             </p>
             <p>
-                Thank you for signing up to host a Schefs conversation!<br><br>
-                Your event, <b>${event_name}</b>, has been submitted. We will 
-                review your event and get back to you with a response within 24 
-                hours before publishing it on our site.<br><br>
-
-                If you have any questions, please reach out to schefs.us@gmail.com.
+                Thank you for signing up to host a Schefs conversation for SOCIAL, 
+                our upcoming festival (January 4th - 10th, 2021)! Your event,
+                <b>{event_name}</b>, has been submitted. A copy of your submission
+                is below.
             </p>
             <p>
-                To many conversations,<br>
+                Here are next steps to be aware of:
+                <ol>
+                    <li>
+                        All festival events will be published to our website around
+                        the 26th/27th.
+                    </li>
+                    <li>
+                        By December 28th, you will receive the following:
+                        <ol type="a">
+                            <li>
+                                An email confirming that your event has been approved,
+                                plus a link to your event page on our website, where
+                                any college student can reserve a free ticket to attend.
+                                A Google Calendar event with a corresponding Zoom will 
+                                all be automatically created for your event.
+                            </li>
+                            <li>
+                                A custom graphic for your event, that you can use to
+                                spread the word on your social channels and send to
+                                whomever you like.
+                            </li>
+                            <li>
+                                Some cool promo material for the festival that might
+                                excite you :)
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+                Sound good? If you have any questions, don’t hesitate to reach out.
+            </p>
+            <p>
+                Cheers x1000,<br>
                 The Schefs Team<br>
                 <a href="www.schefs.us">www.schefs.us</a>
+            </p>
+            <br>
+            <p>
+                <u>Your event submission:</u><br><br>
+                <b>
+                    ${event_name}<br>
+                    ${event_time}, ${event_date}<br>
+                    ${event_description}<br>
+                    ${event_requirements}
+                </b>
             </p>
         `
     };
@@ -144,9 +185,9 @@ exports.sendEventSubmittedEmail = async (email, name, event_name) => {
 exports.sendEventApprovedEmail = async (email, name, event_name, event_date, event_time, event_url, event_zoom_link) => {
     const mailOptions = {
         to: email,
-        subject: 'Your Schefs Event Is Approved!',
+        subject: 'Your Schefs event is live! Get ready for the festival!',
         dsn: {
-            id: 'Approval - ' + email,
+            id: 'Approval SOCIAL - ' + email,
             return: 'headers',
             notify: ['failure', 'delay'],
             recipient: 'schefs.us@gmail.com'
@@ -156,26 +197,41 @@ exports.sendEventApprovedEmail = async (email, name, event_name, event_date, eve
                 Hi ${name},
             </p>
             <p>
-                Wohoooo! Your event, ${event_name}, has been approved and 
-                is NOW LIVE on our website. Share your link and invite whoever
-                you want. Anyone with a Schefs account will be able to sign up
-                to attend!
+                Wohoooo! Your event, <b>${event_name}</b>, is officially part of
+                SOCIAL, the upcoming Schefs festival. Very exciting!
             </p>
             <p>
-                Event Information:<br><br>
+                Your event, along with many others, is NOW LIVE on our website
+                (link below). Share your link and invite whoever you want. Anyone
+                with a Schefs account will be able to sign up to attend. The
+                guests will probably be a mix of people from different schools
+                across the world – that’s the beautiful unpredictability of these
+                Schefs conversations!
+            </p>
+            <p>
+                You should have also received a Google Calendar invitation that
+                includes the Zoom link for the event. All guests will receive that
+                link immediately once they reserve a ticket.
+            </p>
+            <p>
+                <u>Event Information:</u><br><br>
                 <b>
                     ${event_name}<br>
-                    ${event_date}<br>
-                    ${event_time}<br>
-                    ${event_url}<br>
+                    ${event_time}, ${event_date}<br>
+                    Link: ${event_url}<br>
                     Zoom: <a href=${event_zoom_link}>${event_zoom_link}</a><br>
                 </b>
             </p>
+            <p><mark>
+                You will receive a personalized flyer for your event + additional
+                graphics that you can use to help spread the word about the festival
+                shortly.
+            </mark></p>
             <p>
-                If you’d like us to make a personalized flyer for your event to
-                help promote it, reply to this email... we’ve got some cool
-                designs up our sleeve :)<br><br>
-
+                Otherwise, just make sure to hop on your Zoom at the appropriate time,
+                and feel proud that you’re catalyzing meaningful discussion amongst
+                people our age. Have a stellar time!
+                <br><br>
                 And if you have any questions about anything at all, don’t hesitate
                 to reach out!
             </p>
@@ -325,7 +381,7 @@ exports.send30MinuteReminderEmail = async (email, name, event_name, event_zoom_l
                 Your Schefs event, <b>${event_name}</b>, is in 30 minutes!
             </p>
             <p>
-                Here's the Zoom link (also in the GCal for the event):<br>
+                Here’s the Zoom link (also in the GCal for the event):<br>
                 ${event_zoom_link}<br>
             </p>
             <p>
