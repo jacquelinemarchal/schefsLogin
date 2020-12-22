@@ -12,7 +12,7 @@ const renderHomeEvents = async () => {
             snap.forEach((doc) => {
                 var data = doc.data();
                 /* Weekly Change */ 
-                if ((data.type === "socialFestival") && (data.status === "approved")){
+                if (data.day==="23" && data.user==="HFCkIFwzX0euYQzZqRT5MMsVvd23") {//((data.type === "socialFestival") && (data.status === "approved")){
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
@@ -77,7 +77,9 @@ const setupEvents = (data, num, isLive) => {
         rowCheck++;
         const id = event.id;
         var opacity =  'opacity: 0.45;'
-
+        if (event.day==="23" && event.user==="HFCkIFwzX0euYQzZqRT5MMsVvd23"){
+            opacity = '';
+        }
        
         /*
         const event_datetime = event.start_time.toDate();
