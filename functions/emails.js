@@ -122,7 +122,7 @@ exports.sendEventSubmittedEmail = async (email, name, event_name, event_time, ev
             <p>
                 Thank you for signing up to host a Schefs conversation for SOCIAL, 
                 our upcoming festival (January 4th - 10th, 2021)! Your event,
-                <b>{event_name}</b>, has been submitted. A copy of your submission
+                <b>${event_name}</b>, has been submitted. A copy of your submission
                 is below.
             </p>
             <p>

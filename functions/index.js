@@ -85,6 +85,12 @@ exports.handleUpdateEvent = functions.firestore
     const name = after.firstName;
     const event_name = after.title;
     const event_datetime = after.start_time.toDate();
+    const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+    const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
+
+    const event_description = after.desc;
+    const event_requirements = after.req;
+    const event_hostbio = after.bio;
 
     // on Zoom meeting creation (after receiving Calendly info), create GCal event and send submit confirmation email
     if ((!before.zoomLink || !before.zoomId) && after.zoomLink && after.zoomId) {
@@ -95,13 +101,8 @@ exports.handleUpdateEvent = functions.firestore
         event_datetime.setHours(event_datetime.getHours()+1);
         const end_time_utc = event_datetime.toISOString();
        
-        // host info for email 
-        const email = after.email;
-        const name = after.firstName;
-        const event_name = after.title;
-        
         gcalFunctions.createGcalEvent(event_name, event_id, zoom_link, zoom_id, start_time_utc, end_time_utc);
-        emailFunctions.sendEventSubmittedEmail(email, name, event_name);
+        emailFunctions.sendEventSubmittedEmail(email, name, event_name, event_time, event_date, event_description, event_requirements);
     }
 
     // on event approval
@@ -119,10 +120,6 @@ exports.handleUpdateEvent = functions.firestore
     
     // on event denial
     } else if ((!before.status || before.status !== 'denied') && after.status === 'denied') {
-        const event_description = after.desc;
-        const event_requirements = after.req;
-        const event_hostbio = after.bio;
-
         gcalFunctions.deleteGcalEvent(event_id);
         emailFunctions.sendEventDeniedEmail(email, name, event_name, event_description, event_requirements, event_hostbio);
     }
