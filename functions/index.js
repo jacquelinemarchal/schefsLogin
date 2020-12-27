@@ -85,6 +85,12 @@ exports.handleUpdateEvent = functions.firestore
     const name = after.firstName;
     const event_name = after.title;
     const event_datetime = after.start_time.toDate();
+    const event_time = moment.tz(event_datetime, 'America/New_York').format('h:mm A, z');
+    const event_date = moment.tz(event_datetime, 'America/New_York').format('dddd, MMMM D, YYYY');
+
+    const event_description = after.desc;
+    const event_requirements = after.req;
+    const event_hostbio = after.bio;
 
     // on Zoom meeting creation (after receiving Calendly info), create GCal event and send submit confirmation email
     if ((!before.zoomLink || !before.zoomId) && after.zoomLink && after.zoomId) {
@@ -95,13 +101,8 @@ exports.handleUpdateEvent = functions.firestore
         event_datetime.setHours(event_datetime.getHours()+1);
         const end_time_utc = event_datetime.toISOString();
        
-        // host info for email 
-        const email = after.email;
-        const name = after.firstName;
-        const event_name = after.title;
-        
         gcalFunctions.createGcalEvent(event_name, event_id, zoom_link, zoom_id, start_time_utc, end_time_utc);
-        emailFunctions.sendEventSubmittedEmail(email, name, event_name);
+        emailFunctions.sendEventSubmittedEmail(email, name, event_name, event_time, event_date, event_description, event_requirements);
     }
 
     // on event approval
@@ -119,10 +120,6 @@ exports.handleUpdateEvent = functions.firestore
     
     // on event denial
     } else if ((!before.status || before.status !== 'denied') && after.status === 'denied') {
-        const event_description = after.desc;
-        const event_requirements = after.req;
-        const event_hostbio = after.bio;
-
         gcalFunctions.deleteGcalEvent(event_id);
         emailFunctions.sendEventDeniedEmail(email, name, event_name, event_description, event_requirements, event_hostbio);
     }
@@ -132,34 +129,38 @@ exports.handleUpdateEvent = functions.firestore
 
 // add Zoom info to Firebase using Calendly webhooks
 exports.calendly = functions.https.onRequest((request, response) => {
-    const raw = request.body.payload;
-    const eventID = raw.tracking.utm_campaign;
-    const time = raw.event.start_time;
-    const zoomLink = raw.event.location;
-    const zoomID = zoomLink.substring(26);
-    const pretty = raw.event.start_time_pretty;
-    const zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
-    // make week field
-    var month = time.substring(5,7)
-    var day = time.substring(8,10)
-    console.log(eventID)
+    try {
+        const raw = request.body.payload;
+        const eventID = raw.tracking.utm_campaign;
+        const time = new Date(raw.event.start_time);
+        const zoomLink = raw.event.location;
+        const zoomID = zoomLink.substring(26);
+        const pretty = raw.event.start_time_pretty;
+        const zoomIDFormat = zoomID.substring(0,3).concat(" ", zoomID.substring(3,7), " ", zoomID.substring(7,11));
 
-    db.collection("weekendevents").doc(eventID)
-        .set({
-            start_time: moment.parseZone(time),
-            zoomId: zoomIDFormat,
-            zoomLink: zoomLink,
-            start_time_pretty: pretty,
-            week: 9,
-            month: month,
-            weekDay: moment(time).format('dddd'),
-            day: day
-        }, { merge: true })
-        .then(() => response.status(204).send())
-        .catch((err) => {
-            response.status(500).send(err);
-            console.log(err)
-        });
+        // make week field
+        const month = (raw.event.start_time).substring(5,7)
+        const day = (raw.event.start_time).substring(8,10)
+
+        db.collection("weekendevents").doc(eventID)
+            .set({
+                start_time: moment.parseZone(time),
+                zoomId: zoomIDFormat,
+                zoomLink: zoomLink,
+                start_time_pretty: pretty,
+                week: Math.floor(time.getDate() / 7) + 8,
+                month: month,
+                weekDay: moment(time).format('dddd'),
+                day: day
+            }, { merge: true })
+            .then(() => response.status(204).send())
+            .catch((err) => {
+                console.log(err);
+                response.status(500).send(err);
+            });
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 exports.reminders = functions.https.onRequest(async (request, response) => {
@@ -171,13 +172,13 @@ exports.reminders = functions.https.onRequest(async (request, response) => {
 
     if (type === '30m') {
         await emailFunctions.send30MinuteReminderEmail(email, name, event_name, event_zoom_link);
-        response.send(200);
+        response.status(204).send();
     } else if (type === '24h') {
         await emailFunctions.send24HourReminderEmail(email, name, event_name);
-        response.send(200);
-    } else
-        response.status(400).send();
+        response.status(204).send();
+    } else {
+        await emailFunctions.sendPostEventEmail(email, name, event_name);
+        response.status(204).send();
+    }
 });
 
-exports.reminders = functions.https.onRequest((request, response) => {
-});
