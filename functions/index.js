@@ -181,3 +181,4 @@ exports.reminders = functions.https.onRequest(async (request, response) => {
         response.status(204).send();
     }
 });
+
