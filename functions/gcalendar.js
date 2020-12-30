@@ -18,7 +18,16 @@ const auth = new OAuth2(
 auth.setCredentials({refresh_token: credentials.refresh_token});
 
 exports.createGcalEvent = async (event_name, event_id, zoom_link, zoom_id, start_time_utc, end_time_utc) => {
-    const encoded_id = base32hex.stringify(event_id, {pad: false}).toLowerCase();
+    let encoded_id = base32hex.stringify(event_id, {pad: false}).toLowerCase();
+    if (event_id === 'jqLAwQtgceFuRdukAzGS')
+        encoded_id = 'D9OKOGBNA5Q6EOR58PQL4P3LDD0NKHQJ'.toLowerCase();
+    else if (event_id === 'OtQDVoJEIqYrWLlsrAtZ')
+        encoded_id = '9TQ52H2MDT54AIBHB5P5EJ3CEDP42T2Q'.toLowerCase();
+    else if (event_id === 'WOYpuOnctirURtDAAkZQ')
+        encoded_id = 'AT7LIS3L9TN66T39E9AL4T24850MMMIH'.toLowerCase();
+    else if (event_id === 'V43rdqalukcDWZ0yetKW')
+        encoded_id = 'AOQ36SJ4E5GMOTBBCD25EMHGF5IN8IQN'.toLowerCase();
+
     const gcal_event = {
         summary: event_name,
         location: zoom_link,
@@ -54,7 +63,16 @@ exports.createGcalEvent = async (event_name, event_id, zoom_link, zoom_id, start
 };
 
 exports.addAttendeeToGcalEvent = async (event_id, attendee_email) => {
-    const encoded_id = base32hex.stringify(event_id, {pad: false}).toLowerCase();
+    let encoded_id = base32hex.stringify(event_id, {pad: false}).toLowerCase();
+    if (event_id === 'jqLAwQtgceFuRdukAzGS')
+        encoded_id = 'D9OKOGBNA5Q6EOR58PQL4P3LDD0NKHQJ'.toLowerCase();
+    else if (event_id === 'OtQDVoJEIqYrWLlsrAtZ')
+        encoded_id = '9TQ52H2MDT54AIBHB5P5EJ3CEDP42T2Q'.toLowerCase();
+    else if (event_id === 'WOYpuOnctirURtDAAkZQ')
+        encoded_id = 'AT7LIS3L9TN66T39E9AL4T24850MMMIH'.toLowerCase();
+    else if (event_id === 'V43rdqalukcDWZ0yetKW')
+        encoded_id = 'AOQ36SJ4E5GMOTBBCD25EMHGF5IN8IQN'.toLowerCase();
+
     const gcal_event = await calendar.events.get({
         auth: auth,
         calendarId: CALENDAR_ID,
@@ -92,3 +110,4 @@ exports.deleteGcalEvent = async (event_id) => {
 
     return null;
 }
+

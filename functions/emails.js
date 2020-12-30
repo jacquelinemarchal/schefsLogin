@@ -403,7 +403,7 @@ exports.send30MinuteReminderEmail = async (email, name, event_name, event_zoom_l
 exports.sendPostEventEmail = async (email, name, event_name) => {
     const mailOptions = {
         to: email,
-        subject: `Schefs Post-Event Feedback`,
+        subject: 'Schefs Merch, Host Your Own Event… + More!',
         dsn: {
             id: 'Post Event Email - ' + email,
             return: 'headers',
@@ -416,27 +416,38 @@ exports.sendPostEventEmail = async (email, name, event_name) => {
             </p>
             <p>
                 Thanks so much for participating in <b>${event_name}</b>. We
-                hope it went well.
+                hope it went well!
             </p>
+            <ol>
+                <li>
+                    We made some dope sweatshirts for the festival... check ‘em out
+                    <a href="https://shop.schefs.us">here</a> &amp; snag your order
+                    before they run out!
+                </li>
+                <li>
+                    <mark>Inspired to host an event of your own?</mark> They usually
+                    happen every Friday, Saturday, and Sunday. Pick a topic that
+                    interests you, and <a href="https://schefs.us">sign up</a> to
+                    lead a conversation later this month!
+                </li>
+                <li>
+                    Are you really psyched by the mission behind Schefs? Do you want
+                    to become a Schefs ambassador and be part of a dedicated network
+                    of students committed to tapping into their communities to
+                    catalyze conversations? Come to our next Ambassador Info Session
+                    on 01/17; learn more
+                    <a href="https://schefs.us/ambassador-info.html">here</a>.
+                </li>
+                <li>
+                    Since we’re still (very much) growing as a platform, any thoughts,
+                    advice, reviews, or musings on the event or Schefs at large would
+                    be very much appreciated. If you’re up for it, fill out this
+                    <a href="https://schefs.typeform.com/to/sKrS5Y2X">2 minute form</a>
+                    and share what you’re thinking!
+                </li>
+            </ol>
             <p>
-                Since we’re still (very much) growing as a platform, any thoughts,
-                advice, reviews, or musings on the event or Schefs at large would
-                be very much appreciated. If you’re up for it, fill out this
-                <a href="https://schefs.typeform.com/to/sKrS5Y2X">2 minute form</a>
-                and share what you’re thinking!
-            </p>
-            <p>
-                <mark>Inspired to host an event?</mark> Whether you’re new to the
-                platform or a regular host, why not hop over to the event builder
-                and whip something up? A way to think of a topic: check out the
-                <a href="https://schefs.us/open-mind-archive.html">Open Mind Archive</a>
-                to see what the Schefs community has been curious about as
-                of late, or ask yourself what your mind has been preoccupied with
-                or fascinated by recently… and turn it into a title + description
-                for your own event!
-            </p>
-            <p>
-                Peace,<br>
+                Peace &amp; love,<br>
                 The Schefs Team<br>
                 <a href="www.schefs.us">www.schefs.us</a>
             </p>
