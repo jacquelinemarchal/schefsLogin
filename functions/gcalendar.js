@@ -25,6 +25,8 @@ exports.createGcalEvent = async (event_name, event_id, zoom_link, zoom_id, start
         encoded_id = '9TQ52H2MDT54AIBHB5P5EJ3CEDP42T2Q'.toLowerCase();
     else if (event_id === 'WOYpuOnctirURtDAAkZQ')
         encoded_id = 'AT7LIS3L9TN66T39E9AL4T24850MMMIH'.toLowerCase();
+    else if (event_id === 'V43rdqalukcDWZ0yetKW')
+        encoded_id = 'AOQ36SJ4E5GMOTBBCD25EMHGF5IN8IQN'.toLowerCase();
 
     const gcal_event = {
         summary: event_name,
@@ -68,6 +70,8 @@ exports.addAttendeeToGcalEvent = async (event_id, attendee_email) => {
         encoded_id = '9TQ52H2MDT54AIBHB5P5EJ3CEDP42T2Q'.toLowerCase();
     else if (event_id === 'WOYpuOnctirURtDAAkZQ')
         encoded_id = 'AT7LIS3L9TN66T39E9AL4T24850MMMIH'.toLowerCase();
+    else if (event_id === 'V43rdqalukcDWZ0yetKW')
+        encoded_id = 'AOQ36SJ4E5GMOTBBCD25EMHGF5IN8IQN'.toLowerCase();
 
     const gcal_event = await calendar.events.get({
         auth: auth,
@@ -106,3 +110,4 @@ exports.deleteGcalEvent = async (event_id) => {
 
     return null;
 }
+
