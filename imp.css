@@ -374,6 +374,9 @@ a.reserve{
 }
   /* If the screen size is 767 wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 767px) {
+    #heading{
+        display: inline;
+    }
     #amb-host{
         display:none;
     }
@@ -466,6 +469,9 @@ a.reserve{
 @media screen and (max-width: 767px) {
     #shrink-for-oma{
         display:inline;
+    }
+    #heading{
+        display:none;
     }
     div#mobile-oma-info{
         display:none;
