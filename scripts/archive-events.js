@@ -38,7 +38,7 @@ var indexHtml = `
             <!-- EVENT LIST -->
             <div class="events" id="main-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
-                <a class="btn btn-outline-dark reserve" href="/archive-festival-events.html" style="font-size: 24px;" target="_blank">Festival Archive</a>
+                <a class="btn btn-outline-dark reserve" href="/archive-multiplicities-events.html" style="font-size: 24px;" target="_blank">August 2020 Festival Archive</a>
             </div>
         </div>
     </div>
