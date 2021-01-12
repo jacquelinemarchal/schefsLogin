@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Schefs - Learn From Each Other</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="imp.css">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" href="assets/favicon.png">
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+<script src="scripts/firebase.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div class="container">
+        <div class="container-wrapper">
+            <div class="pagewide text-white d-lg-block fixed-top">
+                <div class="container" id="ambassador-banner-text">
+                    <p id="spread-word" style="margin-top:.2em; font-size: 16px; margin-left:64px; float: left;">Want to bring passionate people together?</p>
+                    <p id="ambass-link" style="font-size: 16px;margin-top:.2em; ">Learn about becoming a Schefs Ambassador <a style="color:white; text-decoration: underline;"href="ambassador-info.html">here</a></p>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg bg-white fixed-top" id="navBar" style="top:30px; font-size: 16px;">
+                <a onclick="displayHome()" class="navbar-brand mr-auto p-2">
+                    <img src="assets/logo.png" style="height: 34px;">
+                </a>
+                <div id="nav-items-right" style="display: flex;">
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br>
+    <!--HEADING-->
+    <div class="spinner-border d-none" id="builder-spinner" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div id="indexView" style="padding-top: 3rem;"></div>
+    <div id="pageView" style="padding-top: 3rem;"></div>
+
+    <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="signup-content">
+                <a class="btn btn-outline-dark" href="#" id="modal-btn" onclick="return showSignUp()" role="button">Sign up</a><br>
+                <a class="btn btn-outline-dark" href="#" style="margin-top: 1rem;" id="modal-btn" onclick="return showLogIn()" role="button">    Log in    </a>
+                <div class="forms">
+                    <form id="signup-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="signup-email">School email</label>
+                            <input type="email" class="form-control" id="signup-email" required
+                                required aria-describedby="emailHelp"> <!--pattern="[a-z0-9._%+-]+@[a-z0-9._%+-]+.edu"-->
+                                <small id="emailHelp" class="form-text text-muted">Must be a valid university address (.edu)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" class="form-control" id="signup-password" required aria-describedby="passwordHelp">
+                            <small id="passwordHelp" class="form-text text-muted">At least 6 characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="firstName" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="lastName" class="form-control" id="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School</label>
+                            <input type="school" class="form-control" id="school" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="gradYear">Expected graduation year</label>
+                            <input type="gradYear" class="form-control" id="gradYear" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="major">Major</label>
+                            <input type="major" class="form-control" id="major" required>
+                        </div>  
+                        <div class="form-group">
+                            <label for="phone">(Optional) Phone number</label>
+                            <input type="phone" class="form-control" id="phone" aria-describedby="phoneHelp">
+                            <small id="phoneHelp" class="form-text text-muted">Enter your number for event text reminders</small>
+                        </div>
+                        <div id="submit-sign-up">
+                            <button type="submit" class="btn btn-outline-dark d-inline-block">Submit</button>
+                        </div>
+                    </form>
+                    <form id="login-form" style="display:none; align-items: center;">
+                        <div class="form-group">
+                            <label for="login-email">Email address</label>
+                            <input type="email" class="form-control" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" class="form-control" id="login-password" required>
+                            <small>Forgot your password? Email schefs.us@gmail.com</small>
+                        </div>
+                        <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-logged-out" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Success! You logged out</h2>
+            </div>
+        </div>
+    </div>
+    <div id="modal-build-prompt" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding-top: 2rem;padding-left: 2rem;padding-right: 2rem; align-items: center;">
+                <p>Any undergrad can host an event on a topic of their choice. Log in or make an account to submit your own! </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-account" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-account-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-personal-events" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="overflow-y: initial;">
+            <div class="modal-content" style="overflow-y: auto; padding: 2rem; align-items: center;" id="modal-personal-events-content">
+                <p style="text-align: center; background-color: #F6FFBE;">Confirm or remove my unattended events</p>
+                <div id="unconfirmed-events-section" class="text-center"></div>
+                <p style="text-align: center;background-color: #F6FFBE;">Find guests from my attended events</p>
+                <div id="personal-events-section" class="text-center"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-hosted-events" class="modal fade" style="overflow-y: initial;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="modal-hosted-events-content">
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-welcome" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;">
+                <h2>Welcome to Schefs!</h2><p>You are now logged in</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-admin" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content admin-modal" style="padding: 3rem; align-items: center;" id="modal-admin-content">
+                <div style="align-items: center;" id="site-admin-content"></div>
+                <div style="padding: 2rem; align-items: center;" id="event-admin-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-reserve" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;" id="reserve-modal-content">
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-thank-you" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="padding: 2rem; align-items: center;"><h1>Thank you</h1><p>You've been added to our mailing list</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
+    <script src="assets/js/src/moment.js"></script>
+    <script src="assets/js/src/momenttz.js"></script>
+    <script src="scripts/signup.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/archive-social-index.js"></script>    
+    <script src="scripts/archive-social-events.js"></script>
+    <script src="scripts/userDisplay.js"></script>
+</body>
+</html>
