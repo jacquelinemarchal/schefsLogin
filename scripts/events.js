@@ -40,8 +40,12 @@ var indexHtml = `
             <h2 style="margin-bottom: 2rem;">Past Events</h2>
             <div class="events" id="archive-events-div"></div>
             <div class="d-flex justify-content-center" style="padding-top: 2rem;">
-                <a class="btn btn-outline-dark reserve" href="/archive-multiplicities-events.html" style="font-size: 24px;" target="_blank">August 2020 Festival</a>
+                <a class="btn btn-outline-dark reserve" href="/archive-multiplicities-events.html" style="font-size: 24px;" target="_blank">August 2020 Festival - MULTIPLICITIES</a>
             </div>
+            <div class="d-flex justify-content-center" style="padding-top: 1rem;">
+                <a class="btn btn-outline-dark reserve" href="/archive-social-events.html" style="font-size: 24px;" target="_blank">January 2021 Festival - SOCIAL</a>
+            </div>
+
         </div>
     </div>
 `;
@@ -191,7 +195,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
                 reserveStyle = 'display: none;';
         }
         /* Weekly Change */ 
-        if (eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5 || eventData.week === 6 || eventData.week === 7 || eventData.week === 8){
+        if ((eventData.week === 1 || eventData.week === 2 || eventData.week === 3 || eventData.week === 4 || eventData.week === 5 || eventData.week === 6 || eventData.week === 7 || eventData.week === 8) && (eventData.month > "02")){
             loginStyle = 'display: none;';
             reserveStyle = 'display: none;';
             soldOutStyle = 'display:none';

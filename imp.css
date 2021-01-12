@@ -260,9 +260,6 @@ a.reserve{
         display:block;
         text-align: center;
     }
-    #heading{
-        display:none;
-    }
     #omaNavBar{
         display:none;
     }
@@ -431,8 +428,8 @@ a.reserve{
         position: fixed;
         left: 0;
         bottom: 0;
-        padding-top: 0.3rem;
-        padding-bottom: 0.3rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
         margin-left: 0;
         margin-right: 0;
         width: 100%;
@@ -507,6 +504,31 @@ a.reserve{
         display: inline;
     }
 }
+
+@media screen and (max-width: 950px) {
+    #webSocial{
+        display:none;
+    }
+    #webSocialEvents{
+        display:none;
+    }
+    #mobileSocial{
+        display:inline;
+    }
+}
+
+@media screen and (min-width: 950px) {
+    #webSocial{
+        display:flex;
+    }
+    #webSocialEvents{
+        display:inline-block;
+    }
+    #mobileSocial{
+        display:none;
+    }
+}
+
 @media screen and (max-width: 1140px) {
     #hostInfoName{
         padding-left: 3rem;

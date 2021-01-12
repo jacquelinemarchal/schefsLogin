@@ -6,7 +6,6 @@ var indexHtml = `
     <div class="container" id="heading">
         <div class="container-wrapper" style="margin-top: 2rem;">
             <div class="row" id="mobileSocial">
-                <p style="color: #001AFF; margin-bottom:1rem; font-weight: 400;">HAPPENING THIS WEEK: SIGN UP!</p>
                 <a href="/festival-landing-page.html"><img style="margin-bottom:1rem; margin-top:1rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
                 <p style="margin: 0">The second Schefs festival.</p>
                 <p style="margin: 0">A week of discussions.</p>
@@ -17,7 +16,6 @@ var indexHtml = `
             <div class="row" id="webSocial" style="margin-top:2.5rem;">
                 <div class="col">
                     <div style="text-align: left;">
-                        <h3 style="color: #001AFF; font-weight: 400;">HAPPENING THIS WEEK: SIGN UP!</h3>
                         <a href="/festival-landing-page.html"><img style="margin-bottom:1.5rem; margin-top:1rem; height:5rem; width:auto" src="../assets/social.png"><img></a>
                         <p style="margin: 0">The second Schefs festival.</p>
                         <p style="margin: 0">A week of discussions.</p>
@@ -27,7 +25,6 @@ var indexHtml = `
                 </div>
                 <div class="md:col-7 col-3">
                     <div style="text-align: right;">
-                        <h3 style="margin-bottom:1rem; font-weight: 400; color: #001AFF;">7 DAYS, 7 THEMES</h3>
                         <div class="row">
                             <div class="container d-flex justify-content-between">
                                 <a style="color: black; text-decoration: none; dislpay:flex;" href="#socialDistancing">
