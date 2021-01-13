@@ -53,8 +53,8 @@ const townHallReserve = () => {
     if (auth.currentUser){
         const email = auth.currentUser.email;
         const uid = auth.currentUser.uid;
-        const eventDocId = "bknqr8A5OwRKIrebe5Hu";
-        const eventTitle = "Ambassador Town Hall"
+        const eventDocId = "6vr9QiwQaKCBTvoPPvBx";
+        const eventTitle = "Ambassador Town Hall #4"
         var date = new Date();
         var timestamp = date.getTime();
 

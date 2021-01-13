@@ -148,7 +148,7 @@ exports.calendly = functions.https.onRequest((request, response) => {
                 zoomId: zoomIDFormat,
                 zoomLink: zoomLink,
                 start_time_pretty: pretty,
-                week: Math.floor(time.getDate() / 7) + 8,
+                week: parseInt(moment(time).format('W')),
                 month: month,
                 weekDay: moment(time).format('dddd'),
                 day: day
