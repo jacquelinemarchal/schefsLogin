@@ -44,7 +44,7 @@ auth.onAuthStateChanged(user => {
 })
 const initCalendly = (eventID) => {
     Calendly.initInlineWidget({
-        url: 'https://calendly.com/schefs/schefs-event?primary_color=4d5055',
+        url: 'https://calendly.com/schefs/schefs-weekend-events?primary_color=4d5055',
         parentElement: document.getElementById('calendly'),
         prefill: {
             firstName: `${userFName}`,
