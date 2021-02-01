@@ -12,7 +12,7 @@ const renderHomeEvents = async () => {
             snap.forEach((doc) => {
                 var data = doc.data();
                 /* Weekly Change */ 
-                if ((data.week > 1 && data.week < 7) && (data.month === "01" || data.month === "02") && (data.status === "approved")){ 
+                if ((data.week > 4 && data.week < 7) && (data.month === "01" || data.month === "02") && (data.status === "approved")){ 
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
@@ -24,7 +24,7 @@ const renderHomeEvents = async () => {
                     }))
                 }
                 /* Weekly Change */ 
-                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4 || data.week === 5  || data.week === 7 || data.week === 8 || data.week === 9) && (data.status === "approved") && (data.month > "02")){
+                if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4 || data.week === 5  || data.week === 7 || data.week === 8 || data.week === 9) && (data.status === "approved") && (data.month > "02" || data.month == "01")){
                     var archiveReference = storage.refFromURL(data.thumb)
                     archiveEvents.push(new Promise(async res => {
                         var url = await archiveReference.getDownloadURL();
@@ -78,7 +78,7 @@ const setupEvents = (data, num, isLive) => {
         const id = event.id;
         var opacity = ""
         /* Weekly Change */ 
-        if ((event.week == 1 || event.week == 2 || event.week == 3 || event.week == 4 || event.week == 5 || event.week == 6 || event.week === 7 || event.week === 8 || event.week === 9) && event.month > "02") {
+        if ((event.week == 1 || event.week == 2 || event.week == 3 || event.week == 4 || event.week == 5 || event.week == 6 || event.week === 7 || event.week === 8 || event.week === 9) && (event.month > "02" || event.month == "01")) {
             opacity = 'opacity: 0.45;'
         }
         
