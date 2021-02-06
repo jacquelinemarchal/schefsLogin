@@ -158,7 +158,6 @@ const renderHomeEvents = () => {
             let archiveEvents = [];
             snap.forEach((doc) => {
                 var data = doc.data();
-                /* Weekly Change */ 
                 if ((data.type === "socialFestival") && (data.status === "approved")){ // BEFORE LAUNCH: Make data.status===approved //  && (doc.id !== "e1cDuJ9kSiuVq3rEsXQx") && (doc.id !== "V43rdqalukcDWZ0yetKW") && (doc.id !== "nT5GCXvOImyW7wrxMxdF")
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
@@ -171,7 +170,6 @@ const renderHomeEvents = () => {
                         });
                     }))
                 }
-                /* Weekly Change */ 
                 if ((data.week === 1 || data.week === 2 || data.week === 3 || data.week === 4 || data.week === 5 ||data.week === 6 ||data.week === 7 || data.week === 8 || data.week === 9) && (data.status === "approved") && (data.type !== "socialFestival")){
                     var archiveReference = storage.refFromURL(data.thumb)
                     archiveEvents.push(new Promise(async res => {

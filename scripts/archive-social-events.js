@@ -94,7 +94,6 @@ const generateEventPage = async (eventData, eventId, time, size) => {
             else
                 reserveStyle = 'display: none;';
         }
-        /* Weekly Change */ 
 
             loginStyle = 'display: none;';
             reserveStyle = 'display: none;';
