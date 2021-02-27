@@ -126,7 +126,7 @@ const generateEventPage = async (eventData, eventId, time, size) => {
 
     var reference = storage.refFromURL(eventData.thumb)
     var thumbUrl = await getURL(reference);
-
+console.log(eventData.user, eventData.title)
     var fileName = (eventData.user).concat("+", eventData.title)
     var path = storage.ref('hostPictures')
     var proPicRef = path.child(fileName)
