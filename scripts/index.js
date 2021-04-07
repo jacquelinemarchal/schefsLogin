@@ -12,7 +12,7 @@ const renderHomeEvents = async () => {
             snap.forEach((doc) => {
                 var data = doc.data();
                 /* Weekly Change */ 
-                if ((data.week > 13) && (data.month === "01" || data.month === "02" || data.month === "03" || data.month === "04") && (data.status === "approved") && (!data.type)){ 
+                if ((data.week > 13) && (data.month === "01" || data.month === "02" || data.month === "03" || data.month === "04" || data.month === "05") && (data.status === "approved") && (!data.type)){ 
                     var reference = storage.refFromURL(data.thumb)
                     allEvents.push(new Promise(async res => {
                         var url = await reference.getDownloadURL();
