@@ -195,7 +195,7 @@ console.log(eventData.user, eventData.title)
                 reserveStyle = 'display: none;';
         }
         /* Weekly Change */ 
-        if ((eventData.week <= 16) && (eventData.status === "approved") || (eventData.type)){
+        if ((eventData.week <= 18) && (eventData.status === "approved") || (eventData.type)){
             loginStyle = 'display: none;';
             reserveStyle = 'display: none;';
             soldOutStyle = 'display:none';
