@@ -1,3 +1,3 @@
-# Schefs Festival Page
+# Schefs v1
 
-Single page site, start by going to index.html. All other pages are rendered by javascript in the scripts/ folder
+First iteration of Schefs website using javascript. 
