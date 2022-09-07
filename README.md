@@ -1,3 +1,3 @@
 # Schefs v1
 
-First iteration of Schefs website using javascript. 
+First iteration of Schefs website using vanilla javascript. 
